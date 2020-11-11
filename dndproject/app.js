@@ -3,6 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const flash = require('connect-flash');
+const session = require('express-session');
+const mysqlstore = require('express-mysql-session');
+const {database} = require('./keys');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

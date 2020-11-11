@@ -10,14 +10,17 @@ body {
   left:0;
   right:0;
   bottom: 0;
+  align-items: center;
+  text-align: center;
 }
 
 .texto{
+  text-align: left;
   color: white;
 }
 
 .login_container{
-  width: 800px;
+  width: 600px;
   margin:0;
   position: absolute;
   top: 50%;
@@ -25,7 +28,10 @@ body {
   margin-right: -50%;
   transform: translate(-50%,-50%);
 }
-
+.textbox{
+  margin-bottom: 20px;
+  width: 100%;
+}
 a {
   color: #00B7FF;
 }
