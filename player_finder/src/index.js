@@ -2,6 +2,12 @@ const express = require('express');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const path = require('path');
+
+const flash = require('connect-flash');
+const session = require('express-session');
+const mysqlstore = require('express-mysql-session');
+const {database} = require('./keys');
+const pool = require('./database');
 const { pathToFileURL } = require('url');
 //inicializaciones
 const app = express();
@@ -18,19 +24,28 @@ app.engine('.hbs',exphbs({
 }))
 app.set('view engine','.hbs');
 //Middlewares
+
+app.use(session({
+    secret: 'secreto',
+    resave: false,
+    saveUninitialized: false,
+    store: new mysqlstore(database)
+}))
+
+app.use(flash());
 app.use(morgan('dev'));
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+
 //Variables globales
-app.use((req,res,next)=>{
-    
+app.use((req, res, next)=> {
+    app.locals.success = req.flash('success');
     next();
-});
+} )
 
 //Routes
 app.use(require('./routes'));
 app.use(require('./routes/authentication'));
-app.use('links',require('./routes/authentication'));
 app.use('/usuarios',require('./routes/usuarios'));
 //Public
 app.use(express.static(path.join(__dirname, 'public')));
