@@ -4,7 +4,7 @@ const router = express.Router();
 const pool=require|('../database');
 
 router.get('/add',(req,res)=>{
-    
-})
+    res.render('usuarios/add');
+});
 
 module.exports = router;
