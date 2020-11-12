@@ -1,0 +1,55 @@
+.card{
+    width: 600px;
+    height: 500px;
+    margin:0;
+    text-align: center;
+    background-color: #2e2e2e;
+    color: white;   
+    position: absolute;
+    top: 50%;
+    left:50%;
+    margin-right: -50%;
+    transform: translate(-50%,-50%);
+}
+.textbox{
+    margin-bottom: 20px;
+    
+  }
+
+.tab {
+    overflow: hidden;
+    background-color: #2e2e2e;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .tab button {
+    background-color: inherit;
+    
+    float: left;
+    border: none;
+    color: white;
+    outline: none;
+    cursor: pointer;
+
+    padding: 16px 18px;
+    transition: 0.3s;
+    font-size: 20px;
+  }
+  
+  .tab button:hover {
+    background-color: #3d3d3d;
+  }
+  
+  .tab button.active {
+    text-decoration: underline;
+  }
+  
+  .tabcontent {
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    padding: 6px 12px;
+    border-top: none;
+  }
