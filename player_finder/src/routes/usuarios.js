@@ -12,11 +12,24 @@ router.post('/rate_player',async(req,res)=>{
     };
 
     try {
-        logged = await pool.query("insert into usuario_puntuacion(usuario_puntuador,usuario_punteado,puntaje)values(?,?,?) where not(usuario_punteador=? and usuario_punteado=?",[sess.login,rating.player_rated,rating.puntuacion,sess.login,rating.player_rated]);
+        logged = await pool.query("call Rate_Player(?,?,?)",[sess.login,rating.player_rated,rating.puntuacion]);
         res.send('Usuario Puntuado');
     } catch (error) {
         
     }
 });
+
+router.post('/add_friend',async(req,res)=>{
+    const {player_id}= req.body
+    const player = player_id;
+
+    try {
+        logged = await pool.query("call Add_Friend(?,?)"[sess.login,player]);
+        res.send('Usuario Agregado');
+    } catch (error) {
+        
+    }
+});
+
 
 module.exports = router;
