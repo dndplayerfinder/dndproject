@@ -32,4 +32,16 @@ router.post('/add_friend',async(req,res)=>{
 });
 
 
+router.post('/Blacklist',async(req,res)=>{
+    const {player_id}= req.body
+    const player = player_id;
+
+    try {
+        logged = await pool.query("call Blacklist(?,?)"[sess.login,player]);
+        res.send('Usuario Bloqueado');
+    } catch (error) {
+        
+    }
+});
+
 module.exports = router;
