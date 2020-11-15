@@ -16,11 +16,11 @@ router.post('/registro',async(req,res)=>{
     console.log(new_user);
     res.send('Registrado en el sistema'); 
     try {
-        /*const logged = await pool.query("call IUD_Usuario(0,?,?,?,0,'INSERT')",[new_user.usuario,new_user.password,new_user.correo]);
+        const logged = await pool.query("call IUD_Usuario(0,?,?,?,0,'INSERT')",[new_user.usuario,new_user.password,new_user.correo]);
         const l_user = logged[0];
         console.log(l_user); 
             var sess = req.session;
-            sess.usuario = l_user.login;*/
+            sess.usuario = l_user.login;
         res.send('Registrado en el sistema');  
     } catch (error) {
         req.flash('success', 'Registro no válido!');
