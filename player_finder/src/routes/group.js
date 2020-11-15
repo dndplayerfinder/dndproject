@@ -3,8 +3,11 @@ const router = express.Router();
 const pool = require('../database');
 const app = express();
 
-router.get('/Grupo',(req,res)=>{
-    res.render('cuenta/registro');
+router.get('/grupo', async(req,res)=>{
+    const sess = req.session;
+    const grupos = await pool.query("SELECT * FROM dnd.group_info");
+    console.log(grupos[0].Nombre);
+    res.render('grupos/grupo',{grupos,sess});
 });
 router.post('/addgroup',async(req,res)=>{
     const {g_name,g_limite_miembros,hora_inicio,hora_final,zona_horaria,dias,mod} = req.body;
