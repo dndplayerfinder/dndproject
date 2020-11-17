@@ -47,6 +47,7 @@
                             title="La contraseña debe contener al menos 8 caracteres, una mayuscúla, una minuscula y una mayúsucla y opcionalmente un caracter especial" 
                             onchange="check_pass()"
                             autofocus required>
+                            <img src="img/foto_perfil.png" alt="" name="img" style="display: none;">
                             </div>
                         </div>
                         </div>
@@ -107,7 +108,7 @@
             document.getElementById("r_confirm").disabled = false;
         }
         else{
-            document.getElementById("r_confirm").disabled = false;
+            document.getElementById("r_confirm").disabled = true;
         }
     }
 </script>

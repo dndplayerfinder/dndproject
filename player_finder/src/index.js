@@ -3,6 +3,10 @@ const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const path = require('path');
 
+const multer = require('multer');
+const Sequelize = require('sequelize');
+const db = require("./lib/db.js");
+
 const flash = require('connect-flash');
 const session = require('express-session');
 const mysqlstore = require('express-mysql-session');
@@ -11,6 +15,11 @@ const pool = require('./database');
 const { pathToFileURL } = require('url');
 //inicializaciones
 const app = express();
+
+db.sequilize.sync();
+
+global.__basedir = __dirname;
+
 pool.query('DELETE FROM SESSIONS');
 // settings
 app.set('port', process.env.PORT || 4000);
@@ -48,7 +57,7 @@ app.use(require('./routes'));
 app.use(require('./routes/authentication'));
 app.use('/usuarios',require('./routes/usuarios'));
 app.use(require('./routes/group'));
-
+app.use(require('./routes/upload'));
 //Public
 app.use(express.static(path.join(__dirname, 'public')));
 //Start

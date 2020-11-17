@@ -1,31 +1,41 @@
 const express = require('express');
+const multer = require('multer');
 const { session } = require('passport');
 const router = express.Router();
 const pool = require('../database');
 const app = express();
+
+const uploadController = require("../controllers/upload");
+const upload = require("../middleware/upload");
+
+
+//const upload = multer({})
 
 router.get('/registro',(req,res)=>{
     res.render('cuenta/registro',{layout:'login_layout'});
 });
 router.post('/registro',async(req,res)=>{
     
-    const {correo,usuario,password,password_confirm} = req.body;
+    const {correo,usuario,password,password_confirm,img} = req.body;
     const new_user={
         usuario,
         correo,
         password,
-        password_confirm
+        password_confirm,
+        img
     };
+    console.log(new_user.img);
     if(new_user.password!=new_user.password_confirm){
         res.redirect('registro');
     }
-    console.log(new_user);
+    
     res.send('Registrado en el sistema'); 
    try {
-        const logged = await pool.query("call IUD_Usuario(0,?,?,?,0,'INSERT')",[new_user.usuario,new_user.password,new_user.correo]);
+       /* const logged = await pool.query("call IUD_Usuario(0,?,?,?,0,'INSERT')",[new_user.usuario,new_user.password,new_user.correo]);
         const l_user = logged[0];
         console.log(l_user);
-            session.login = l_user.login;
+            session.login = l_user.login;*/
+
             res.redirect("/");
     } catch (error) {
         req.flash('success', 'Registro no válido!');
@@ -62,5 +72,9 @@ router.post('/login',async(req,res)=>{
     }
 });
 
+/*router.get('/upload', (req,res)=>{
+    res.render('upload_test');
+});*/
 
+//router.post('/upload',upload.single("file"),uploadController.uploadFiles);
 module.exports = router;
