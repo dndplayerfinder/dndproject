@@ -7,15 +7,20 @@ router.get('/registro',(req,res)=>{
     res.render('cuenta/registro');
 });
 router.post('/registro',async(req,res)=>{
-    const {correo,usuario,password} = req.body;
+    
+    const {correo,usuario,password,password_confirm} = req.body;
     const new_user={
         usuario,
         correo,
-        password
+        password,
+        password_confirm
     };
+    if(new_user.password!=new_user.password_confirm){
+        res.redirect('registro');
+    }
     console.log(new_user);
     res.send('Registrado en el sistema'); 
-    try {
+   try {
         const logged = await pool.query("call IUD_Usuario(0,?,?,?,0,'INSERT')",[new_user.usuario,new_user.password,new_user.correo]);
         const l_user = logged[0];
         console.log(l_user); 

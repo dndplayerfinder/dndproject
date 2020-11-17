@@ -1,20 +1,41 @@
 .card{
-    width: 600px;
-    height: 500px;
-    margin:0;
+    width: 100%;
+    height: 100%;
     text-align: center;
     background-color: #2e2e2e;
     color: white;   
-    position: absolute;
-    top: 50%;
-    left:50%;
-    margin-right: -50%;
-    transform: translate(-50%,-50%);
-}
-.textbox{
-    margin-bottom: 20px;
     
+}
+.textbox_login{
+    margin-bottom: 10px;
+    width: 40%;
+    height: 35px;
   }
+
+.textbox{
+  margin-bottom: 10px;
+  width: 80%;
+  height: 35px;
+}
+html{
+  margin:0;
+  height: 100%;
+}
+.panel{
+    width: 60%;
+    height: 100%;
+    background-color: black;
+}
+
+body{
+  height: 100%;
+  margin:0;
+  background-image: url("/img/fondo.png");
+  background-repeat: no-repeat;
+  background-color: #2e2e2e;
+  background-position: center;
+  background-size: cover;
+}
 
 .tab {
     overflow: hidden;
@@ -46,10 +67,37 @@
   }
   
   .tabcontent {
-    position: fixed;
+    /*position: fixed;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
     padding: 6px 12px;
     border-top: none;
+    margin:auto;
+    width: 50%;
+    padding:10px;*/
+  }
+.login_panel{
+  top: 10%;
+}
+.sign_in_panel{
+    
+}
+
+.column{
+  float: left;
+  width: 50%;
+}
+
+.row::after{
+  content:"";
+  display: table;
+  clear: both;
+}
+  .login_header{
+    height: 20%;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
   }
