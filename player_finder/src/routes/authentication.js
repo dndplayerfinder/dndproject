@@ -1,4 +1,5 @@
 const express = require('express');
+const { session } = require('passport');
 const router = express.Router();
 const pool = require('../database');
 const app = express();
@@ -23,10 +24,9 @@ router.post('/registro',async(req,res)=>{
    try {
         const logged = await pool.query("call IUD_Usuario(0,?,?,?,0,'INSERT')",[new_user.usuario,new_user.password,new_user.correo]);
         const l_user = logged[0];
-        console.log(l_user); 
-            var sess = req.session;
-            sess.usuario = l_user.login;
-        res.send('Registrado en el sistema');  
+        console.log(l_user);
+            session.login = l_user.login;
+            res.redirect("/");
     } catch (error) {
         req.flash('success', 'Registro no válido!');
         res.redirect('back');
@@ -46,10 +46,12 @@ router.post('/login',async(req,res)=>{
         const logged = await pool.query("SELECT * FROM usuario where login=? and password=?",[user.login_login,user.login_pwd]);
         const l_user = logged[0];
         console.log(l_user); 
-            var sess = req.session;
+            /*var sess = req.session;
             sess.usuario = l_user.login;
-            console.log("logged");
-            res.send('Sesion iniciada '+l_user.login);
+            console.log("logged");*/
+        session.login = l_user.login; 
+        console.log(session.login);
+        res.redirect("/");
     }catch (error) {
         req.flash('success', 'Inicio de sesion no válido!');
         res.redirect('back');
