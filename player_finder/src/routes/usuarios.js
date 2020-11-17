@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../database');
 const { post } = require('./authentication');
+const { session } = require('passport');
 const app = express();
 
 router.get('/modificar_perfil',(req,res)=>{
     console.log("Entrando a modificar perfil");
     console.log(req.session.login);
-    res.render("usuarios/modificar_perfil");
+    var sess = req.session
+    res.render("usuarios/modificar_perfil",{sess});
 });
 
 router.post('/rate_player',async(req,res)=>{
@@ -45,6 +47,33 @@ router.post('/Blacklist',async(req,res)=>{
     try {
         logged = await pool.query("call Blacklist(?,?)"[sess.login,player]);
         res.send('Usuario Bloqueado');
+    } catch (error) {
+        
+    }
+});
+
+router.post('/update_user', async(req,res)=>{
+    const {new_mail,new_login,new_pwd,new_img} = req.body;
+
+    const user ={
+        new_login,
+        new_pwd,
+        new_img,
+        new_mail
+    };
+    if(user.new_login==''){
+        user.new_login = session.login;
+    }
+    if(user.new_pwd==''){
+        user.new_pwd = session.login;
+    }
+    if(user.new_mail==''){
+        user.new_mail= session.mail;
+    }
+    console.log(user);
+    console.log(session);
+    try {
+        
     } catch (error) {
         
     }

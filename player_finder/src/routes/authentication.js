@@ -45,16 +45,22 @@ router.post('/login',async(req,res)=>{
     try {
         const logged = await pool.query("SELECT * FROM usuario where login=? and password=?",[user.login_login,user.login_pwd]);
         const l_user = logged[0];
-        console.log(l_user); 
+        //console.log(l_user); 
             /*var sess = req.session;
             sess.usuario = l_user.login;
             console.log("logged");*/
-        session.login = l_user.login; 
-        console.log(session.login);
+            req.session.login = l_user.login;
+        req.session.img = l_user.img;
+        req.session.id = l_user.usuario_id;
+        req.session.mail = l_user.mail;
+        req.session.pwd = l_user.password;
+        console.log(req.session);   
         res.redirect("/");
     }catch (error) {
         req.flash('success', 'Inicio de sesion no válido!');
         res.redirect('back');
     }
 });
+
+
 module.exports = router;

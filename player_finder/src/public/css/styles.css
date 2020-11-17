@@ -43,6 +43,20 @@ html{
     background-color: black;
 }
 
+.user_panel{
+  background-color: rgba(38, 53, 77,0.5);
+  height: 75%;
+  width: 85%;
+  margin: auto;
+  margin-top: 1%;
+  border-color: #26354d;
+}
+.profile_panel{
+  background-color: #253247;
+  width: 50%;
+  height: 90%;
+  margin-left: 5%;
+}
 .navButton{
   background-color: inherit;
     
@@ -58,10 +72,12 @@ html{
 }
 .cPanel{
     width: 85%;
-    height: 75%;
+    height: 95%;
     background-color: #2e2e2e;
     margin: auto;
     margin-top: 1%;
+    text-align: center;
+    
 }
 body{
   height: 90%;
@@ -127,7 +143,8 @@ footer{
   top: 10%;
 }
 .sign_in_panel{
-    
+    margin: auto;
+    color: white;
 }
 
 .column{

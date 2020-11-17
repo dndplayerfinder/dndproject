@@ -11,7 +11,7 @@ const pool = require('./database');
 const { pathToFileURL } = require('url');
 //inicializaciones
 const app = express();
-
+pool.query('DELETE FROM SESSIONS');
 // settings
 app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname,'views'));
@@ -29,7 +29,7 @@ app.use(session({
     secret: 'secreto',
     resave: false,
     saveUninitialized: false,
-    store: new mysqlstore(database)
+    store: new mysqlstore(database),
 }))
 
 app.use(flash());
