@@ -4,7 +4,7 @@ const pool = require('../database');
 const app = express();
 
 router.get('/registro',(req,res)=>{
-    res.render('cuenta/registro');
+    res.render('cuenta/registro',{layout:'login_layout'});
 });
 router.post('/registro',async(req,res)=>{
     

@@ -4,6 +4,12 @@ const pool = require('../database');
 const { post } = require('./authentication');
 const app = express();
 
+router.get('/modificar_perfil',(req,res)=>{
+    //if(sess.login!=null){
+        res.render("usuarios/modificar_perfil");
+    //}
+});
+
 router.post('/rate_player',async(req,res)=>{
     const {player_rated,puntuacion}= req.body
     const rating ={
