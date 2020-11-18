@@ -72,7 +72,7 @@ table {
 .friends_panel{
   width: 40%;
   background-color: #20465c;
-  height: 60%;
+  height: 45%;
   margin-left: 5%;
 }
 .friends_table{
@@ -93,7 +93,7 @@ table {
 }
 .cPanel{
     width: 85%;
-    height: 95%;
+    height: 80%;
     background-color: #2e2e2e;
     margin: auto;
     margin-top: 1%;
@@ -218,6 +218,21 @@ label {
 
 input:checked ~ label {
   color: red;
+}
+
+.friends_title{
+  width: 40%;
+  color: white;
+  background-color: #20465c;
+  height: 8%;
+  text-align: center;
+  padding-top:8px;
+  margin-left: 5%;
+}
+
+hr{
+  border-color: white;
+  width: 80%;
 }
 /*
 label:hover,
