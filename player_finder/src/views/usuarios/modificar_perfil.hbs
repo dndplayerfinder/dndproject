@@ -4,7 +4,7 @@
         </br>
         <div class="profile_content">
             <h3>USUARIO: {{sess.login}}</h3>
-            
+             
             <div class="wrapper">
                 <h3>PUNTUACIÓN:
                 <input type="radio" id="r5" name="rg1" value="1" class="rate">
@@ -22,11 +22,21 @@
          </div>
     </div>
     </br>
-    <div class="friends_panel">
-
+    <div class="friends_panel" style="overflow: auto;">
+        <table class="friends_table" id="friends_table">
+            {{#each friends}}
+            <tr class="table_row">
+                <h3><th>{{login}}</th>
+                <th>   {{#loop 1 promedio 1}}
+                        <div>{{this}}</div>
+                        {{/loop}}
+                </th>
+                </h3>
+            </tr>
+            {{/each}}
+        </table>
     </div>
 </div>
-
 <div class="cPanel">
     <form action="/usuarios/update_user" method="POST" class="sign_in_panel">
          <div class="row">
@@ -87,12 +97,17 @@
         }
     }
     window.onload = function(){
-        var rating = {{sess.rating}};
+        var rating = Math.round({{sess.rating}});
         var buttons = document.querySelectorAll('input[type=radio]');
             document.getElementById("r"+rating).checked=true;
             for(i=1;i<=5;i++){
                 document.getElementById("r"+i).disabled=true;
             }
+            var table= getElementById("friends_table");
+            
+         /*{{friends}}.forEach(element => {
+            console.log(element);*
+        });*/
         
     }
 </script>

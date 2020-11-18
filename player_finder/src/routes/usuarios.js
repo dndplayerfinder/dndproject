@@ -5,11 +5,19 @@ const { post } = require('./authentication');
 const { session } = require('passport');
 const app = express();
 
-router.get('/modificar_perfil',(req,res)=>{
-    console.log("Entrando a modificar perfil");
-    console.log(req.session.login);
-    var sess = req.session
-    res.render("usuarios/modificar_perfil",{sess});
+router.get('/modificar_perfil',async (req,res)=>{
+    var sess = req.session;
+    console.log(sess);
+    try {
+        const friends = await pool.query("select * from friends_score where usuario1=?",[sess.user_id]);
+        friends.forEach(element => {
+            console.log(element);
+        });
+        res.render("usuarios/modificar_perfil",{sess,friends});
+    } catch (error) {
+        
+    }
+    
 });
 
 router.post('/rate_player',async(req,res)=>{

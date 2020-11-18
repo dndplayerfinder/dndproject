@@ -2,7 +2,6 @@ const express = require('express');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const path = require('path');
-
 const multer = require('multer');
 const Sequelize = require('sequelize');
 const db = require("./lib/db.js");
@@ -24,12 +23,22 @@ pool.query('DELETE FROM SESSIONS');
 // settings
 app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname,'views'));
+
+
 app.engine('.hbs',exphbs({
     defaultLayout: 'main',
     layoutsDir: path.join(app.get('views'),'layouts'),
     partialsDir: path.join(app.get('views'),'partials'),
     extname: '.hbs',
-    helpers: require('./lib/handlebars')
+    helpers: {
+        loop: function(from,to,incrase){
+            let out = '<input type="radio" id="r5" name="frg1" value="1" class="rate"style="color:red"><label for="fr1" style="color:red">&nbsp;★</label>'
+            for( i=from;i<to;i+=incrase){
+                out=out+'<input type="radio" id="r5" name="frg1" value="1" class="rate" style="color:red"><label for="fr1"style="color:red">&nbsp;★</label>'
+            }
+            return out;
+        }
+    }
 }))
 app.set('view engine','.hbs');
 //Middlewares

@@ -60,6 +60,10 @@ html{
   color: white;
 }
 
+table {
+  width: 100%;
+}
+
 .profile_content{
   text-align: left;
   float: left;
@@ -71,7 +75,9 @@ html{
   height: 60%;
   margin-left: 5%;
 }
-
+.friends_table{
+  color: white;
+}
 .navButton{
   background-color: inherit;
     
