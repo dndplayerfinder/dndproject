@@ -1,10 +1,30 @@
 <div class="user_panel">
     </br>
-    <div class="profile_panel">
-
-        <h1>{{sess.img}}</h1>
+    <div class="profile_panel" onclick="fill_stars()" >
+        </br>
+        <div class="profile_content">
+            <h3>USUARIO: {{sess.login}}</h3>
+            
+            <div class="wrapper">
+                <h3>PUNTUACIÓN:
+                <input type="radio" id="r5" name="rg1" value="1" class="rate">
+                <label for="r5">&nbsp;★</label>
+                <input type="radio" id="r4" name="rg1"value="2"class="rate">
+                <label for="r4">&nbsp;★</label>
+                <input type="radio" id="r3" name="rg1"value="3"class="rate">
+                <label for="r3">&nbsp;★</label>
+                <input type="radio" id="r2" name="rg1"value="4"class="rate">
+                <label for="r2">&nbsp;★</label>
+                <input type="radio" id="r1" name="rg1"value="5"class="rate">
+                <label for="r1">&nbsp;★</label>
+                </h3>
+            </div>
+         </div>
     </div>
-    
+    </br>
+    <div class="friends_panel">
+
+    </div>
 </div>
 
 <div class="cPanel">
@@ -57,6 +77,7 @@
 </br>
 
 <script>
+    
     function check_pass(){
         if(document.getElementById("pwd").value==document.getElementById("c_pwd").value){
             document.getElementById("r_confirm").disabled = false;
@@ -64,5 +85,14 @@
         else{
             document.getElementById("r_confirm").disabled = false;
         }
-    }  
+    }
+    window.onload = function(){
+        var rating = {{sess.rating}};
+        var buttons = document.querySelectorAll('input[type=radio]');
+            document.getElementById("r"+rating).checked=true;
+            for(i=1;i<=5;i++){
+                document.getElementById("r"+i).disabled=true;
+            }
+        
+    }
 </script>

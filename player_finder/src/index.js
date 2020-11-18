@@ -16,7 +16,7 @@ const { pathToFileURL } = require('url');
 //inicializaciones
 const app = express();
 
-db.sequilize.sync();
+//db.sequilize.sync();
 
 global.__basedir = __dirname;
 

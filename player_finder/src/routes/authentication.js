@@ -24,6 +24,7 @@ router.post('/registro',async(req,res)=>{
         password_confirm,
         img
     };
+    
     console.log(new_user.img);
     if(new_user.password!=new_user.password_confirm){
         res.redirect('registro');
@@ -61,9 +62,12 @@ router.post('/login',async(req,res)=>{
             console.log("logged");*/
             req.session.login = l_user.login;
         req.session.img = l_user.img;
-        req.session.id = l_user.usuario_id;
+        req.session.user_id = l_user.usuario_id;
         req.session.mail = l_user.mail;
         req.session.pwd = l_user.password;
+       const rating =  await pool.query("SELECT promedio from user_info where usuario_id=?",[l_user.usuario_id]);
+        const r = rating[0];
+        req.session.rating = r.promedio;
         console.log(req.session);   
         res.redirect("/");
     }catch (error) {
