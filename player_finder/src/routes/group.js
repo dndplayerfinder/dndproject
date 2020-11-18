@@ -5,9 +5,19 @@ const app = express();
 
 router.get('/grupo', async(req,res)=>{
     const sess = req.session;
-    const grupos = await pool.query("SELECT * FROM dnd.group_info");
+    const grupos = await pool.query("SELECT * FROM dnd.group_info ");
     console.log(grupos[0].Nombre);
     res.render('grupos/grupo',{grupos,sess});
+});
+
+router.get('/crear_grupo',async (req,res)=>{
+    try {
+        const manuales = await pool.query("SELECT *FROM manual order by manual");
+        console.log(manuales);
+        res.render('grupos/crear_grupo',{manuales});
+    } catch (error) {
+        
+    }
 });
 router.post('/addgroup',async(req,res)=>{
     const {g_name,g_limite_miembros,hora_inicio,hora_final,zona_horaria,dias,mod} = req.body;

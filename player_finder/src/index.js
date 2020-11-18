@@ -65,7 +65,7 @@ app.use((req, res, next)=> {
 app.use(require('./routes'));
 app.use(require('./routes/authentication'));
 app.use('/usuarios',require('./routes/usuarios'));
-app.use(require('./routes/group'));
+app.use('/grupo',require('./routes/group'));
 app.use(require('./routes/upload'));
 //Public
 app.use(express.static(path.join(__dirname, 'public')));

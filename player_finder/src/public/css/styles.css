@@ -32,6 +32,7 @@ nav{
   margin-bottom: 10px;
   width: 80%;
   height: 35px;
+  text-align: center;
 }
 html{
   margin:0;
@@ -41,6 +42,15 @@ html{
     width: 60%;
     height: 100%;
     background-color: black;
+}
+
+.background_panel{
+  background-color: rgba(38, 53, 77,0.5);
+  height: 75%;
+  width: 85%;
+  margin: auto;
+  margin-top: 1%;
+  border-color: #26354d;
 }
 
 .user_panel{
@@ -185,7 +195,13 @@ footer{
   margin-right: auto;
   display: block;
 }
+.table_row{
 
+}
+.table_row:hover{
+  background-color:  #253247;
+  cursor: pointer;
+}
 .anav{
   color: white;
   text-decoration: none;
@@ -241,8 +257,68 @@ label:hover ~ label {
 }
 */
 /*
+
+
 input:checked ~ label:hover,
 input:checked ~ label:hover ~ label {
   color: lime !important;
+}*/
+.multiselect {
+  width: 300px;
+  background-color: #253247;
+  overflow: auto;
 }
-*/
+
+.icon{
+  /*background: url("/img/icons/lapiz_icono.png");*/
+  height: 25px;
+  width: 25px;
+  margin-bottom: 10px;
+}
+.multiselect {
+  width: 300px;
+  background-color: #253247;
+  overflow: auto;
+}
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+
+#checkboxes label {
+  display: block;
+  color: white;
+  font-size: 16px;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
+}
+
+label::selection{
+  color: none;
+}
+
+.create_group_panel1{
+  width: 100%;
+  height: 50%;
+  background-color: #181f2b;
+  color: white;
+}

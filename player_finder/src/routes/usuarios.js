@@ -17,7 +17,6 @@ router.get('/modificar_perfil',async (req,res)=>{
     } catch (error) {
         
     }
-    
 });
 
 router.post('/rate_player',async(req,res)=>{

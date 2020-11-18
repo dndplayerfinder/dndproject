@@ -1,0 +1,72 @@
+<!--
+<div class="background_panel">
+    {{#each manuales}}
+        <select>
+            <option>
+                <input type="checkbox" id={{manual_id}} value={{manuales_id}}>
+                <label for={{manual_id}}>{{manual}}</label>
+            </option>
+        </select>
+    {{/each}}
+</div>
+-->
+<div class="background_panel">
+    <h4 style="color: white; text-align:center; padding-top:1%">CREAR GRUPO</h4>
+    
+    <div class="create_group_panel1"style="text-align:center">
+        <h4>CARACTERISTICAS DEL GRUPO</h4>
+    <div class="row">
+        <div class="column" style="width: 40%; text-align:center;">
+            
+            <img src="/img/icons/lapiz_icono.png" alt="" class="icon">&nbspNOMBRE DEL GRUPO
+            <div class="form-group">
+                <input type="text" name="g_name" class="textbox" placeholder="30 caracteres" style="height: 20%;" maxlength="30" autofocus required>
+            </div>
+            <img src="/img/icons/jugadores_icono.png" alt="" class="icon">&nbspNÚMERO MÁXIMO DE INTEGRANTES
+            <div class="form-group">
+                <input type="text" name="max_number" class="number" min="2" max="15" placeholder="5" style="height: 20%; width:40%;text-align:center" autofocus required>
+            </div>
+        </div>
+        
+        <div class="colum" style="text-align: center; width:60%">
+            </br>
+            <img src="/img/icons/nombre_icono.png" alt="" class="icon">&nbspDESCRIPCIÓN DEL GRUPO
+                <!--
+                    <input type="text" name="desc" class="textbox" placeholder="150 caracteres" style="height: 60%; width:80%; text-align:left; vertical-align:top;" autofocus required>
+                -->
+                <textarea name="desc" id="" cols="30" rows="5" placeholder="150 caracteres"style="height: 60%; width:80%; text-align:left;overflow:auto;" maxlength="150"></textarea>
+        </div>
+    </div>
+
+    </div>
+    <form>
+    <div class="multiselect">
+        <div class="selectBox" onclick="showCheckboxes()">
+        <select>
+            <option>Manuales</option>
+        </select>
+        <div class="overSelect"></div>
+        </div>
+        <div id="checkboxes">
+            {{#each manuales}}
+                <label for={{manual_id}}>
+                    <input type="checkbox" id={{manual_id}} />{{manual}}</label>
+            {{/each}}
+        </div>
+    </div>
+    </form> 
+</div>
+<script>
+    var expanded = false;
+
+function showCheckboxes() {
+  var checkboxes = document.getElementById("checkboxes");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+</script>
