@@ -7,11 +7,14 @@ router.get('/', async(req,res)=>{
     const sess = req.session;
     try {
         const grupos = await pool.query("SELECT * FROM dnd.group_info ");
-        const ml = await pool.query("SELECT * FROM grupo_manual ");
-        console.log(grupos.length);
-        console.log(grupos);
-        console.log("accediendo");
-        res.render('grupos/grupo',{grupos,sess});
+        try {
+            const manuales = await pool.query("select * from grupo_manual");
+            console.log(manuales);
+            res.render('grupos/grupo',{grupos,sess});
+        } catch (error) {
+            
+        }
+        
     } catch (error) {
         
     }
