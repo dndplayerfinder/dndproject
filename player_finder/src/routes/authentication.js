@@ -36,7 +36,7 @@ router.post('/registro',async(req,res)=>{
         const l_user = logged[0];
         console.log(l_user);
             session.login = l_user.login;
-
+    
             res.redirect("/group");
     } catch (error) {
         req.flash('success', 'Registro no válido!');

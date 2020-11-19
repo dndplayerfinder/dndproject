@@ -7,9 +7,37 @@ router.get('/', async(req,res)=>{
     const sess = req.session;
     try {
         const grupos = await pool.query("SELECT * FROM dnd.group_info ");
+        //console.log(grupos);
+        let tam = await pool.query("select * from group_lenght");        
         try {
-            const manuales = await pool.query("select * from grupo_manual");
-            console.log(manuales);
+            //console.log(manuales);
+            console.log(sess.user_id);
+            for(i=0;i<tam[0].lenght;i++){
+                var id = grupos[i].grupo_id;
+                try {
+                    grupos[i].manuales =  await pool.query("select * from g_manual where grupo_id=?",[id]);
+                    
+                    console.log("Usuario: "+sess.user_id+" Grupo: "+id);
+                    try {
+                        var amigos = await pool.query("call get_friends(?,?)",[sess.user_id,id]);
+                        grupos[i].amigos= amigos[0][0].num;
+                        console.log("Amigos");
+                        console.log(amigos[0]);
+                        console.log(amigos[0][0].num);
+                    } catch (error) {
+                        grupos[i].amigos = 0;
+                    }
+                    
+                } catch (error) {
+                    grupos[i].manuales = 0;
+                    //console.log("Error al buscar");
+                    //console.log(grupos[i].manuales);
+                }
+               
+                
+            }
+            //console.log(grupos[18].manuales);
+            console.log(grupos);
             res.render('grupos/grupo',{grupos,sess});
         } catch (error) {
             
@@ -63,7 +91,6 @@ router.post('/addgroup',async(req,res)=>{
         const logged = await pool.query("call IUD_grupo(0,?,?,?,?,?,?,?,?,?,?,'INSERT')",[id,new_group.g_name,new_group.g_limite_miembros,hora_inicio,hora_final,new_group.zona,new_group.dias,new_group.mod,new_group.desc,new_group.rules]);
         const group = await pool.query("select *from grupo order by grupo_id desc limit 1");
         const g_id = group[0].grupo_id;
-        console.log("Entro aqui");
         console.log(g_id);
         const joinG = await pool.query("call Join_Group(?,?)",[g_id,id]);
         try {
