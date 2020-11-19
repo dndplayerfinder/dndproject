@@ -1,15 +1,4 @@
-<!--
-<div class="background_panel">
-    {{#each manuales}}
-        <select>
-            <option>
-                <input type="checkbox" id={{manual_id}} value={{manuales_id}}>
-                <label for={{manual_id}}>{{manual}}</label>
-            </option>
-        </select>
-    {{/each}}
-</div>
--->
+<form action="/grupo/addgroup" method="POST">
 <div class="background_panel">
     <h4 style="color: white; text-align:center; padding-top:1%">CREAR GRUPO</h4>
     
@@ -24,7 +13,7 @@
             </div>
             <img src="/img/icons/jugadores_icono.png" alt="" class="icon">&nbspNÚMERO MÁXIMO DE INTEGRANTES
             <div class="form-group">
-                <input type="text" name="max_number" class="number" min="2" max="15" placeholder="5" style="height: 20%; width:40%;text-align:center" autofocus required>
+                <input type="text" name="g_limite_miembros" class="number" min="2" max="15" placeholder="5" style="height: 20%; width:40%;text-align:center" autofocus required>
             </div>
         </div>
         
@@ -53,10 +42,10 @@
                 </div>
                     <div id="checkboxes">
                         <label for="0"}>
-                                <input type="checkbox" id="0" />Todos</label>
+                                <input type="checkbox" id="0" onclick="checkboxes()" name="todos"/>Todos</label>
                         {{#each manuales}}
                             <label for={{manual_id}}>
-                                <input type="checkbox" id={{manual_id}} />{{manual}}</label>
+                                <input type="checkbox" id={{manual_id}} name="manual"  value={{manual_id}} />{{manual}}</label>
                         {{/each}}
                     </div>
                 </div>
@@ -116,7 +105,7 @@
     <div class="third_panel"style="height: 100px;">
      <div class="row">
             <div class="column" style="width: 30%; text-align:center">
-            <div style="box-sizing:content-box;"><img src="/img/icons/zona_horaria.png" alt="" class="icon">&nbspDIAS/SEMANA</br></div>
+            <div style="box-sizing:content-box;"><img src="/img/icons/zona_horaria.png" alt="" class="icon">&nbspZONA HORARIA</br></div>
             <select name="zona" style="font:bold;width:30%;background-color: white;color:black;font-weight:bold;;" onmousedown="if(this.options.length>5){this.size=5;}"  onchange='this.size=0;' onblur="this.size=0;">
                 <div class="container" style="height: 10px;">
                     <option value="1">1</option>
@@ -134,6 +123,7 @@
         </div>
      
 </div>
+</form>
 </br>
 </br>
 </br>
@@ -160,5 +150,10 @@ function showlist(){
     checkboxes.style.display = "none";
     expanded = false;
   }
+}
+
+function checkboxes(){
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    
 }
 </script>

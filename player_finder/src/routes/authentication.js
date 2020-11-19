@@ -32,10 +32,10 @@ router.post('/registro',async(req,res)=>{
     
     res.send('Registrado en el sistema'); 
    try {
-       /* const logged = await pool.query("call IUD_Usuario(0,?,?,?,0,'INSERT')",[new_user.usuario,new_user.password,new_user.correo]);
+       const logged = await pool.query("call IUD_Usuario(0,?,?,?,0,'INSERT')",[new_user.usuario,new_user.password,new_user.correo]);
         const l_user = logged[0];
         console.log(l_user);
-            session.login = l_user.login;*/
+            session.login = l_user.login;
 
             res.redirect("/");
     } catch (error) {
@@ -60,11 +60,12 @@ router.post('/login',async(req,res)=>{
             /*var sess = req.session;
             sess.usuario = l_user.login;
             console.log("logged");*/
-            req.session.login = l_user.login;
+        req.session.login = l_user.login;
         req.session.img = l_user.img;
         req.session.user_id = l_user.usuario_id;
         req.session.mail = l_user.mail;
         req.session.pwd = l_user.password;
+        
        const rating =  await pool.query("SELECT promedio from user_info where usuario_id=?",[l_user.usuario_id]);
         const r = rating[0];
         req.session.rating = r.promedio;
