@@ -1,6 +1,60 @@
-<body>
-    <table>
-        
-    </table>
+<table style="color:white;background-color:#212121;width:80%;margin:auto">
+    <tr>
+        <th>
+        <h5>{{grupos.[0].Nombre}}</h5>
+        <hr style="margin-left:0;">
+        </th>
+        <th>
+        </th>
+        <th>
+            
+        </th>
+        <th>
+            <button style="float: right;margin-right:2% height:100%">Entrar</button>
+        </th>
+    </tr>
+    <tr>
+        <th>
+            &nbsp<img src="/img/icons/corona_icono.png" alt="" class="icon">&nbsp{{grupos.[0].owner}}
+        </th>
+        <th>
+            &nbsp<img src="/img/icons/estado_icono.png" alt="" class="icon">&nbsp
+            {{#if grupos.[0].activo}}
+                Abierto
+                {{else}}
+                Cerrado
+            {{/if}}
+        </th>
+        <th>
+            &nbsp<img src="/img/icons/dias_icono.png" alt="" class="icon">&nbsp{{grupos.[0].dias}}
+        </th>
+        <th>
+             &nbsp<img src="/img/icons/reloj_icono.png" alt="" class="icon">&nbsp{{grupos.[0].hora_inicio}}&nbsp{{grupos.[0].hora_inicio}}
+        </th>
+        <tr>
+        <tr>
+            <th>
+            &nbsp<img src="/img/icons/manual_icono.png" alt="" class="icon">
+                <select name="manuales" id="manuales">
+                     &nbsp<option>Manual del Jugador</option>
+                </select>
+            </th>
+            <th>
+                &nbsp<img src="/img/icons/jugadores_icono.png" alt="" class="icon">&nbsp{{grupos.[0].miembros_actuales}}
+            </th>
+            <th>
+                &nbsp<img src="/img/icons/perfil_icono.png" alt="" class="icon">&nbsp{{grupos.[0].amigos}}
+            </th>
+            <th>
+                &nbsp<img src="/img/icons/zona_horaria.png" alt="" class="icon">&nbsp{{grupos.[0].zona_horaria}}
+            </th>
+        </tr>
+        <tr>
+            <th>
+            &nbsp<img src="/img/icons/juego_icono.png" alt="" class="icon">&nbsp{{grupos.[0].modulo}}
+            </th>
+        </tr>
 
-</body>
+        
+    </tr>
+</table>

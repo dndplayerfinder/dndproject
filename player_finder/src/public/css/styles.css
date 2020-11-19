@@ -69,7 +69,12 @@ html{
   margin-left: 5%;
   color: white;
 }
-
+.group_panel{
+  width: 80%;
+  margin:auto;
+  background-color: #26354d;
+  color: white;
+}
 table {
   width: 100%;
 }

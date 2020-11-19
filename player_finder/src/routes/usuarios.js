@@ -8,6 +8,9 @@ const app = express();
 router.get('/modificar_perfil',async (req,res)=>{
     var sess = req.session;
     console.log(sess);
+    if(!sess.user_id){
+        res.redirect('/registro');
+    }
     try {
         const friends = await pool.query("select * from friends_score where usuario1=?",[sess.user_id]);
         friends.forEach(element => {

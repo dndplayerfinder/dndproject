@@ -5,6 +5,9 @@ const app = express();
 
 router.get('/', async(req,res)=>{
     const sess = req.session;
+    if(!sess.user_id){
+        res.redirect('/registro');
+    }
     try {
         const grupos = await pool.query("SELECT * FROM dnd.group_info ");
         //console.log(grupos);
@@ -50,6 +53,10 @@ router.get('/', async(req,res)=>{
 });
 
 router.get('/crear_grupo',async (req,res)=>{
+    var sess = req.session;
+    if(!sess.user_id){
+        res.redirect('/registro');
+    }
     try {
         const manuales = await pool.query("SELECT *FROM manual order by manual");
         const modulos = await pool.query("SELECT *FROM modulo order by modulo");
@@ -97,7 +104,7 @@ router.post('/addgroup',async(req,res)=>{
             for(i=0;i<index;i++){
                 var g = await pool.query("insert into grupo_manual(grupo_id,manual_id) values(?,?)",[g_id,manuales[i]]);
             }
-            res.redirect("/");
+            res.redirect("/grupo");
         } catch (error) {
             
         }
