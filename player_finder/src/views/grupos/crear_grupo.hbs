@@ -14,13 +14,13 @@
     <h4 style="color: white; text-align:center; padding-top:1%">CREAR GRUPO</h4>
     
     <div class="create_group_panel1"style="text-align:center">
-        <h4>CARACTERISTICAS DEL GRUPO</h4>
+        <h5>CARACTERISTICAS DEL GRUPO</h5>
     <div class="row">
         <div class="column" style="width: 40%; text-align:center;">
             
             <img src="/img/icons/lapiz_icono.png" alt="" class="icon">&nbspNOMBRE DEL GRUPO
             <div class="form-group">
-                <input type="text" name="g_name" class="textbox" placeholder="30 caracteres" style="height: 20%;" maxlength="30" autofocus required>
+                <input type="text" name="g_name" class="textbox" placeholder="30 caracteres" style="height: 20%;width:50%" maxlength="30" autofocus required>
             </div>
             <img src="/img/icons/jugadores_icono.png" alt="" class="icon">&nbspNÚMERO MÁXIMO DE INTEGRANTES
             <div class="form-group">
@@ -34,34 +34,126 @@
                 <!--
                     <input type="text" name="desc" class="textbox" placeholder="150 caracteres" style="height: 60%; width:80%; text-align:left; vertical-align:top;" autofocus required>
                 -->
-                <textarea name="desc" id="" cols="30" rows="5" placeholder="150 caracteres"style="height: 60%; width:80%; text-align:left;overflow:auto;" maxlength="150"></textarea>
+                <textarea name="desc" id="" cols="30" rows="3" placeholder="150 caracteres"style=" width:80%; text-align:left;overflow:auto;" maxlength="150"></textarea>
         </div>
     </div>
 
     </div>
-    <form>
-    <div class="multiselect">
-        <div class="selectBox" onclick="showCheckboxes()">
-        <select>
-            <option>Manuales</option>
-        </select>
-        <div class="overSelect"></div>
+    <div class="create_group_panel2" style="text-align:center">
+        <h5>CARACTERISTICAS DEL JUEGO</h5>
+        <div class="row">
+            <div class="column" style="width: 30%;">
+                <img src="/img/icons/manual_icono.png" alt="" class="icon">&nbspMANUALES
+                <div class="multiselect">
+                <div class="selectBox" onclick="showCheckboxes()">
+                    <select>
+                        <option style="background-color: #1b2029;">Manuales</option>
+                    </select>
+                    <div class="overSelect"></div>
+                </div>
+                    <div id="checkboxes">
+                        <label for="0"}>
+                                <input type="checkbox" id="0" />Todos</label>
+                        {{#each manuales}}
+                            <label for={{manual_id}}>
+                                <input type="checkbox" id={{manual_id}} />{{manual}}</label>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+             <div class="column" style="width: 30%;">
+                <img src="/img/icons/juego_icono.png" alt="" class="icon">&nbspCAMPAÑA
+
+                
+                <select name="mod" style="font:bold;width:80%;background-color: white;color:black;font-weight:bold;" onmousedown="if(this.options.length>4){this.size=4;}"  onchange='this.size=0;' onblur="this.size=0;">
+                    <div class="container" style="height: 10px;">
+                        
+                        {{#each modulos}}
+                            <option value={{modulo_id}}>{{modulo}}</option>
+                        {{/each}}
+                     </div>
+                </select>
         </div>
-        <div id="checkboxes">
-            {{#each manuales}}
-                <label for={{manual_id}}>
-                    <input type="checkbox" id={{manual_id}} />{{manual}}</label>
-            {{/each}}
+        <div class="column" style="width: 30%;justify-content:space-evenly">
+            <img src="/img/icons/reloj_icono.png" alt="" class="icon">&nbspHORA DE INICIO Y FIN
+            </br>
+                    <div>
+                    <input type="number" min="0" max="23" placeholder="23" name="h_inicio" style="width:15%" required>:
+                    <input type="number" min="0" max="59" placeholder="00"name="m_inicio"value="0"style="width:15%" required>&nbsp&nbsp
+                    <input type="number" min="0" max="23" placeholder="23" name="h_final"required style="width:15%">:
+                    <input type="number" min="0" max="59" placeholder="00"name="m_final"value="0"style="width:15%"required>
+                    </div>
+                
         </div>
+        </div>
+       
     </div>
-    </form> 
+
+    <div class="third_panel">
+     <div class="row">
+            <div class="column" style="width: 30%; text-align:center">
+            <div style="box-sizing:content-box;"><img src="/img/icons/dias_icono.png" alt="" class="icon">&nbspDIAS/SEMANA</br></div>
+            <select name="dias" style="font:bold;width:30%;background-color: white;color:black;font-weight:bold;position:;" onmousedown="if(this.options.length>5){this.size=5;}"  onchange='this.size=0;' onblur="this.size=0;">
+                <div class="container" style="height: 10px;">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </div>
+                </select>
+            </div>
+            <div class="column" style="width: 70%; text-align:center">
+                </br>
+                <div style="box-sizing:content-box;"><img src="/img/icons/libro_icono.png" alt="" class="icon">&nbspREGLAS ESPECIFICAS</br></div>
+                 <textarea name="rules" id="" cols="30" rows="3" placeholder="300 caracteres"style=" width:80%; text-align:left;overflow:auto;position:static;z-index:2;" maxlength="300"></textarea>
+            </div>
+        </div>
+        </div>
+
+    <div class="third_panel"style="height: 100px;">
+     <div class="row">
+            <div class="column" style="width: 30%; text-align:center">
+            <div style="box-sizing:content-box;"><img src="/img/icons/zona_horaria.png" alt="" class="icon">&nbspDIAS/SEMANA</br></div>
+            <select name="zona" style="font:bold;width:30%;background-color: white;color:black;font-weight:bold;;" onmousedown="if(this.options.length>5){this.size=5;}"  onchange='this.size=0;' onblur="this.size=0;">
+                <div class="container" style="height: 10px;">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </div>
+                </select>
+            </div>
+        </div>
+        </br>
+        </br>
+        </br>
+           <div class="form-group" style="text-align: center;">
+            <button class="btn btn-success " id="g_confirm" style="width: 20%;" >CREAR GRUPO</button>
+        </div>
+        </div>
+     
 </div>
+</br>
+</br>
+</br>
+</br>
 <script>
     var expanded = false;
 
 function showCheckboxes() {
   var checkboxes = document.getElementById("checkboxes");
   if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+function showlist(){
+    var checkboxes = document.getElementById("list");
+    if (!expanded) {
     checkboxes.style.display = "block";
     expanded = true;
   } else {

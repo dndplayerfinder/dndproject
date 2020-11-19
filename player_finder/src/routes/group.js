@@ -14,7 +14,9 @@ router.get('/crear_grupo',async (req,res)=>{
     try {
         const manuales = await pool.query("SELECT *FROM manual order by manual");
         console.log(manuales);
-        res.render('grupos/crear_grupo',{manuales});
+        const modulos = await pool.query("SELECT *FROM modulo order by modulo");
+        console.log(modulos);
+        res.render('grupos/crear_grupo',{manuales,modulos});
     } catch (error) {
         
     }
