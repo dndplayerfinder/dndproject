@@ -37,7 +37,7 @@ router.post('/registro',async(req,res)=>{
         console.log(l_user);
             session.login = l_user.login;
 
-            res.redirect("/");
+            res.redirect("/group");
     } catch (error) {
         req.flash('success', 'Registro no válido!');
         res.redirect('back');
@@ -65,12 +65,12 @@ router.post('/login',async(req,res)=>{
         req.session.user_id = l_user.usuario_id;
         req.session.mail = l_user.mail;
         req.session.pwd = l_user.password;
-        
+
        const rating =  await pool.query("SELECT promedio from user_info where usuario_id=?",[l_user.usuario_id]);
         const r = rating[0];
         req.session.rating = r.promedio;
         console.log(req.session);   
-        res.redirect("/");
+        res.redirect("/grupo");
     }catch (error) {
         req.flash('success', 'Inicio de sesion no válido!');
         res.redirect('back');

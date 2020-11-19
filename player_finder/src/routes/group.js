@@ -3,11 +3,19 @@ const router = express.Router();
 const pool = require('../database');
 const app = express();
 
-router.get('/grupo', async(req,res)=>{
+router.get('/', async(req,res)=>{
     const sess = req.session;
-    const grupos = await pool.query("SELECT * FROM dnd.group_info ");
-    console.log(grupos[0].Nombre);
-    res.render('grupos/grupo',{grupos,sess});
+    try {
+        const grupos = await pool.query("SELECT * FROM dnd.group_info ");
+        const ml = await pool.query("SELECT * FROM grupo_manual ");
+        console.log(grupos.length);
+        console.log(grupos);
+        console.log("accediendo");
+        res.render('grupos/grupo',{grupos,sess});
+    } catch (error) {
+        
+    }
+    
 });
 
 router.get('/crear_grupo',async (req,res)=>{
