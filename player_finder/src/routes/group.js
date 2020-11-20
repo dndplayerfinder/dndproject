@@ -16,13 +16,13 @@ router.get('/ver', async(req,res)=>{
     console.log(id_button)
     try {
         const consulta = await pool.query("select * from group_info where grupo_id=?",[id_button]);
-        console.log("Obteniendo manuales"+id_button);
+        console.log("Obteniendo manuales "+sess.user_id);
         let m = await pool.query("select * from g_manual where grupo_id=?",[id_button]);
-        
-    
-        //console.log(cosnulta2);
+        const miembro = await pool.query("select * from grupo_usuario where grupo_id=? and usuario_id=?",[id_button,sess.user_id]);
+        console.log(miembro);
         const grupo = consulta[0];
         grupo.manuals=m;
+        grupo.miembro = miembro[0];
         console.log(grupo);
         res.render("grupos/ver",grupo);
     } catch (error) {

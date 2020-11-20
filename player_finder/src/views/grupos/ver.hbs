@@ -50,13 +50,17 @@
     </div>
     <br>
     <br>
-    <form action="join" method="POST" style="height:60%;">
-    <div class="graypanel" style="width: 98%;margin:auto;height:100%;background-color:#2e2e2e;padding-top:10%; text-align:center;">
-        <h3>INGRESA AL GRUPO PARA TENER ACCESO A LOS FOROS</h3> 
-            <div class="form-group">
-                <br>
-               <button name="index" class="btn btn-success" style="width: 30%; margin-top:20px;" value="{{grupo_id}}">INGRESAR AL GRUPO</button>
-            </div>
-    </div>
-    </form>
+    {{#if miembro}}
+        Miembro
+    {{else}}
+        <form action="join" method="POST" style="height:60%;">
+        <div class="graypanel" style="width: 98%;margin:auto;height:100%;background-color:#2e2e2e;padding-top:10%; text-align:center;">
+            <h3>INGRESA AL GRUPO PARA TENER ACCESO A LOS FOROS</h3> 
+                <div class="form-group">
+                    <br>
+                <button name="index" class="btn btn-success" style="width: 30%; margin-top:20px;" value="{{grupo_id}}">INGRESAR AL GRUPO</button>
+                </div>
+        </div>
+        </form>
+    {{/if}}
 </div>
