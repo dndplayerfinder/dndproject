@@ -1,73 +1,68 @@
-<table style="color:white;background-color:#212121;width:80%;margin:auto">
+<div style="height: 500px;overflow:auto;width:80%;margin:auto;">
+<table style="color:white;background-color:#212121;width:100%;" >
     {{#each grupos}}
-    <tr>
+
+    <tr style="border-top: 2px solid white;border-bottom: 2px solid white;">
         <th>
         <h5>{{Nombre}}</h5>
-        <hr style="margin-left:0;">
         </th>
         <th>
         </th>
         <th>
             
         </th>
-        <th>
+        <td>
             <button style="float: right;margin-right:2% height:100%">Entrar</button>
-        </th>
+        </td>
     </tr>
     <tr>
-        <th>
+        <td>
             &nbsp<img src="/img/icons/corona_icono.png" alt="" class="icon">&nbsp{{owner}}
-        </th>
-        <th>
+        </td>
+        <td>
             &nbsp<img src="/img/icons/estado_icono.png" alt="" class="icon">&nbsp
             {{#if activo}}
                 Abierto
                 {{else}}
                 Cerrado
             {{/if}}
-        </th>
-        <th>
+        </td>
+        <td>
             &nbsp<img src="/img/icons/dias_icono.png" alt="" class="icon">&nbsp{{dias}}
-        </th>
-        <th>
+        </td>
+        <td>
              &nbsp<img src="/img/icons/reloj_icono.png" alt="" class="icon">&nbsp{{hora_inicio}}&nbsp{{hora_final}}
-        </th>
+        </td>
         <tr>
         <tr>
-            <th>
+            <td>
             &nbsp<img src="/img/icons/manual_icono.png" alt="" class="icon">
                 <select name="manuales" id="manuales">
                      &nbsp<option>Manual del Jugador</option>
+                     {{#each manuales}}
+                        &nbsp<option disabled>{{manual}}</option>
+                     {{/each}}
                 </select>
-            </th>
-            <th>
+            </td>
+            <td>
                 &nbsp<img src="/img/icons/jugadores_icono.png" alt="" class="icon">&nbsp{{miembros_actuales}}
-            </th>
-            <th>
+            </td>
+            <td>
                 &nbsp<img src="/img/icons/perfil_icono.png" alt="" class="icon">&nbsp{{amigos}}
-            </th>
-            <th>
+            </td>
+            <td>
                 &nbsp<img src="/img/icons/zona_horaria.png" alt="" class="icon">&nbsp{{zona_horaria}}
-            </th>
+            </td>
         </tr>
         <tr>
-            <th>
+            <td>
             &nbsp<img src="/img/icons/juego_icono.png" alt="" class="icon">&nbsp{{modulo}}
-            </th>
+            </td>
         </tr>
     </tr>
     {{/each}}
 </table>
-
+</div>
 </br>
 </br>
 </br>
-
-<script>
-    $(document).ready(function () {
-  $('#dtBasicExample').DataTable({
-    "paging": false // false to disable pagination (or any other option)
-  });
-  $('.dataTables_length').addClass('bs-select');
-});
-</script>
