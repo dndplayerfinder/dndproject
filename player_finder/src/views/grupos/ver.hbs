@@ -1,0 +1,58 @@
+<div class="background_panel" style="color: white;">
+    <h3 style="text-align: center;">{{Nombre}}</h3>
+    <hr style="width:100%">
+    <div class="newrow" style="width: 98%;margin:auto;justify-content:space-evenly" >
+        <div class="column" style="width: 20%;">
+            <img src="/img/icons/manual_icono.png" alt="" class="icon">
+               <select name="manuales" id="manuales" style="width: 85%;">
+                     &nbsp<option>Manual del Jugador</option>
+                     {{#each manuals}}
+                        &nbsp<option disabled>{{manual}}</option>
+                     {{/each}}
+                </select>
+
+        </div>
+        <div class="column"style="width: 20%;">
+             &nbsp<img src="/img/icons/juego_icono.png" alt="" class="icon">&nbsp{{modulo}}
+        </div>
+        <div class="column"style="width: 20%;">
+             &nbsp<img src="/img/icons/dias_icono.png" alt="" class="icon">&nbsp{{dias}}/7
+        </div>
+        <div class="column"style="width: 20%;">
+              &nbsp<img src="/img/icons/reloj_icono.png" alt="" class="icon">&nbsp{{hora_inicio}} &nbsp{{hora_final}}
+        </div>
+         <div class="column"style="width: 20%;">
+              &nbsp<img src="/img/icons/zona_horaria.png" alt="" class="icon">&nbsp{{zona_horaria}}
+        </div>
+    </div>
+    <br>
+    <div class="newrow" style="width: 98%;margin:auto;justify-content:space-evenly">
+        <div class="column"style="width: 5%;">
+              &nbsp<img src="/img/icons/nombre_icono.png" alt="" class="icon">
+        </div>
+        <div class="column"style="width: 45%;text-align:left;">
+              &nbsp{{descr}}
+        </div>
+        <div class="column"style="width: 5%;">
+              &nbsp<img src="/img/icons/libro_icono.png" alt="" class="icon">
+        </div>
+        <div class="column"style="width: 45%;text-align:left;">
+            {{#if rules}}
+              &nbsp{{rules}}
+            {{else}}
+                No hay reglas especificas
+            {{/if}}
+        </div>
+    </div>
+    <br>
+    <br>
+    <form action="join" method="POST" style="height:60%;">
+    <div class="graypanel" style="width: 98%;margin:auto;height:100%;background-color:#2e2e2e;padding-top:10%; text-align:center;">
+        <h3>INGRESA AL GRUPO PARA TENER ACCESO A LOS FOROS</h3> 
+            <div class="form-group">
+                <br>
+               <button name="index" class="btn btn-success" style="width: 30%; margin-top:20px;" value="{{grupo_id}}">INGRESAR AL GRUPO</button>
+            </div>
+    </div>
+    </form>
+</div>

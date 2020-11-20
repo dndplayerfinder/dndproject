@@ -12,7 +12,7 @@
             
         </th>
         <td>
-            <button style="float: right;margin-right:2% height:100%">Entrar</button>
+            <form action="/grupo/ver/" method="GET"><button name="id" class="table_button" value="{{grupo_id}}">Ver/Entrar</button></form>
         </td>
     </tr>
     <tr>
@@ -28,7 +28,7 @@
             {{/if}}
         </td>
         <td>
-            &nbsp<img src="/img/icons/dias_icono.png" alt="" class="icon">&nbsp{{dias}}
+            &nbsp<img src="/img/icons/dias_icono.png" alt="" class="icon">&nbsp{{dias}}/7
         </td>
         <td>
              &nbsp<img src="/img/icons/reloj_icono.png" alt="" class="icon">&nbsp{{hora_inicio}}&nbsp{{hora_final}}
@@ -60,6 +60,7 @@
             </td>
         </tr>
     </tr>
+    
     {{/each}}
 </table>
 </div>

@@ -127,6 +127,23 @@ table {
   outline: none;
   border: none;
 }
+
+.table_button{
+  background-color: #454444;
+  color: white;
+  outline: none;
+  margin: auto;
+  width: 60%;
+  float: right;
+}
+.table_button:hover{
+  background-color: #212121;
+}
+.table_button:focus{
+  background-color: #212121;
+  outline: none;
+  border: none;
+}
 .navButton:hover{
   background-color: #212121;
 }
@@ -211,7 +228,11 @@ footer{
   float: left;
   width: 50%;
 }
-
+.newrow{
+  content:"";
+  display: table;
+  clear: both;
+}
 .row::after{
   content:"";
   display: table;
@@ -234,6 +255,19 @@ footer{
 .anav{
   color: white;
   text-decoration: none;
+}
+textarea{
+  overflow: auto;
+}
+.agroup{
+  text-decoration: none;
+  display: block;
+  color: white;
+}
+.agroup:hover{
+  text-decoration: none;
+  background-color:#1b2029;
+  color: white;
 }
 .anav:hover{
   color: red;

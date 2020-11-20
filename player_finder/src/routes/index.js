@@ -4,7 +4,7 @@ const router = express.Router();
 const { session } = require('passport');
 
 router.get('/',(req,res)=>{
-    res.render("index");
+    res.redirect("/grupo");
 });
 
 module.exports = router;

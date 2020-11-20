@@ -1,7 +1,37 @@
+const { response } = require('express');
+const e = require('express');
 const express = require('express');
 const router = express.Router();
 const pool = require('../database');
 const app = express();
+
+router.get('/ver', async(req,res)=>{
+    const sess = req.session;
+    
+    if(!sess.user_id){
+        res.redirect('/registro');
+    }
+
+    var id_button =req.query.id
+    console.log(id_button)
+    try {
+        let manuals;
+        const consulta = await pool.query("select * from group_info where grupo_id=?",[id_button]);
+        try {
+            console.log("Obteniendo manuales");
+            const consulta2 = await pool.query("select * from g_manual where grupo_id=?",[id_button]);
+        } catch (error) {
+            grupo.manuals = 0;
+        }
+        
+        const grupo = consulta[0];
+        console.log(grupo);
+        console.log(grupo.manuals);
+        res.render("grupos/ver",grupo);
+    } catch (error) {
+        
+    }
+});
 
 router.get('/', async(req,res)=>{
     const sess = req.session;
@@ -77,11 +107,7 @@ router.post('/addgroup',async(req,res)=>{
         index++;
     });
     console.log(index);
-    /*for(i=0;i<index;i++){
-        console.log(manuales[i]);
-    }*/
     var id = req.session.user_id;
-    //var sentencia=("call IUD_grupo(0,%s,'%s',%s,'%s,'%s',%s,%s,%s,'%s','%s','INSERT')",req.session.user_id,new_group.g_name,new_group.g_limite_miembros,hora_inicio,hora_final,new_group.zona,new_group.dias,new_group.mod,new_group.desc,new_group.rules);
     try {
         const logged = await pool.query("call IUD_grupo(0,?,?,?,?,?,?,?,?,?,?,'INSERT')",[id,new_group.g_name,new_group.g_limite_miembros,hora_inicio,hora_final,new_group.zona,new_group.dias,new_group.mod,new_group.desc,new_group.rules]);
         const group = await pool.query("select *from grupo order by grupo_id desc limit 1");
@@ -105,5 +131,17 @@ router.post('/addgroup',async(req,res)=>{
     
 });
 
-
+router.post('/ver/join',async(req,res)=>{
+    var sess = req.session;
+    const {index} = req.body;
+    const id = sess.user_id;
+    console.log(id);
+    try {
+        const accion = pool.query("call Join_Group(?,?)",[index,id]);
+        res.redirect("/grupo");e
+    } catch (error) {
+        console.log("Error al unirse");
+    }
+    
+});
 module.exports = router;
