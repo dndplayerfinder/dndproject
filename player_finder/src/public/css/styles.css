@@ -85,9 +85,9 @@ table {
   margin-left: 2%;
 }
 .friends_panel{
-  width: 40%;
+  width: 80%;
   background-color: #20465c;
-  height: 45%;
+  height: 80%;
   margin-left: 5%;
 }
 .friends_table{
@@ -102,6 +102,30 @@ table {
     cursor: pointer;
     transition: 0.3s;
     font-size: 20px;
+}
+
+.groupButton{
+  background-color: #454444;
+  color: white;
+  outline: none;
+  text-align: left;
+  margin: auto;
+  width: 90%;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 24px;
+  /*border-color: rgba(255, 255, 255, .5);
+  border-width: 5px;*/
+  margin-top: 6px;
+  margin-bottom: 5px;
+}
+.groupButton:hover{
+  background-color: #212121;
+}
+.groupButton:focus{
+  background-color: #212121;
+  outline: none;
+  border: none;
 }
 .navButton:hover{
   background-color: #212121;
@@ -242,10 +266,10 @@ input:checked ~ label {
 }
 
 .friends_title{
-  width: 40%;
+  width: 80%;
   color: white;
   background-color: #20465c;
-  height: 8%;
+  height: 40px;
   text-align: center;
   padding-top:8px;
   margin-left: 5%;

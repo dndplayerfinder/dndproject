@@ -13,10 +13,8 @@ router.get('/modificar_perfil',async (req,res)=>{
     }
     try {
         const friends = await pool.query("select * from friends_score where usuario1=?",[sess.user_id]);
-        friends.forEach(element => {
-            console.log(element);
-        });
-        res.render("usuarios/modificar_perfil",{sess,friends});
+        const groups = await pool.query("select * from miembros where usuario_id=?",[sess.user_id]);
+        res.render("usuarios/modificar_perfil",{sess,friends,groups});
     } catch (error) {
         
     }

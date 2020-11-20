@@ -22,21 +22,34 @@
          </div>
     </div>
     </br>
-    <h4 class="friends_title">MIS AMIGOS</h4>
-    <div class="friends_panel" style="overflow: auto;">
-        <table class="friends_table" id="friends_table">
-            
-            {{#each friends}}
-            <tr class="table_row">
-                <h3><th>&nbsp{{login}}</th>
-                <th>   {{#loop 1 promedio 1}}
-                        <div>{{this}}</div>
-                        {{/loop}}
-                </th>
-                </h3>
-            </tr>
-            {{/each}}
-        </table>
+    <div class="row" style="height: 200px;">
+        <div class="column" style=" width:50%;height:350px">
+        <h4 class="friends_title">MIS AMIGOS</h4>
+            <div class="friends_panel" style="overflow: auto;">
+                <table class="friends_table" id="friends_table">
+                    
+                    {{#each friends}}
+                    <tr class="table_row">
+                        <h3><th>&nbsp{{login}}</th>
+                        <th>   {{#loop 1 promedio 1}}
+                                <div>{{this}}</div>
+                                {{/loop}}
+                        </th>
+                        </h3>
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+        <div class="column" style="width:50%;height:350px">
+        <h4 class="friends_title" style="background-color:#2e2e2e;">MIS GRUPOS</h4>
+            <div class="friends_panel" style="color:white;overflow: auto;background-color:#2e2e2e; ">
+               {{#each groups}}
+                <button class="groupButton" value="{{grupo_id}}">&nbsp;{{Nombre}}</button>
+                </br>
+               {{/each}}
+            </div>
+        </div>
     </div>
 </div>
 <div class="cPanel">
