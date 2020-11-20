@@ -10,22 +10,16 @@ router.get('/', async(req,res)=>{
     }
     try {
         const grupos = await pool.query("SELECT * FROM dnd.group_info ");
-        //console.log(grupos);
         let tam = await pool.query("select * from group_lenght");        
         try {
-            //console.log(manuales);
-            console.log(sess.user_id);
             for(i=0;i<tam[0].lenght;i++){
                 var id = grupos[i].grupo_id;
                 try {
                     grupos[i].manuales =  await pool.query("select * from g_manual where grupo_id=?",[id]);
                     
-                    console.log("Usuario: "+sess.user_id+" Grupo: "+id);
                     try {
                         var amigos = await pool.query("call get_friends(?,?)",[sess.user_id,id]);
                         grupos[i].amigos= amigos[0][0].num;
-                        console.log("Amigos");
-                        console.log(amigos[0]);
                         console.log(amigos[0][0].num);
                     } catch (error) {
                         grupos[i].amigos = 0;
@@ -33,14 +27,8 @@ router.get('/', async(req,res)=>{
                     
                 } catch (error) {
                     grupos[i].manuales = 0;
-                    //console.log("Error al buscar");
-                    //console.log(grupos[i].manuales);
                 }
-               
-                
             }
-            //console.log(grupos[18].manuales);
-            console.log(grupos);
             res.render('grupos/grupo',{grupos,sess});
         } catch (error) {
             

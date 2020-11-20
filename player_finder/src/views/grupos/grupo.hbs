@@ -1,7 +1,8 @@
 <table style="color:white;background-color:#212121;width:80%;margin:auto">
+    {{#each grupos}}
     <tr>
         <th>
-        <h5>{{grupos.[0].Nombre}}</h5>
+        <h5>{{Nombre}}</h5>
         <hr style="margin-left:0;">
         </th>
         <th>
@@ -15,21 +16,21 @@
     </tr>
     <tr>
         <th>
-            &nbsp<img src="/img/icons/corona_icono.png" alt="" class="icon">&nbsp{{grupos.[0].owner}}
+            &nbsp<img src="/img/icons/corona_icono.png" alt="" class="icon">&nbsp{{owner}}
         </th>
         <th>
             &nbsp<img src="/img/icons/estado_icono.png" alt="" class="icon">&nbsp
-            {{#if grupos.[0].activo}}
+            {{#if activo}}
                 Abierto
                 {{else}}
                 Cerrado
             {{/if}}
         </th>
         <th>
-            &nbsp<img src="/img/icons/dias_icono.png" alt="" class="icon">&nbsp{{grupos.[0].dias}}
+            &nbsp<img src="/img/icons/dias_icono.png" alt="" class="icon">&nbsp{{dias}}
         </th>
         <th>
-             &nbsp<img src="/img/icons/reloj_icono.png" alt="" class="icon">&nbsp{{grupos.[0].hora_inicio}}&nbsp{{grupos.[0].hora_inicio}}
+             &nbsp<img src="/img/icons/reloj_icono.png" alt="" class="icon">&nbsp{{hora_inicio}}&nbsp{{hora_final}}
         </th>
         <tr>
         <tr>
@@ -40,21 +41,33 @@
                 </select>
             </th>
             <th>
-                &nbsp<img src="/img/icons/jugadores_icono.png" alt="" class="icon">&nbsp{{grupos.[0].miembros_actuales}}
+                &nbsp<img src="/img/icons/jugadores_icono.png" alt="" class="icon">&nbsp{{miembros_actuales}}
             </th>
             <th>
-                &nbsp<img src="/img/icons/perfil_icono.png" alt="" class="icon">&nbsp{{grupos.[0].amigos}}
+                &nbsp<img src="/img/icons/perfil_icono.png" alt="" class="icon">&nbsp{{amigos}}
             </th>
             <th>
-                &nbsp<img src="/img/icons/zona_horaria.png" alt="" class="icon">&nbsp{{grupos.[0].zona_horaria}}
+                &nbsp<img src="/img/icons/zona_horaria.png" alt="" class="icon">&nbsp{{zona_horaria}}
             </th>
         </tr>
         <tr>
             <th>
-            &nbsp<img src="/img/icons/juego_icono.png" alt="" class="icon">&nbsp{{grupos.[0].modulo}}
+            &nbsp<img src="/img/icons/juego_icono.png" alt="" class="icon">&nbsp{{modulo}}
             </th>
         </tr>
-
-        
     </tr>
+    {{/each}}
 </table>
+
+</br>
+</br>
+</br>
+
+<script>
+    $(document).ready(function () {
+  $('#dtBasicExample').DataTable({
+    "paging": false // false to disable pagination (or any other option)
+  });
+  $('.dataTables_length').addClass('bs-select');
+});
+</script>

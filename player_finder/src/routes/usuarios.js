@@ -63,27 +63,32 @@ router.post('/Blacklist',async(req,res)=>{
 });
 
 router.post('/update_user', async(req,res)=>{
-    const {new_mail,new_login,new_pwd,new_img} = req.body;
-
-    const user ={
+    const {new_mail,new_login,new_pwd} = req.body;
+    const sess = req.session;
+    var user ={
         new_login,
         new_pwd,
-        new_img,
         new_mail
     };
     if(user.new_login==''){
-        user.new_login = session.login;
+        user.new_login = sess.login;
     }
     if(user.new_pwd==''){
-        user.new_pwd = session.login;
+        user.new_pwd = sess.pwd;
     }
     if(user.new_mail==''){
-        user.new_mail= session.mail;
+        user.new_mail= sess.mail;
     }
     console.log(user);
-    console.log(session);
+    console.log(sess.user_id);
+    let id = sess.user_id;
     try {
-        
+        const change = await pool.query("call IUD_Usuario(?,?,?,?,0,'UPDATE')",[id,user.new_login,user.new_pwd,user.new_mail]);
+        console.log("Valores cambiados");
+        req.session.user_login = user.new_login;
+        req.session.mail = user.new_pwd;
+        req.session.pwd =  user.new_mail;
+        res.redirect("/usuarios/modificar_perfil");
     } catch (error) {
         
     }

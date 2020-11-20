@@ -14,6 +14,11 @@ const upload = require("../middleware/upload");
 router.get('/registro',(req,res)=>{
     res.render('cuenta/registro',{layout:'login_layout'});
 });
+
+router.get('/logout',(req,res)=>{
+    req.session.user_id = null;
+    res.render('cuenta/registro',{layout:'login_layout'});
+});
 router.post('/registro',async(req,res)=>{
     
     const {correo,usuario,password,password_confirm,img} = req.body;
