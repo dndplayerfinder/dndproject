@@ -12,10 +12,10 @@
                 </select>
 
         </div>
-        <div class="column"style="width: 20%;">
+        <div class="column"style="width: 30%;">
              &nbsp<img src="/img/icons/juego_icono.png" alt="" class="icon">&nbsp{{modulo}}
         </div>
-        <div class="column"style="width: 20%;">
+        <div class="column"style="width: 10%;">
              &nbsp<img src="/img/icons/dias_icono.png" alt="" class="icon">&nbsp{{dias}}/7
         </div>
         <div class="column"style="width: 20%;">
@@ -31,7 +31,11 @@
               &nbsp<img src="/img/icons/nombre_icono.png" alt="" class="icon">
         </div>
         <div class="column"style="width: 45%;text-align:left;">
+            {{#if decr}}
               &nbsp{{descr}}
+            {{else}}
+                Este grupo no tiene descripción
+            {{/if}}
         </div>
         <div class="column"style="width: 5%;">
               &nbsp<img src="/img/icons/libro_icono.png" alt="" class="icon">

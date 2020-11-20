@@ -15,18 +15,15 @@ router.get('/ver', async(req,res)=>{
     var id_button =req.query.id
     console.log(id_button)
     try {
-        let manuals;
         const consulta = await pool.query("select * from group_info where grupo_id=?",[id_button]);
-        try {
-            console.log("Obteniendo manuales");
-            const consulta2 = await pool.query("select * from g_manual where grupo_id=?",[id_button]);
-        } catch (error) {
-            grupo.manuals = 0;
-        }
+        console.log("Obteniendo manuales"+id_button);
+        let m = await pool.query("select * from g_manual where grupo_id=?",[id_button]);
         
+    
+        //console.log(cosnulta2);
         const grupo = consulta[0];
+        grupo.manuals=m;
         console.log(grupo);
-        console.log(grupo.manuals);
         res.render("grupos/ver",grupo);
     } catch (error) {
         
