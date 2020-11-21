@@ -44,9 +44,10 @@
         <div class="column" style="width:50%;height:350px">
         <h4 class="friends_title" style="background-color:#2e2e2e;">MIS GRUPOS</h4>
             <div class="friends_panel" style="color:white;overflow: auto;background-color:#2e2e2e; ">
-               {{#each groups}}
-                <button class="groupButton" value="{{grupo_id}}">&nbsp;{{Nombre}}</button>
-                </br>
+               {{#each groups}} 
+                <form action="/grupo/ver/" method="GET">
+                    <button name="id" class="groupButton" value="{{grupo_id}}">&nbsp;{{Nombre}}</button>
+                </form>
                {{/each}}
             </div>
         </div>
