@@ -38,7 +38,7 @@ CREATE TABLE `amigo` (
 
 LOCK TABLES `amigo` WRITE;
 /*!40000 ALTER TABLE `amigo` DISABLE KEYS */;
-INSERT INTO `amigo` VALUES (1,2),(1,3),(2,1),(3,1);
+INSERT INTO `amigo` VALUES (1,2),(1,3),(1,5),(2,1),(2,3),(3,1),(3,2),(5,1);
 /*!40000 ALTER TABLE `amigo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,7 +104,7 @@ CREATE TABLE `foro` (
   `nombre` varchar(45) NOT NULL,
   `fecha_creacion` date DEFAULT current_timestamp(),
   PRIMARY KEY (`foro_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,27 +113,75 @@ CREATE TABLE `foro` (
 
 LOCK TABLES `foro` WRITE;
 /*!40000 ALTER TABLE `foro` DISABLE KEYS */;
+INSERT INTO `foro` VALUES (1,'Dudas','2020-11-20'),(2,'Dudas','2020-11-20'),(3,'Dudas','2020-11-20'),(4,'Dudas','2020-11-20'),(5,'Lore','2020-11-20'),(6,'Lore','2020-11-20'),(7,'Dudas','2020-11-20'),(8,'Dudas','2020-11-20'),(9,'Dudas','2020-11-20'),(10,'Pjs','2020-11-20'),(11,'Dudas','2020-11-20');
 /*!40000 ALTER TABLE `foro` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Temporary view structure for view `grouo_info`
+-- Temporary view structure for view `friends_score`
 --
 
-DROP TABLE IF EXISTS `grouo_info`;
-/*!50001 DROP VIEW IF EXISTS `grouo_info`*/;
+DROP TABLE IF EXISTS `friends_score`;
+/*!50001 DROP VIEW IF EXISTS `friends_score`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `grouo_info` AS SELECT 
+/*!50001 CREATE VIEW `friends_score` AS SELECT 
+ 1 AS `usuario1`,
+ 1 AS `usuario2`,
+ 1 AS `login`,
+ 1 AS `promedio`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `g_manual`
+--
+
+DROP TABLE IF EXISTS `g_manual`;
+/*!50001 DROP VIEW IF EXISTS `g_manual`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `g_manual` AS SELECT 
+ 1 AS `grupo_id`,
+ 1 AS `manual_id`,
+ 1 AS `manual`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `group_info`
+--
+
+DROP TABLE IF EXISTS `group_info`;
+/*!50001 DROP VIEW IF EXISTS `group_info`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `group_info` AS SELECT 
  1 AS `grupo_id`,
  1 AS `Nombre`,
- 1 AS `Dueño`,
+ 1 AS `dm_id`,
+ 1 AS `owner`,
  1 AS `miembros_actuales`,
  1 AS `limite_miembros`,
  1 AS `hora_inicio`,
  1 AS `hora_final`,
  1 AS `zona_horaria`,
- 1 AS `modulo`*/;
+ 1 AS `descr`,
+ 1 AS `rules`,
+ 1 AS `dias`,
+ 1 AS `modulo_id`,
+ 1 AS `modulo`,
+ 1 AS `activo`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `group_lenght`
+--
+
+DROP TABLE IF EXISTS `group_lenght`;
+/*!50001 DROP VIEW IF EXISTS `group_lenght`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `group_lenght` AS SELECT 
+ 1 AS `lenght`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -155,6 +203,9 @@ CREATE TABLE `grupo` (
   `dias_por_semana` int(11) NOT NULL,
   `fecha_creacion` date DEFAULT current_timestamp(),
   `modulo` int(10) unsigned NOT NULL,
+  `descr` varchar(150) DEFAULT NULL,
+  `rules` varchar(300) DEFAULT NULL,
+  `activo` int(11) DEFAULT 1,
   PRIMARY KEY (`grupo_id`,`dm`,`zona_horaria`,`modulo`),
   UNIQUE KEY `grupo_id_UNIQUE` (`grupo_id`),
   KEY `dm_idx` (`dm`),
@@ -163,7 +214,7 @@ CREATE TABLE `grupo` (
   CONSTRAINT `dm` FOREIGN KEY (`dm`) REFERENCES `usuario` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `modulo` FOREIGN KEY (`modulo`) REFERENCES `modulo` (`modulo_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `zona_horaria` FOREIGN KEY (`zona_horaria`) REFERENCES `zona_horaria` (`zona_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +223,7 @@ CREATE TABLE `grupo` (
 
 LOCK TABLES `grupo` WRITE;
 /*!40000 ALTER TABLE `grupo` DISABLE KEYS */;
-INSERT INTO `grupo` VALUES (1,1,'Castle Ravenloft',0,6,'16:30:00','21:00:00',1,1,'2020-11-15',3);
+INSERT INTO `grupo` VALUES (1,1,'Castle Ravenloft',1,6,'16:30:00','21:00:00',1,1,'2020-11-15',3,NULL,NULL,1),(4,1,'Nombre',3,5,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(5,2,'Nombre',0,5,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(6,1,'Dennis',0,5,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(7,1,'Los clonosaurios',0,5,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(8,1,'El hombre lobo esta en paris',0,3,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(9,1,'Satania',0,6,'08:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(10,1,'Tyranny',0,8,'08:00:00','12:00:00',1,1,'2020-11-18',15,'','',1),(11,1,'HADAS Y DRAGONES',0,10,'12:00:00','20:00:00',1,1,'2020-11-18',1,'MUCHOS DRAGONES','EL MAR ES PROFUNDO PERO TIENE MUCHOS...\r\nDRAGONES',1),(12,1,'Devils Never Cry',0,6,'13:00:00','16:00:00',1,1,'2020-11-18',3,'Aventura en el infierno','Se maneja encumbrance',1),(13,1,'Baka mitai',1,6,'12:00:00','16:00:00',1,1,'2020-11-18',4,'Dame da ne','',1),(14,1,'Gods of War',0,8,'08:00:00','12:00:00',1,1,'2020-11-18',14,'','',1),(15,1,'Like a Dragon',0,6,'12:00:00','17:00:00',1,1,'2020-11-18',3,'','',1),(16,1,'Abserd',1,3,'09:00:00','13:00:00',1,1,'2020-11-18',3,'Multiclases','',1),(17,1,'Temple',0,8,'11:00:00','15:00:00',1,1,'2020-11-18',1,'','',1),(18,1,'Ryo ga gotuko',0,7,'18:00:00','22:00:00',1,1,'2020-11-18',2,'','',1),(19,1,'Castellanos',0,7,'08:00:00','17:00:00',1,1,'2020-11-18',1,'','',1),(20,1,'Castellanos',1,9,'13:00:00','21:00:00',1,1,'2020-11-19',10,'Mucho texto','',1),(21,1,'Killer queen',1,4,'08:00:00','13:00:00',1,1,'2020-11-19',1,'','',1),(22,1,'Descemt into Avernus',1,5,'16:00:00','21:15:00',1,1,'2020-11-19',2,'Mucho texto','',1),(23,5,'Espadas y dragones',1,6,'09:00:00','13:00:00',1,1,'2020-11-19',7,'','',1),(24,6,'24hr C',1,6,'15:00:00','20:00:00',2,2,'2020-11-20',11,'Si, como la canción...','Todas las tiradas del DM se hacen en privado',1),(25,1,'Dojima no Ryu',1,4,'13:00:00','18:00:00',2,2,'2020-11-20',10,'','',1);
 /*!40000 ALTER TABLE `grupo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,6 +254,33 @@ LOCK TABLES `grupo_dias` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `grupo_foro`
+--
+
+DROP TABLE IF EXISTS `grupo_foro`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `grupo_foro` (
+  `grupo_id` int(10) unsigned NOT NULL,
+  `foro_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`grupo_id`,`foro_id`),
+  KEY `fk_foro_grupo_idx` (`foro_id`),
+  CONSTRAINT `fk_foro_grupo` FOREIGN KEY (`foro_id`) REFERENCES `foro` (`foro_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_grupo_foro` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`grupo_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `grupo_foro`
+--
+
+LOCK TABLES `grupo_foro` WRITE;
+/*!40000 ALTER TABLE `grupo_foro` DISABLE KEYS */;
+INSERT INTO `grupo_foro` VALUES (1,2),(1,10),(5,4),(5,5),(5,6),(8,6),(9,7),(9,8),(10,9),(25,11);
+/*!40000 ALTER TABLE `grupo_foro` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `grupo_manual`
 --
 
@@ -225,6 +303,7 @@ CREATE TABLE `grupo_manual` (
 
 LOCK TABLES `grupo_manual` WRITE;
 /*!40000 ALTER TABLE `grupo_manual` DISABLE KEYS */;
+INSERT INTO `grupo_manual` VALUES (19,5),(19,6),(19,7),(20,2),(20,7),(20,8),(20,9),(21,3),(21,5),(21,6),(22,1),(22,7),(22,8),(22,9),(23,6),(23,7),(23,8),(23,9);
 /*!40000 ALTER TABLE `grupo_manual` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,9 +318,9 @@ CREATE TABLE `grupo_usuario` (
   `grupo_id` int(10) unsigned NOT NULL,
   `usuario_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`grupo_id`,`usuario_id`),
-  KEY `usuario_grupo_id_idx` (`usuario_id`),
-  CONSTRAINT `grupo_usuario_id` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`grupo_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `usuario_grupo_id` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_usuario_grupo_idx` (`usuario_id`),
+  CONSTRAINT `fk_grupo_usuario` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`grupo_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_usuario_grupo` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -251,6 +330,7 @@ CREATE TABLE `grupo_usuario` (
 
 LOCK TABLES `grupo_usuario` WRITE;
 /*!40000 ALTER TABLE `grupo_usuario` DISABLE KEYS */;
+INSERT INTO `grupo_usuario` VALUES (1,1),(1,2),(1,3),(1,5),(4,1),(4,2),(4,5),(13,1),(16,1),(20,1),(21,1),(22,1),(23,5),(24,6),(25,1);
 /*!40000 ALTER TABLE `grupo_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -310,6 +390,20 @@ LOCK TABLES `mensaje` WRITE;
 UNLOCK TABLES;
 
 --
+-- Temporary view structure for view `miembros`
+--
+
+DROP TABLE IF EXISTS `miembros`;
+/*!50001 DROP VIEW IF EXISTS `miembros`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `miembros` AS SELECT 
+ 1 AS `grupo_id`,
+ 1 AS `usuario_id`,
+ 1 AS `Nombre`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `modulo`
 --
 
@@ -367,7 +461,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('fpKF3AUzUOap9-vANXLznolT4HnFPLZp',1605547572,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{},\"usuario\":\"Ravengard\"}');
+INSERT INTO `sessions` VALUES ('-TXLra4xSqL6_n8NPTxXuCYITLGBdSoY',1606019307,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{},\"login\":\"strahd\",\"img\":{\"type\":\"Buffer\",\"data\":[48]},\"user_id\":1,\"mail\":\"correo@gmail.com\",\"pwd\":\"1234\",\"rating\":5}');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -412,11 +506,12 @@ CREATE TABLE `usuario` (
   `password` varchar(45) NOT NULL,
   `mail` varchar(45) NOT NULL,
   `img` blob DEFAULT NULL,
+  `promedio` float DEFAULT 0,
   PRIMARY KEY (`usuario_id`),
   UNIQUE KEY `usuario_id_UNIQUE` (`usuario_id`),
   UNIQUE KEY `mail_UNIQUE` (`mail`),
   UNIQUE KEY `login_UNIQUE` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -425,7 +520,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'strahd','1234','correo@gmail.com','0'),(2,'Litle_One','Albatross97','bgdia_npc@gmail.com',NULL),(3,'Ravengard','qweQWE123','ulder.ravengard@gmail.com','0');
+INSERT INTO `usuario` VALUES (1,'strahd','1234','correo@gmail.com','0',5),(2,'Litle_One','Albatross97','bgdia_npc@gmail.com',NULL,2),(3,'Ravengard','qweQWE123','ulder.ravengard@gmail.com','0',4),(5,'Lulu','qweQWE123','newmail@gmail.com','0',0),(6,'Natueny','qweQWE123','nat20@gmail.com','0',0),(7,'Chef_Ramsey','qweQWE123','g_Ramsay@gmail.com','0',0);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -453,7 +548,7 @@ CREATE TABLE `usuario_puntuacion` (
 
 LOCK TABLES `usuario_puntuacion` WRITE;
 /*!40000 ALTER TABLE `usuario_puntuacion` DISABLE KEYS */;
-INSERT INTO `usuario_puntuacion` VALUES (1,2,2),(2,1,5);
+INSERT INTO `usuario_puntuacion` VALUES (1,2,2),(1,3,4),(2,1,5);
 /*!40000 ALTER TABLE `usuario_puntuacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -468,7 +563,7 @@ CREATE TABLE `zona_horaria` (
   `zona_id` int(11) NOT NULL AUTO_INCREMENT,
   `region` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`zona_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -477,7 +572,7 @@ CREATE TABLE `zona_horaria` (
 
 LOCK TABLES `zona_horaria` WRITE;
 /*!40000 ALTER TABLE `zona_horaria` DISABLE KEYS */;
-INSERT INTO `zona_horaria` VALUES (1,'UTC-11 	Pacific/Midway');
+INSERT INTO `zona_horaria` VALUES (1,' UTC-7 '),(2,' UTC-8'),(3,'UTC-6'),(4,' UTC-5');
 /*!40000 ALTER TABLE `zona_horaria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -488,6 +583,30 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'dnd'
 --
+/*!50003 DROP FUNCTION IF EXISTS `friends_in_group` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `friends_in_group`(user int,grupo int) RETURNS int(11)
+BEGIN
+	DECLARE cant int;
+    
+    select count(usuario_id) INTO cant from grupo_usuario gu inner join amigo a on user = a.usuario1 
+    inner join grupo g on grupo = g.grupo_id where a.usuario2 = gu.usuario_id and gu.grupo_id = user;
+    
+RETURN cant;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `Add_Friend` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -557,6 +676,30 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `get_friends` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_friends`(
+IN user int,
+IN grupo int
+)
+BEGIN
+	 select count(usuario_id) as num  from grupo_usuario gu 
+	 inner join amigo a on user = a.usuario1 
+	 where gu.usuario_id = a.usuario2 and grupo_id=grupo group by grupo_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `IUD_foro` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -570,11 +713,13 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `IUD_foro`(
 IN ID int,
 IN nombre varchar(45),
+IN grupo int,
 IN instruccion varchar(45)
 )
 BEGIN
 	IF(STRCMP(instruccion,"INSERT")=0) then
 		insert into foro(nombre) values(nombre);
+		insert into grupo_foro(grupo_id,foro_id) values(grupo,(select foro_id from foro order by foro_id desc limit 1));
 		elseif(STRCMP(instruccion,"UPDATE")=0) then
 			update foro set
             nombre = nombre
@@ -608,12 +753,14 @@ IN hora_final time,
 IN zona_horaria int,
 IN dias_semana int,
 IN modulo int,
+IN descr varchar(150),
+IN rules varchar(350),
 IN instruccion varchar(10)
 )
 BEGIN
 	IF(STRCMP(instruccion,"INSERT")=0) then
-    insert into grupo(dm,Nombre,limite_miembros,hora_inicio,hora_final,zona_horaria,dias_por_semana,modulo)
-    values(DM,nombre,limite_miembros,hora_inicio,hora_final,dias_semana,zona_horaria,modulo);
+    insert into grupo(dm,Nombre,limite_miembros,hora_inicio,hora_final,zona_horaria,dias_por_semana,modulo,descr,rules)
+    values(DM,nombre,limite_miembros,hora_inicio,hora_final,dias_semana,zona_horaria,modulo,descr,rules);
 	elseif(STRCMP(instruccion,"UPDATE")=0) then
 		update grupo set
         Nombre = nombre,
@@ -622,7 +769,9 @@ BEGIN
         hora_final = hora_final,
         dias_por_semana = dias_semana,
         zona_horaria = zona_horaria,
-        modulo = modulo
+        modulo = modulo,
+        descr = descr,
+        rules = rules
         where grupo_id = ID;
         else
 			IF(STRCMP(instruccion,"DELETE")=0)then
@@ -690,6 +839,8 @@ BEGIN
 	insert into grupo_usuario(grupo_id,usuario_id)
     select * from(select ID,user) as temp
     where not exists(SELECT * from grupo_usuario where grupo_id = temp.ID and usuario_id=temp.user);
+    
+    update grupo set miembros_actuales=miembros_actuales+1 where grupo_id=ID;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -711,9 +862,11 @@ IN user1 int,
 IN user2 int,
 IN rating int)
 BEGIN
-	insert into usuario_puntuacion(usuario_puntuador,usuario_punteado,puntaje)
+	insert into usuario_puntuacion(usuario_punteador,usuario_punteado,puntaje)
     select * from(select user1,user2,rating) as temp
-    where not exists(SELECT * from usuario_puntuacion where usuario_puntuador=temp.user1 and usuario_puntuado=temp.user2);
+    where not exists(SELECT * from usuario_puntuacion where usuario_punteador=temp.user1 and usuario_punteado=temp.user2);
+    
+    update usuario set promedio= (select promedio from user_info where usuario_id=user2  limit 1) where usuario_id = user2;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -722,10 +875,10 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
--- Final view structure for view `grouo_info`
+-- Final view structure for view `friends_score`
 --
 
-/*!50001 DROP VIEW IF EXISTS `grouo_info`*/;
+/*!50001 DROP VIEW IF EXISTS `friends_score`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -734,7 +887,79 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `grouo_info` AS select `g`.`grupo_id` AS `grupo_id`,`g`.`Nombre` AS `Nombre`,`u`.`login` AS `Dueño`,`g`.`miembros_actuales` AS `miembros_actuales`,`g`.`limite_miembros` AS `limite_miembros`,`g`.`hora_inicio` AS `hora_inicio`,`g`.`hora_final` AS `hora_final`,`g`.`zona_horaria` AS `zona_horaria`,`m`.`modulo` AS `modulo` from ((`grupo` `g` join `usuario` `u` on(`g`.`dm` = `u`.`usuario_id`)) join `modulo` `m` on(`g`.`modulo` = `m`.`modulo_id`)) */;
+/*!50001 VIEW `friends_score` AS select `a`.`usuario1` AS `usuario1`,`a`.`usuario2` AS `usuario2`,`u`.`login` AS `login`,`u`.`promedio` AS `promedio` from (`amigo` `a` join `usuario` `u` on(`a`.`usuario2` = `u`.`usuario_id`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `g_manual`
+--
+
+/*!50001 DROP VIEW IF EXISTS `g_manual`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `g_manual` AS select `gm`.`grupo_id` AS `grupo_id`,`gm`.`manual_id` AS `manual_id`,`m`.`manual` AS `manual` from (`grupo_manual` `gm` join `manual` `m` on(`gm`.`manual_id` = `m`.`manual_id`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `group_info`
+--
+
+/*!50001 DROP VIEW IF EXISTS `group_info`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `group_info` AS select `g`.`grupo_id` AS `grupo_id`,`g`.`Nombre` AS `Nombre`,`g`.`dm` AS `dm_id`,`u`.`login` AS `owner`,`g`.`miembros_actuales` AS `miembros_actuales`,`g`.`limite_miembros` AS `limite_miembros`,`g`.`hora_inicio` AS `hora_inicio`,`g`.`hora_final` AS `hora_final`,`z`.`region` AS `zona_horaria`,`g`.`descr` AS `descr`,`g`.`rules` AS `rules`,`g`.`dias_por_semana` AS `dias`,`m`.`modulo_id` AS `modulo_id`,`m`.`modulo` AS `modulo`,`g`.`activo` AS `activo` from (((`grupo` `g` join `usuario` `u` on(`g`.`dm` = `u`.`usuario_id`)) join `modulo` `m` on(`g`.`modulo` = `m`.`modulo_id`)) join `zona_horaria` `z` on(`g`.`zona_horaria` = `z`.`zona_id`)) order by `g`.`Nombre` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `group_lenght`
+--
+
+/*!50001 DROP VIEW IF EXISTS `group_lenght`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `group_lenght` AS select count(`group_info`.`grupo_id`) AS `lenght` from `group_info` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `miembros`
+--
+
+/*!50001 DROP VIEW IF EXISTS `miembros`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `miembros` AS select `gu`.`grupo_id` AS `grupo_id`,`gu`.`usuario_id` AS `usuario_id`,`g`.`Nombre` AS `Nombre` from (`grupo_usuario` `gu` join `grupo` `g` on(`gu`.`grupo_id` = `g`.`grupo_id`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -802,4 +1027,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-15 10:08:57
+-- Dump completed on 2020-11-20 20:31:54

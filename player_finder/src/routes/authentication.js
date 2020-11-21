@@ -44,7 +44,7 @@ router.post('/registro',async(req,res)=>{
         req.session.mail = l_user.mail;
         req.session.pwd = l_user.password;
     
-            res.redirect("/group");
+        res.redirect("/grupo");
     } catch (error) {
         req.flash('success', 'Registro no válido!');
         res.redirect('back');

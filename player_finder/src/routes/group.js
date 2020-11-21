@@ -18,8 +18,14 @@ router.get('/ver', async(req,res)=>{
         const consulta = await pool.query("select * from group_info where grupo_id=?",[id_button]);
         console.log("Obteniendo manuales "+sess.user_id);
         let m = await pool.query("select * from g_manual where grupo_id=?",[id_button]);
+        
         const miembro = await pool.query("select * from grupo_usuario where grupo_id=? and usuario_id=?",[id_button,sess.user_id]);
-        console.log(miembro);
+        try {
+            console.log(miembro[0].grupo_id);
+            
+        } catch (error) {
+            console.log("No es miembro");
+        }
         const grupo = consulta[0];
         grupo.manuals=m;
         grupo.miembro = miembro[0];
@@ -98,11 +104,15 @@ router.post('/addgroup',async(req,res)=>{
     var hora_inicio= new_group.h_inicio+":"+new_group.m_inicio;
     var hora_final= new_group.h_final+":"+new_group.m_final;
     var manuales = req.body.manual;
-    console.log(manuales);
     var index = 0;
-    manuales.forEach(element => {
-        index++;
-    });
+    try {
+        manuales.forEach(element => {
+            index++;
+        });
+    } catch (error) {
+        console.log("Solo un manual");
+    }
+    
     console.log(index);
     var id = req.session.user_id;
     try {
@@ -111,6 +121,7 @@ router.post('/addgroup',async(req,res)=>{
         const g_id = group[0].grupo_id;
         console.log(g_id);
         const joinG = await pool.query("call Join_Group(?,?)",[g_id,id]);
+        const foro = await pool.query("call IUD_foro(0,'Dudas',?,'INSERT')",[g_id]);
         try {
             for(i=0;i<index;i++){
                 var g = await pool.query("insert into grupo_manual(grupo_id,manual_id) values(?,?)",[g_id,manuales[i]]);
