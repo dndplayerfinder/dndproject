@@ -1,7 +1,7 @@
-<div class="background_panel" style="color: white;">
+<div class="background_panel" style="color: white;height: 900px;">
     <h3 style="text-align: center;">{{Nombre}}</h3>
     <hr style="width:100%">
-    <div class="newrow" style="width: 98%;margin:auto;justify-content:space-evenly" >
+    <div class="newrow" style="width: 98%;margin:auto;justify-content:space-evenly">
         <div class="column" style="width: 20%;">
             <img src="/img/icons/manual_icono.png" alt="" class="icon">
                <select name="manuales" id="manuales" style="width: 85%;">
@@ -25,7 +25,9 @@
               &nbsp<img src="/img/icons/zona_horaria.png" alt="" class="icon">&nbsp{{zona_horaria}}
         </div>
     </div>
+    <hr style="width:100%">
     <br>
+    
     <div class="newrow" style="width: 98%;margin:auto;justify-content:space-evenly">
         <div class="column"style="width: 5%;">
               &nbsp<img src="/img/icons/nombre_icono.png" alt="" class="icon">
@@ -49,17 +51,47 @@
         </div>
     </div>
     <br>
-    <br>
+    <hr style="width:100%">
     {{#if miembro}}
-        {{#if dm}}
-            Dueño
-        {{else}}
-            Miembro
-        {{/if}}
-    {{else}}
-    <div class="newrow">
 
-    
+
+    <br>
+    <div style="width: 98%;margin:auto;height:550px;background-color:#2e2e2e;">
+        <div class="newrow" style="width: 100%;margin-left:1%">
+            {{#each foros}}
+            <div class="newrow" style="width: 70%;background-color:#3b3b3b;margin-top:8px">
+                <form action="">
+                <button name="id" class="forum_button">
+                <div class="column" style="width: 10%;margin-top:2px;">
+                        <img src="/img/icons/foro_icono.png" alt="" class="forum_icon">
+                </div>
+                <div class="column" style="width: 40%;margin-top:2px;">
+                        <div class="newrow">
+                            TITULO: {{nombre}}
+                        </div>
+                        <div class="newrow" style="margin-top:18px ;">
+                            <div class="column">
+                            &nbsp<img src="/img/icons/foro_mensajes.png" alt="" class="icon">
+                            </div>
+                            <div class="column">
+                            &nbsp<img src="/img/icons/reloj_icono.png" alt="" class="icon">
+                            </div>
+                        </div>
+                </div>
+                <div class="column" style="width: 10%;margin-top:2px;padding-top:20px">
+                    DESCRIPCIÓN:&nbsp
+                </div>
+                <div class="column" style="width: 35%;margin-top:2px;text-align:left;margin-left:3%">
+                    {{descr}}
+                </div>
+                </button>
+                </form>
+                </div>
+            {{/each}}
+            </div>
+        </div>
+    </div>
+    {{else}}
         <form action="join" method="POST" style="height:60%;">
         <div class="graypanel" style="width: 98%;margin:auto;height:100%;background-color:#2e2e2e;padding-top:10%; text-align:center;">
             <h3>INGRESA AL GRUPO PARA TENER ACCESO A LOS FOROS</h3> 
@@ -69,6 +101,6 @@
                 </div>
         </div>
         </form>
-    </div>
+        
     {{/if}}
 </div>

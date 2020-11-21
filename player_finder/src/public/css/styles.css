@@ -144,6 +144,22 @@ table {
   outline: none;
   border: none;
 }
+.forum_button{
+  background-color: #3b3b3b;
+  color: white;
+  outline: none;
+  margin: auto;
+  width: 100%;
+  float: right;
+}
+.forum_button:hover{
+  background-color:#212121;
+}
+.forum_button:focus{
+  background-color:#212121;
+  outline: none;
+  border: none;
+}
 .navButton:hover{
   background-color: #212121;
 }
@@ -336,6 +352,11 @@ input:checked ~ label:hover ~ label {
   /*background: url("/img/icons/lapiz_icono.png");*/
   height: 25px;
   width: 25px;
+  margin-bottom: 10px;
+}
+.forum_icon{
+  height: 70px;
+  width: 60px;
   margin-bottom: 10px;
 }
 .multiselect {

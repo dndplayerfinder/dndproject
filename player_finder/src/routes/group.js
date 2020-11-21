@@ -25,9 +25,11 @@ router.get('/ver', async(req,res)=>{
             //Si es miembro revisa si es el dueño
             if(miembro[0].dm==sess.user_id){
                 grupo.dm = miembro[0].dm;
-            }else{
-                console.log("No es el dueño")
             }
+            //Se cargan los foros del grupo si es miembro
+            //Si no es miembro produce un error al buscar en un parametro indefinido
+            //por lo que salta hacia abajo y no hace la busqueda
+            grupo.foros = await pool.query("select * from foro_info where grupo_id=?",[id_button]);
         } catch (error) {
             console.log("No es miembro");
         }
@@ -117,6 +119,7 @@ router.post('/addgroup',async(req,res)=>{
         });
     } catch (error) {
          only1 = true;
+         console.log("Solo un manual");
     }
     
     console.log(index);
@@ -127,7 +130,9 @@ router.post('/addgroup',async(req,res)=>{
         const g_id = group[0].grupo_id;
         console.log(g_id);
         const joinG = await pool.query("call Join_Group(?,?)",[g_id,id]);
-        const foro = await pool.query("call IUD_foro(0,'Dudas',?,'INSERT')",[g_id]);
+        console.log("Ingresado al grupo");
+        const foro = await pool.query("call IUD_foro(0,'Dudas',?,'Foro para contestar dudas','INSERT')",[g_id]);
+        console.log("Foro ingresado");
         try {
             if(only1){
                 var g = await pool.query("insert into grupo_manual(grupo_id,manual_id) values(?,?)",[g_id,manuales]);
