@@ -18,15 +18,20 @@ router.get('/ver', async(req,res)=>{
         const consulta = await pool.query("select * from group_info where grupo_id=?",[id_button]);
         console.log("Obteniendo manuales "+sess.user_id);
         let m = await pool.query("select * from g_manual where grupo_id=?",[id_button]);
-        
-        const miembro = await pool.query("select * from grupo_usuario where grupo_id=? and usuario_id=?",[id_button,sess.user_id]);
+        const grupo = consulta[0];
+        const miembro = await pool.query("select * from miembros where grupo_id=? and usuario_id=?",[id_button,sess.user_id]);
+        //Se intenta ver el valor dm dentro de miembro, si falla eso quiere decir que no es miembro del grupo
         try {
-            console.log(miembro[0].grupo_id);
-            
+            //Si es miembro revisa si es el dueño
+            if(miembro[0].dm==sess.user_id){
+                grupo.dm = miembro[0].dm;
+            }else{
+                console.log("No es el dueño")
+            }
         } catch (error) {
             console.log("No es miembro");
         }
-        const grupo = consulta[0];
+        
         grupo.manuals=m;
         grupo.miembro = miembro[0];
         console.log(grupo);
@@ -105,12 +110,13 @@ router.post('/addgroup',async(req,res)=>{
     var hora_final= new_group.h_final+":"+new_group.m_final;
     var manuales = req.body.manual;
     var index = 0;
+    var only1=false;
     try {
         manuales.forEach(element => {
             index++;
         });
     } catch (error) {
-        console.log("Solo un manual");
+         only1 = true;
     }
     
     console.log(index);
@@ -123,8 +129,13 @@ router.post('/addgroup',async(req,res)=>{
         const joinG = await pool.query("call Join_Group(?,?)",[g_id,id]);
         const foro = await pool.query("call IUD_foro(0,'Dudas',?,'INSERT')",[g_id]);
         try {
-            for(i=0;i<index;i++){
-                var g = await pool.query("insert into grupo_manual(grupo_id,manual_id) values(?,?)",[g_id,manuales[i]]);
+            if(only1){
+                var g = await pool.query("insert into grupo_manual(grupo_id,manual_id) values(?,?)",[g_id,manuales]);
+            }
+            else{
+                for(i=0;i<index;i++){
+                    var g = await pool.query("insert into grupo_manual(grupo_id,manual_id) values(?,?)",[g_id,manuales[i]]);
+                }
             }
             res.redirect("/grupo");
         } catch (error) {

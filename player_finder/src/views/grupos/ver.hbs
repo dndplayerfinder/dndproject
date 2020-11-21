@@ -51,8 +51,15 @@
     <br>
     <br>
     {{#if miembro}}
-        Miembro
+        {{#if dm}}
+            Dueño
+        {{else}}
+            Miembro
+        {{/if}}
     {{else}}
+    <div class="newrow">
+
+    
         <form action="join" method="POST" style="height:60%;">
         <div class="graypanel" style="width: 98%;margin:auto;height:100%;background-color:#2e2e2e;padding-top:10%; text-align:center;">
             <h3>INGRESA AL GRUPO PARA TENER ACCESO A LOS FOROS</h3> 
@@ -62,5 +69,6 @@
                 </div>
         </div>
         </form>
+    </div>
     {{/if}}
 </div>
