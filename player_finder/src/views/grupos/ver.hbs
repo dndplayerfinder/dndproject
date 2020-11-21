@@ -57,37 +57,64 @@
 
     <br>
     <div style="width: 98%;margin:auto;height:550px;background-color:#2e2e2e;">
-        <div class="newrow" style="width: 100%;margin-left:1%">
-            {{#each foros}}
-            <div class="newrow" style="width: 70%;background-color:#3b3b3b;margin-top:8px">
-                <form action="">
-                <button name="id" class="forum_button">
-                <div class="column" style="width: 10%;margin-top:2px;">
-                        <img src="/img/icons/foro_icono.png" alt="" class="forum_icon">
-                </div>
-                <div class="column" style="width: 40%;margin-top:2px;">
-                        <div class="newrow">
-                            TITULO: {{nombre}}
-                        </div>
-                        <div class="newrow" style="margin-top:18px ;">
-                            <div class="column">
-                            &nbsp<img src="/img/icons/foro_mensajes.png" alt="" class="icon">
+        <div class="column" style="width: 65%;">
+
+
+            <div class="newrow" style="width: 100%;margin-left:1%">
+                {{#each foros}}
+                <div class="newrow" style="width: 95%;background-color:#3b3b3b;margin-top:8px">
+                    <form action="">
+                    <button name="id" class="forum_button">
+                    <div class="column" style="width: 15%;margin-top:2px;">
+                            <img src="/img/icons/foro_icono.png" alt="" class="forum_icon">
+                    </div>
+                    <div class="column" style="width: 35%;margin-top:2px;">
+                            <div class="newrow">
+                                TITULO: {{nombre}}
                             </div>
-                            <div class="column">
-                            &nbsp<img src="/img/icons/reloj_icono.png" alt="" class="icon">
+                            <div class="newrow" style="margin-top:18px;width:100%">
+                                <div class="column"style>
+                               &nbsp<img src="/img/icons/foro_mensajes.png" alt="" class="icon">
+                                </div>
+                                <div class="column">
+                                &nbsp<img src="/img/icons/reloj_icono.png" alt="" class="icon">
+                                </div>
                             </div>
-                        </div>
+                    </div>
+                    <div class="column" style="width: 10%;margin-top:2px;padding-top:20px">
+                        DESCRIPCIÓN:&nbsp
+                    </div>
+                    <div class="column" style="width: 35%;margin-top:2px;text-align:left;margin-left:3%">
+                        {{descr}}
+                    </div>
+                    </button>
+                    </form>
+                    </div>
+                {{/each}}
                 </div>
-                <div class="column" style="width: 10%;margin-top:2px;padding-top:20px">
-                    DESCRIPCIÓN:&nbsp
+            </div>
+            
+            <div class="column"style="width:30%;margin:auto;margin-top:8px;margin-bottom:8px">
+                <div class="newrow" style="width: 100%;">
+                    <h5 class="friends_title" style="margin:auto;padding-bottom:15px;">INTEGRANTES ({{miembros_actuales}})</h5>
                 </div>
-                <div class="column" style="width: 35%;margin-top:2px;text-align:left;margin-left:3%">
-                    {{descr}}
-                </div>
-                </button>
-                </form>
-                </div>
-            {{/each}}
+                <br>
+                <div class="members_panel">
+                {{#each integrante}}
+                    <form action="" style="width:100%;margin:auto;text-align:center">
+                        <button class="memberButton">
+                            <div class="newrow" style="width: 100%;">
+                                <h5>{{miembro_login}}</h5>
+                            </div>
+                            <div class="newrow" style="width: 100%;">
+                                {{#loop 1 rating 1 }}
+                                    <div>{{this}}</div>
+                                {{/loop}}
+                            </div>
+                        </button>
+                    </form>
+               {{/each}}
+               </div>
             </div>
         </div>
     </div>
@@ -101,6 +128,6 @@
                 </div>
         </div>
         </form>
-        
     {{/if}}
+
 </div>

@@ -365,6 +365,20 @@ input:checked ~ label:hover ~ label {
   overflow: auto;
   margin-left: 15%;
 }
+.members_panel{
+  background-color: #20465c;
+  width: 100%;
+  overflow: auto;
+  height: 400px;
+}
+.memberButton{
+  background-color: #20465c;
+  width: 100%;
+  color:white;
+  text-align: center;
+  border:none;
+  border-bottom: 2px solid white;
+}
 option{
   background-color:#1b2029;
   color:white;

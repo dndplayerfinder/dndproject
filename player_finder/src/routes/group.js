@@ -26,6 +26,10 @@ router.get('/ver', async(req,res)=>{
             if(miembro[0].dm==sess.user_id){
                 grupo.dm = miembro[0].dm;
             }
+            grupo.integrante = await pool.query("select usuario_id,miembro_login,rating from miembros where grupo_id=?",[id_button]);
+            
+            console.log("Imprimiento integrantes")
+            console.log(grupo.integrante);
             //Se cargan los foros del grupo si es miembro
             //Si no es miembro produce un error al buscar en un parametro indefinido
             //por lo que salta hacia abajo y no hace la busqueda
