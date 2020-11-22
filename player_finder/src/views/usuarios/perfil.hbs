@@ -1,3 +1,51 @@
-<div class="user_panel">
-    
+<div class="background_panel" style="height:480px">
+    <br>
+    <div class="profile_panel" style="width: 95%;margin:auto;height:440px">
+        <div class="newrow" style="width:80%;margin:auto;padding-top:100px;">
+            <div class="column" style="text-align: right;width:45%">
+                <h3>USUARIO:&nbsp;</h3>
+                
+            </div>
+            <div class="column" >
+                <div style="background-color:#394963;text-align:left;width:100%">
+                    <h3 style="width:100%;text-align:center">{{usuario.login}}</h3>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="newrow" style="width:80%;margin:auto;">
+            <div class="column" style="text-align: right;width:45%">
+                <h3>PUNTUACIÓN:&nbsp;</h3>
+            </div>
+             <div class="column" style="text-align:center;width:45%">
+                <div class="wrapper">
+                <input type="radio" id="r5" name="rg1" value="1" class="rate">
+                <label for="r5">&nbsp;★</label>
+                <input type="radio" id="r4" name="rg1"value="2"class="rate">
+                <label for="r4">&nbsp;★</label>
+                <input type="radio" id="r3" name="rg1"value="3"class="rate">
+                <label for="r3">&nbsp;★</label>
+                <input type="radio" id="r2" name="rg1"value="4"class="rate">
+                <label for="r2">&nbsp;★</label>
+                <input type="radio" id="r1" name="rg1"value="5"class="rate">
+                <label for="r1">&nbsp;★</label>
+            </div>
+        </div>
+        <div class="newrow" style="padding-top:100px;width:100%;color:white">
+            <div class="column">
+                <form action="">
+                    <button name="button" class="profile_button" value="{{usaurio.usuario_id}}">
+                        <img src="/img/icons/bloquear.png" alt="" class="icon">&nbsp;Bloquear Usuario
+                    </button>
+                </form>
+            </div>
+            <div class="column">
+                <form action="/usuarios/add_friend" method="POST">
+                    <button name="button" id="button" class="profile_button" value="{{usuario.usuario_id}}">
+                        <img src="/img/icons/perfil_icono.png" alt="" class="icon">&nbsp;Agregar Usuario
+                    </button>
+                </form>
+            </div>
+        </div>
 </div>

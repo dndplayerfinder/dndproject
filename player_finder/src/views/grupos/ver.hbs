@@ -101,8 +101,8 @@
                 <br>
                 <div class="members_panel">
                 {{#each integrante}}
-                    <form action="" style="width:100%;margin:auto;text-align:center">
-                        <button class="memberButton">
+                    <form action="../../usuarios/ver_perfil" method="GET" style="width:100%;margin:auto;text-align:center">
+                        <button name="id" class="memberButton" value="{{usuario_id}}">
                             <div class="newrow" style="width: 100%;">
                                 <h5>{{miembro_login}}</h5>
                             </div>

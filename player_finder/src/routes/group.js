@@ -12,8 +12,8 @@ router.get('/ver', async(req,res)=>{
         res.redirect('/registro');
     }
 
-    var id_button =req.query.id
-    console.log(id_button)
+    var id_button =req.query.id;
+    console.log(req.query);
     try {
         const consulta = await pool.query("select * from group_info where grupo_id=?",[id_button]);
         console.log("Obteniendo manuales "+sess.user_id);

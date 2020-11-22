@@ -104,6 +104,17 @@ table {
     font-size: 20px;
 }
 
+.profile_button{
+  width:40%;
+  background-color: #253247;
+  color:white;
+  border:none;
+}
+
+.profile_button:hover{
+  background-color:#2b374a;
+}
+
 .groupButton{
   background-color: #454444;
   color: white;
@@ -378,6 +389,9 @@ input:checked ~ label:hover ~ label {
   text-align: center;
   border:none;
   border-bottom: 2px solid white;
+}
+.memberButton:hover{
+  background-color: #193545;
 }
 option{
   background-color:#1b2029;

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../database');
-const { post } = require('./authentication');
+const { post } = require('./usuarios');
 const { session } = require('passport');
 const app = express();
 
@@ -11,10 +11,32 @@ router.get('/modificar_perfil',async (req,res)=>{
     if(!sess.user_id){
         res.redirect('/registro');
     }
+    
     try {
         const friends = await pool.query("select * from friends_score where usuario1=?",[sess.user_id]);
         const groups = await pool.query("select * from miembros where usuario_id=?",[sess.user_id]);
         res.render("usuarios/modificar_perfil",{sess,friends,groups});
+    } catch (error) {
+        
+    }
+});
+
+router.get('/ver_perfil',async(req,res)=>{
+    var sess = req.session;
+    console.log(sess);
+    if(!sess.user_id){
+        res.redirect('/registro');
+    }
+    var id_button =req.query.id;
+    if(sess.user_id==id_button){
+        res.redirect("../usuarios/modificar_perfil");
+    }
+    
+    try {
+        const action = await pool.query("select * from usuario where usuario_id=?",[id_button]);
+        const usuario = action[0];
+        console.log(usuario);
+        res.render("usuarios/perfil",{usuario});
     } catch (error) {
         
     }
@@ -36,12 +58,14 @@ router.post('/rate_player',async(req,res)=>{
 });
 
 router.post('/add_friend',async(req,res)=>{
-    const {player_id}= req.body
-    const player = player_id;
-
+    const {button} = req.body;
+    const user = button;
+    const sess = req.session;
+    console.log("Solicitado "+user);
+    console.log("Usuario "+sess.user_id);
     try {
-        logged = await pool.query("call Add_Friend(?,?)"[sess.login,player]);
-        res.send('Usuario Agregado');
+        const logged = await pool.query("call Add_Friend(?,?)",[sess.user_id,user]);
+        res.redirect("../usuarios/ver_perfil");
     } catch (error) {
         
     }
