@@ -57,34 +57,34 @@
 
     <br>
     <div style="width: 98%;margin:auto;height:550px;background-color:#2e2e2e;">
-        <div class="column" style="width: 65%;">
+        <div class="column" style="width:70%;overflow:auto">
 
 
-            <div class="newrow" style="width: 100%;margin-left:1%">
+            <div class="newrow" style="width: 98%;margin-left:1%">
                 {{#each foros}}
-                <div class="newrow" style="width: 95%;background-color:#3b3b3b;margin-top:8px">
-                    <form action="">
-                    <button name="id" class="forum_button">
-                    <div class="column" style="width: 15%;margin-top:2px;">
+                <div class="newrow" style="width: 100%;background-color:#3b3b3b;margin-top:8px">
+                    <form action="../../foro/ver_foro" method="GET">
+                    <button name="id" class="forum_button" value="{{foro_id}}" style="width: 100%;">
+                    <div class="column" style="width: 12%;margin-top:2px;">
                             <img src="/img/icons/foro_icono.png" alt="" class="forum_icon">
                     </div>
-                    <div class="column" style="width: 35%;margin-top:2px;">
+                    <div class="column" style="width: 30%;margin-top:2px;">
                             <div class="newrow">
-                                TITULO: {{nombre}}
+                                &nbsp;TITULO: {{nombre}}
                             </div>
-                            <div class="newrow" style="margin-top:18px;width:100%">
-                                <div class="column"style>
-                               &nbsp<img src="/img/icons/foro_mensajes.png" alt="" class="icon">
+                            <div class="newrow" style="margin-top:18px;width:100%;text-align:left">
+                                <div class="column"style="50%">
+                               &nbsp;<img src="/img/icons/foro_mensajes.png" alt="" class="icon">
                                 </div>
                                 <div class="column">
-                                &nbsp<img src="/img/icons/reloj_icono.png" alt="" class="icon">
+                                &nbsp;<img src="/img/icons/reloj_icono.png" alt="" class="icon">
                                 </div>
                             </div>
                     </div>
-                    <div class="column" style="width: 10%;margin-top:2px;padding-top:20px">
+                    <div class="column" style="width: 20%;margin-top:2px;padding-top:20px">
                         DESCRIPCIÓN:&nbsp
                     </div>
-                    <div class="column" style="width: 35%;margin-top:2px;text-align:left;margin-left:3%">
+                    <div class="column" style="width: 30%;margin-top:2px;text-align:left;margin-left:3%">
                         {{descr}}
                     </div>
                     </button>
@@ -94,7 +94,7 @@
                 </div>
             </div>
             
-            <div class="column"style="width:30%;margin:auto;margin-top:8px;margin-bottom:8px">
+            <div class="column"style="width:28%;margin:auto;margin-top:8px;margin-bottom:8px;margin-left:5px">
                 <div class="newrow" style="width: 100%;">
                     <h5 class="friends_title" style="margin:auto;padding-bottom:15px;">INTEGRANTES ({{miembros_actuales}})</h5>
                 </div>

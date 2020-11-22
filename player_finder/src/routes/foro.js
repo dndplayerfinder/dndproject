@@ -17,10 +17,16 @@ router.get('/ver_foro',async(req,res)=>{
 
     console.log(id_button);
     try {
-        const mensajes = await pool.query("select * mensaje where foro_id=?",[id_button]);
-        mensajes.foro = id_button;
+        const action= await pool.query("select * from foro_info where foro_id=?",[id_button]);
+        const foro = action[0];
+        console.log("Foro:");
+        console.log(foro);
+        const mensajes = await pool.query("select * from mensaje where foro_id=? order by fecha",[id_button]);
+        console.log("Mensajes:");
+        console.log(mensajes);
+        foro.mensajes = mensajes[0];
 
-        res.render("/ver_foro",{mensajes});
+        res.render("foro/ver_foro",{foro});
 
     } catch (error) {
         

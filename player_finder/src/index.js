@@ -67,7 +67,7 @@ app.use(require('./routes/authentication'));
 app.use('/usuarios',require('./routes/usuarios'));
 app.use('/grupo',require('./routes/group'));
 app.use(require('./routes/upload'));
-app.use(require('./routes/foro'));
+app.use(('/foro'),require('./routes/foro'));
 //Public
 app.use(express.static(path.join(__dirname, 'public')));
 //Start
