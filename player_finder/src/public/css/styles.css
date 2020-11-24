@@ -466,3 +466,28 @@ label::selection{
   height: 100px;
   overflow: auto;
 }
+
+.msj_panel{
+  width: 98%;
+  height: 600px;
+  background-color: #171717;
+  margin: auto;
+  color:white;
+  overflow:auto;
+}
+
+.column_1{
+  float: left;
+  width: 20%;
+  background-color:#262626;
+}
+.column_2{
+  float: left;
+  width: 80%;
+  padding-left: 5px;
+  background-color:#333232;
+}
+
+.parent {
+  display:flex;
+}

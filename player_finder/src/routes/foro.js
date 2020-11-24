@@ -21,16 +21,33 @@ router.get('/ver_foro',async(req,res)=>{
         const foro = action[0];
         console.log("Foro:");
         console.log(foro);
-        const mensajes = await pool.query("select * from mensaje where foro_id=? order by fecha",[id_button]);
+        const mensajes = await pool.query("select * from msj_info where foro_id=? order by fecha desc",[id_button]);
         console.log("Mensajes:");
         console.log(mensajes);
-        foro.mensajes = mensajes[0];
+        msjs = mensajes;
 
-        res.render("foro/ver_foro",{foro});
+        res.render("foro/ver_foro",{foro,msjs});
 
     } catch (error) {
         
     }
 });
 
+router.post('/enviar_msj',async(req,res)=>{
+    var sess = req.session;
+    const {foro,text} = req.body;
+
+    const msj ={
+        foro,
+        text
+    };
+    console.log(msj);
+    console.log(sess.user_id);
+    try {
+        const action = await pool.query("call Enviar_mensaje(?,?,?)",[sess.user_id,msj.foro,msj.text]);
+        res.redirect("../foro/ver_foro?id="+msj.foro);
+    } catch (error) {
+        
+    }
+});
 module.exports = router;

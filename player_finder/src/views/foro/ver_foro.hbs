@@ -1,6 +1,69 @@
-<div class="background_panel">
-    <h4 style="color:white;text-align:center;padding-top:10px">{{foro.nombre}}</h4>
+<div class="background_panel" style="height: 1200px;">
+    <h4 style="color:white;text-align:center;padding-top:10px">{{foro.grupo_nombre}}</h4>
     <hr style="width: 100%;">
-    <h5 style="color:white;text-align:left;padding-top:10px">{{foro.nombre}}</h5>
+    <h5 style="color:white;text-align:left;padding-top:10px">&nbsp;{{foro.nombre}}</h5>
     <hr style="width: 100%;">
+    <div class="newrow" style="color: white; width:95%">
+        &nbsp; {{foro.descr}}
+    </div>
+    <hr style="width: 100%;">
+    <form action="/foro/enviar_msj" method="POST">
+        <div class="newrow" style="width: 50%;;margin:auto">
+            <textarea name="text" id="" cols="30" rows="8" style="width:100%;overflow:auto" placeholder="Máximo 2000 carácteres" required></textarea>
+            <div class="form-group" style="text-align:center">
+                <button class="btn btn-success" style="width: 30%;margin:auto;" name="foro" value="{{foro.foro_id}}">
+                    <img src="/img/icons/mensaje_enviar.png" class="icon" alt=""> Enviar mensaje
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="msj_panel">
+        {{#each msjs}}
+            <div class="parent" style="width: 100%;height:auto;margin-bottom:5px;">
+                <div class="column_1">
+                    <div class="newrow"style="text-align:center;margin:auto;">
+                        <br>
+                        {{login}}
+                    </div>
+                    <div class="newrow"style="text-align:center">
+                        <img src="/img/icons/reloj_icono.png" class="icon" alt="">{{fecha}}
+                    </div>
+                    <br>
+                </div>
+                <div class="column_2">
+                    {{mensaje}}
+                </div>
+                
+            </div>
+        {{/each}}
+    </div>
+    
+
 </div>
+
+
+
+<script>
+    /*$(function(){
+    var col1Height = $('.column_1').height();
+    var col2Height = $('.column_2').height();
+    
+    if (col1Height > col2Height){
+        $('.column_2').css('height', col1Height);
+    }
+    else{
+        $('.column_1').css('height', col2Height);
+    }
+});*/
+$(function() {
+  var redHeight = $('.red').height();
+  var brownHeight = $('.brown').height();
+
+  if (redHeight > brownHeight) {
+    $('.brown').css('height', redHeight);
+  } else {
+    $('.red').css('height', brownHeight);
+  }
+});
+</script>
