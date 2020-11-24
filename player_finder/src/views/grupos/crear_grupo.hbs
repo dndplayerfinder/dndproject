@@ -23,7 +23,7 @@
                 <!--
                     <input type="text" name="desc" class="textbox" placeholder="150 caracteres" style="height: 60%; width:80%; text-align:left; vertical-align:top;" autofocus required>
                 -->
-                <textarea name="desc" id="" cols="30" rows="3" placeholder="150 caracteres"style=" width:80%; text-align:left;overflow:auto;" maxlength="150"></textarea>
+                <textarea name="desc" id="descr" cols="30" rows="3" placeholder="150 caracteres"style=" width:80%; text-align:left;overflow:auto;" maxlength="150"></textarea>
         </div>
     </div>
 
@@ -156,6 +156,15 @@ function showlist(){
 
 function checkboxes(){
     var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    
+    if(checkboxes[0].checked){
+        checkboxes.forEach(element=>{
+                element.checked = true;
+        });
+    }
+    else{
+        checkboxes.forEach(element=>{
+                element.checked = false;
+        });
+    }
 }
 </script>
