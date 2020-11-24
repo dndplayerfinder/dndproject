@@ -33,7 +33,7 @@ router.get('/ver', async(req,res)=>{
             //Se cargan los foros del grupo si es miembro
             //Si no es miembro produce un error al buscar en un parametro indefinido
             //por lo que salta hacia abajo y no hace la busqueda
-            grupo.foros = await pool.query("select * from foro_info where grupo_id=?",[id_button]);
+            grupo.foros = await pool.query("select * from foro_info where grupo_id=? order by foro_id ",[id_button]);
         } catch (error) {
             console.log("No es miembro");
         }

@@ -50,4 +50,22 @@ router.post('/enviar_msj',async(req,res)=>{
         
     }
 });
+
+router.post('/crear_foro',async(req,res)=>{
+    const {tema,descr,grupo_id} = req.body;
+
+    const foro ={
+        tema,
+        descr,
+        grupo_id
+    }
+
+    try {
+        const action = pool.query("call IUD_foro(0,?,?,?,'INSERT')",[foro.tema,foro.grupo_id,foro.descr]);
+        res.redirect("../grupo/ver?id="+foro.grupo_id);
+        res.redirect("../grupo/ver?id="+foro.grupo_id);
+    } catch (error) {
+        
+    }
+});
 module.exports = router;

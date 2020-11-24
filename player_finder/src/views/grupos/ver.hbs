@@ -51,6 +51,34 @@
         </div>
     </div>
     <br>
+    {{#if dm}}
+    <form action="../../foro/crear_foro" method="POST" tyle="witdh:98%">
+        <div class="newrow" style="width: 100%;margin:auto;color:white">
+            
+            <div class="column" style="width: 50%;">
+                <div class="newrow">
+                    <div class="form-group">
+                           &nbsp;Tema &nbsp; <input type="text" name="tema"  placeholder="Máximo 50 Carácteres" size="50" style="width:70%" autofocus required>
+                        </div>
+                </div>
+                <br>
+                <div class="newrow" style="text-align: center;style;width:100%">
+                    <button class="c_forum_button" name="grupo_id" value="{{grupo_id}}">
+                        <img src="/img/icons/crear_foro.png" alt="" class="icon">&nbsp; CREAR NUEVO FORO
+                    </button>
+                </div>
+            </div>
+            <div class="column" style="style=width: 50%;">
+                <div class="column" style="width:auto;">
+                Descripción &nbsp;           
+                </div>
+                <div class="column" style="width:auto">
+                    <textarea name="descr" id="" cols="60" rows="5" style="width: 100%;overflow:auto" placeholder="Máximo 100 carácteres" required></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+    {{/if}}
     <hr style="width:100%">
     {{#if miembro}}
 
