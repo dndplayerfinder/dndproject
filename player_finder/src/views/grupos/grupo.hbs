@@ -1,69 +1,287 @@
-<div style="height: 500px;overflow:auto;width:90%;margin:auto;">
-<table style="color:white;background-color:#212121;width:100%;" >
-    {{#each grupos}}
-
-    <tr style="border-top: 2px solid white;border-bottom: 2px solid white;">
-        <th>
-        <h5>{{Nombre}}</h5>
-        </th>
-        <th>
-        </th>
-        <th>
-            
-        </th>
-        <td>
-            <form action="/grupo/ver/" method="GET"><button name="id" class="table_button" value="{{grupo_id}}">Ver/Entrar</button></form>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp<img src="/img/icons/corona_icono.png" alt="" class="icon">&nbsp{{owner}}
-        </td>
-        <td>
-            &nbsp<img src="/img/icons/estado_icono.png" alt="" class="icon">&nbsp
-            {{#if activo}}
-                Abierto
-                {{else}}
-                Cerrado
-            {{/if}}
-        </td>
-        <td>
-            &nbsp<img src="/img/icons/dias_icono.png" alt="" class="icon">&nbsp{{dias}}/7
-        </td>
-        <td>
-             &nbsp<img src="/img/icons/reloj_icono.png" alt="" class="icon">&nbsp{{hora_inicio}}&nbsp{{hora_final}}
-        </td>
-        <tr>
-        <tr>
-            <td>
-            &nbsp<img src="/img/icons/manual_icono.png" alt="" class="icon">
-                <select name="manuales" id="manuales" style="width: 40%;">
-                     &nbsp<option>Manual del Jugador</option>
-                     {{#each manuales}}
-                        &nbsp<option disabled>{{manual}}</option>
-                     {{/each}}
-                </select>
-            </td>
-            <td>
-                &nbsp<img src="/img/icons/jugadores_icono.png" alt="" class="icon">&nbsp{{miembros_actuales}}
-            </td>
-            <td>
-                &nbsp<img src="/img/icons/perfil_icono.png" alt="" class="icon">&nbsp{{amigos}}
-            </td>
-            <td>
-                &nbsp<img src="/img/icons/zona_horaria.png" alt="" class="icon">&nbsp{{zona_horaria}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-            &nbsp<img src="/img/icons/juego_icono.png" alt="" class="icon">&nbsp{{modulo}}
-            </td>
-        </tr>
-    </tr>
+<div>
+<div class="search_panel" style="height:120px">
+    <div class="row" style="width: 100%;margin:auto">
+    <div class="coulmn" style="width:60%">
+        <div class="newrow" style="width: 100%;">
+                <h4 style="padding-left:10%;">FILTROS</h4>
+                <hr style="width: 100%;">
+            </div>
+        <div class="newrow" style="width: 100%;">
+            <div class="column" style="width: 25%;text-align:center">
+                &nbsp;&nbsp;<img src="/img/icons/manual_icono.png" alt="" class="icon">&nbspMANUALES
+            </div>
+            <div class="column" style="width: 65%;">
+                <div class="multiselect"style="width: 100%;">
+                    <div class="selectBox" onclick="showCheckboxes()">
+                        <select>
+                            <option style="background-color: #1b2029;z-index:9">Manuales</option>
+                        </select>
+                        <div class="overSelect"></div>
+                    </div>
+                    <div id="checkboxes" style="height:80px">
+                        <label for="0"}>
+                                <input type="checkbox" id="0" onclick="checkboxes()" name="todos"/>Todos</label>
+                        {{#each manuals}}
+                            <label for={{manual_id}}>
+                                <input type="checkbox" id={{manual_id}} name="manual"  value={{manual_id}}/>{{manual}}</label>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column" style="width:40%">
+        <div class="newrow" style="padding-top:15px;text-align:center">
+            BUSCAR POR NOMBRE DE GRUPO
+            <div class="form-group" style="text-align:center;margin:auto;width:90%;display:flex; margin-left:15%">
+                    <input type="text" name="nombre"  placeholder="Buscar" size="50" style="width:80%;;" autofocus required>
+                    <button style="margin-left:-40px;nackground-color:gray;"><img src="img/icons/buscar_icono.png" alt="" class="icon"></button>
+                    </input>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <div class="filtros">
+        <div class="newrow" id="filtros" style="text-align: center;width:100%">
+            FILTROS AVANZADOS
+        </div>
+        <div class="newrow" style="text-align: center;width:100%">
+            <button style="outline:none;border:none" class="collapsible" id="collapsible" onclick="openTab('b1')">
+                <img src="img/icons/mostrar_mas.png" alt="" class="icon">
+            </button>
+            <div id="b1" class="content" style="display:none;">
+                
+                <div class="newrow" style="width:100%">
+                    <div class="column">
+                        <div class="newrow" style="padding-left: 8%;">
+                            <img src="img/icons/jugadores_icono.png" alt="" class="icon">&nbsp;MAX. INTEGRANTES 
+                            <input type="number" min="3" max="15" style="height:30px;">
+                        </div>
+                        <div class="newrow" style="padding-left: 8%;margin-top:10px;">
+                            <img src="img/icons/juego_icono.png" alt="" class="icon">&nbsp;CAMPAÑA&nbsp;
+                            <select name="mods" id="mods" style="font:bold;width:20%;background-color: white;color:black;font-weight:bold;position:absolute" onmousedown="if(this.options.length>4){this.size=4;}"  onchange='this.size=0;' onblur="this.size=0;">
+                                {{#each mods}}
+                                    <option value={{modulo_id}} style="postion:relative">{{modulo}}</option> 
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="newrow" style="width: 100%;text-align:left;padding-left:25%">
+                            <img src="img/icons/perfil_icono.png" alt="" class="icon">&nbsp; AMIGOS EN EL GRUPO&nbsp; <input type="checkbox" name="friends">
+                        </div>
+                    </div>
+                </div>
+                FILTROS AVANZADOS
+                <br>
+            <span onclick="this.parentElement.style.display='none';
+    document.getElementById('collapsible').style.display = 'inline';
+    document.getElementById('filtros').style.display='block';" class="closebtn"><img src="img/icons/mostrar_mas.png" alt="" class="icon"></span>
+        </div>
+        </div>
+    <div class="group_title">
+        <h4>GRUPOS</h4> 
+    </div>
+<div style="height: 700px;margin:auto;overflow:auto;width:100%;">
     
-    {{/each}}
-</table>
+    
+    <table style="color:white;background-color:#212121;width:100%;z-index:4" >
+        {{#each grupos}}
+
+        <tr style="border-top: 2px solid white;border-bottom: 2px solid white;z-index:4">
+            <th>
+            <h5>{{Nombre}}</h5>
+            </th>
+            <th>
+            </th>
+            <th>
+                
+            </th>
+            <td>
+                <form action="/grupo/ver/" method="GET"><button name="id" class="table_button" value="{{grupo_id}}">Ver/Entrar</button></form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp<img src="/img/icons/corona_icono.png" alt="" class="icon">&nbsp{{owner}}
+            </td>
+            <td>
+                &nbsp<img src="/img/icons/estado_icono.png" alt="" class="icon">&nbsp
+                {{#if activo}}
+                    Abierto
+                    {{else}}
+                    Cerrado
+                {{/if}}
+            </td>
+            <td>
+                &nbsp<img src="/img/icons/dias_icono.png" alt="" class="icon">&nbsp{{dias}}/7
+            </td>
+            <td>
+                &nbsp<img src="/img/icons/reloj_icono.png" alt="" class="icon">&nbsp{{hora_inicio}}&nbsp{{hora_final}}
+            </td>
+            <tr>
+            <tr>
+                <td>
+                &nbsp<img src="/img/icons/manual_icono.png" alt="" class="icon">
+                    <select name="manuales" id="manuales" style="width: 40%;">
+                        &nbsp<option>Manual del Jugador</option>
+                        {{#each manuales}}
+                            &nbsp<option disabled>{{manual}}</option>
+                        {{/each}}
+                    </select>
+                </td>
+                <td>
+                    &nbsp<img src="/img/icons/jugadores_icono.png" alt="" class="icon">&nbsp{{miembros_actuales}}
+                </td>
+                <td>
+                    &nbsp<img src="/img/icons/perfil_icono.png" alt="" class="icon">&nbsp{{amigos}}
+                </td>
+                <td>
+                    &nbsp<img src="/img/icons/zona_horaria.png" alt="" class="icon">&nbsp{{zona_horaria}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                &nbsp<img src="/img/icons/juego_icono.png" alt="" class="icon">&nbsp{{modulo}}
+                </td>
+            </tr>
+        </tr>
+        
+        {{/each}}
+    </table>
+    
 </div>
 </br>
 </br>
 </br>
+    </div>
+    
+    <!--
+<div class="group_title">
+    <h4>GRUPOS</h4> 
+</div>
+<div style="height: 700px;margin:auto;overflow:auto;width:90%;">
+    
+    
+    <table style="color:white;background-color:#212121;width:100%;z-index:4" >
+        {{#each grupos}}
+
+        <tr style="border-top: 2px solid white;border-bottom: 2px solid white;z-index:4">
+            <th>
+            <h5>{{Nombre}}</h5>
+            </th>
+            <th>
+            </th>
+            <th>
+                
+            </th>
+            <td>
+                <form action="/grupo/ver/" method="GET"><button name="id" class="table_button" value="{{grupo_id}}">Ver/Entrar</button></form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp<img src="/img/icons/corona_icono.png" alt="" class="icon">&nbsp{{owner}}
+            </td>
+            <td>
+                &nbsp<img src="/img/icons/estado_icono.png" alt="" class="icon">&nbsp
+                {{#if activo}}
+                    Abierto
+                    {{else}}
+                    Cerrado
+                {{/if}}
+            </td>
+            <td>
+                &nbsp<img src="/img/icons/dias_icono.png" alt="" class="icon">&nbsp{{dias}}/7
+            </td>
+            <td>
+                &nbsp<img src="/img/icons/reloj_icono.png" alt="" class="icon">&nbsp{{hora_inicio}}&nbsp{{hora_final}}
+            </td>
+            <tr>
+            <tr>
+                <td>
+                &nbsp<img src="/img/icons/manual_icono.png" alt="" class="icon">
+                    <select name="manuales" id="manuales" style="width: 40%;">
+                        &nbsp<option>Manual del Jugador</option>
+                        {{#each manuales}}
+                            &nbsp<option disabled>{{manual}}</option>
+                        {{/each}}
+                    </select>
+                </td>
+                <td>
+                    &nbsp<img src="/img/icons/jugadores_icono.png" alt="" class="icon">&nbsp{{miembros_actuales}}
+                </td>
+                <td>
+                    &nbsp<img src="/img/icons/perfil_icono.png" alt="" class="icon">&nbsp{{amigos}}
+                </td>
+                <td>
+                    &nbsp<img src="/img/icons/zona_horaria.png" alt="" class="icon">&nbsp{{zona_horaria}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                &nbsp<img src="/img/icons/juego_icono.png" alt="" class="icon">&nbsp{{modulo}}
+                </td>
+            </tr>
+        </tr>
+        
+        {{/each}}
+    </table>
+</div>-->
+</div>
+
+
+<script>
+    var expanded = false;
+    function checkboxes(){
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    if(checkboxes[0].checked){
+        checkboxes.forEach(element=>{
+                element.checked = true;
+        });
+    }
+    else{
+        checkboxes.forEach(element=>{
+                element.checked = false;
+        });
+    }
+}
+function showCheckboxes() {
+  var checkboxes = document.getElementById("checkboxes");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+
+function showlist(){
+    var checkboxes = document.getElementById("list");
+    if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+
+function openTab(tabName) {
+  var i, x;
+  x = document.getElementsByClassName("content");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  
+  document.getElementById(tabName).style.display = "block";
+  document.getElementById('collapsible').style.display = "none";
+  document.getElementById('filtros').style.display='none';
+}
+function closeTab(){
+    
+}
+
+</script>

@@ -54,7 +54,9 @@ router.get('/', async(req,res)=>{
     }
     try {
         const grupos = await pool.query("SELECT * FROM dnd.group_info ");
-        let tam = await pool.query("select * from group_lenght");        
+        let tam = await pool.query("select * from group_lenght");
+        const manuals = await pool.query("select * from manual");
+        const mods = await pool.query("select * from modulo");
         try {
             for(i=0;i<tam[0].lenght;i++){
                 var id = grupos[i].grupo_id;
@@ -73,7 +75,7 @@ router.get('/', async(req,res)=>{
                     grupos[i].manuales = 0;
                 }
             }
-            res.render('grupos/grupo',{grupos,sess});
+            res.render('grupos/grupo',{grupos,sess,manuals,mods});
         } catch (error) {
             
         }
