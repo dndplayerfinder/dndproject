@@ -1,5 +1,6 @@
 <div>
 <div class="search_panel" style="height:120px">
+    <form action="/grupo/buscar" method="POST">
     <div class="row" style="width: 100%;margin:auto">
     <div class="coulmn" style="width:60%">
         <div class="newrow" style="width: 100%;">
@@ -23,7 +24,7 @@
                                 <input type="checkbox" id="0" onclick="checkboxes()" name="todos"/>Todos</label>
                         {{#each manuals}}
                             <label for={{manual_id}}>
-                                <input type="checkbox" id={{manual_id}} name="manual"  value={{manual_id}}/>{{manual}}</label>
+                                <input type="checkbox" id={{manual_id}} name="manual"  value={{manual_id}} />{{manual}}</label>
                         {{/each}}
                     </div>
                 </div>
@@ -34,8 +35,8 @@
         <div class="newrow" style="padding-top:15px;text-align:center">
             BUSCAR POR NOMBRE DE GRUPO
             <div class="form-group" style="text-align:center;margin:auto;width:90%;display:flex; margin-left:15%">
-                    <input type="text" name="nombre"  placeholder="Buscar" size="50" style="width:80%;;" autofocus required>
-                    <button style="margin-left:-40px;nackground-color:gray;"><img src="img/icons/buscar_icono.png" alt="" class="icon"></button>
+                    <input type="text" name="nombre"  placeholder="Buscar" size="50" style="width:80%;;" autofocus>
+                    <button style="margin-left:-40px;nackground-color:gray;"><img src="/img/icons/buscar_icono.png" alt="" class="icon"></button>
                     </input>
             </div>
         </div>
@@ -47,20 +48,21 @@
             FILTROS AVANZADOS
         </div>
         <div class="newrow" style="text-align: center;width:100%">
-            <button style="outline:none;border:none" class="collapsible" id="collapsible" onclick="openTab('b1')">
-                <img src="img/icons/mostrar_mas.png" alt="" class="icon">
-            </button>
+             <span onclick="openTab('b1')" class="collapsible" id="collapsible">
+                <img src="/img/icons/mostrar_mas.png" alt="" class="icon">
+            </span>
             <div id="b1" class="content" style="display:none;">
                 
                 <div class="newrow" style="width:100%">
                     <div class="column">
                         <div class="newrow" style="padding-left: 8%;">
                             <img src="img/icons/jugadores_icono.png" alt="" class="icon">&nbsp;MAX. INTEGRANTES 
-                            <input type="number" min="3" max="15" style="height:30px;">
+                            <input type="number" min="3" max="15" style="height:30px;" name="num_integrantes">
                         </div>
                         <div class="newrow" style="padding-left: 8%;margin-top:10px;">
                             <img src="img/icons/juego_icono.png" alt="" class="icon">&nbsp;CAMPAÑA&nbsp;
                             <select name="mods" id="mods" style="font:bold;width:20%;background-color: white;color:black;font-weight:bold;position:absolute" onmousedown="if(this.options.length>4){this.size=4;}"  onchange='this.size=0;' onblur="this.size=0;">
+                                <option value="0" style="postion:relative">Elegir Campaña</option> 
                                 {{#each mods}}
                                     <option value={{modulo_id}} style="postion:relative">{{modulo}}</option> 
                                 {{/each}}
@@ -80,6 +82,7 @@
     document.getElementById('filtros').style.display='block';" class="closebtn"><img src="img/icons/mostrar_mas.png" alt="" class="icon"></span>
         </div>
         </div>
+        </form>
     <div class="group_title">
         <h4>GRUPOS</h4> 
     </div>

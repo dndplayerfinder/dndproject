@@ -92,7 +92,7 @@ router.get('/crear_grupo',async (req,res)=>{
         res.redirect('/registro');
     }
     try {
-        const manuales = await pool.query("SELECT *FROM manual order by manual");
+        const manuales = await pool.query("SELECT *FROM manual where manual_id BETWEEN 1 and 15 order by manual");
         const modulos = await pool.query("SELECT *FROM modulo order by modulo");
         res.render('grupos/crear_grupo',{manuales,modulos});
     } catch (error) {
@@ -117,6 +117,7 @@ router.post('/addgroup',async(req,res)=>{
     var hora_inicio= new_group.h_inicio+":"+new_group.m_inicio;
     var hora_final= new_group.h_final+":"+new_group.m_final;
     var manuales = req.body.manual;
+
     var index = 0;
     var only1=false;
     try {
@@ -148,6 +149,7 @@ router.post('/addgroup',async(req,res)=>{
                     var g = await pool.query("insert into grupo_manual(grupo_id,manual_id) values(?,?)",[g_id,manuales[i]]);
                 }
             }
+            var phb = await pool.query("call Default_Manual(?)",[g_id]);
             res.redirect("/grupo");
         } catch (error) {
             
@@ -161,6 +163,125 @@ router.post('/addgroup',async(req,res)=>{
     
 });
 
+router.get('/buscar', async(req,res)=>{
+    var sess = req.session;
+    if(!sess.user_id){
+        res.redirect('/registro');
+    }
+    var sentencia = "SELECT * FROM grupos_y_manuales";
+    try {
+        if(filtros.friends){
+            //En caso de que desee buscar a sus amigos en la 
+            sentencia= sentencia+"inner join miembros m on gi.grupo_id = m.grupo_id inner join amigo a on m.usuario_id = a.usuario2 ";
+        }
+    } catch (error) {
+        
+    }
+    
+    sentencia = sentencia+" where ";
+    var index = 0;
+    var grupos;
+    var filtros = sess.filtros;
+    var manuales = filtros.manuales;
+    try {
+        sentencia =sentencia+ " manual_id="+manuales[0];
+        for(i=1;i<sess.filtros.manuales.length;i++){
+            sentencia=sentencia+" or manual_id="+manuales[i];
+        }
+    } catch (error) {
+         if(sess.filtros.manuales){
+             console.log("Un solo manual");
+             sentencia = sentencia+" manual_id="+manuales;
+         }
+         else{
+            console.log("Sin Manuales");
+         }
+    }
+    
+    if(filtros.mods!=0){
+        if(sess.filtros.manuales){
+            sentencia = sentencia+" and modulo_id="+filtros.mods;
+        }
+        else{
+            sentencia= sentencia+"modulo_id="+filtros.mods;
+        }
+        
+    }
+    if(filtros.nombre!=''){
+        if(!sess.filtros.manuales && filtros.mods==0){
+            //Si se cumplen las condiciones este es el primer filtro por lo que no lleva and
+            sentencia=sentencia+" Nombre LIKE '%"+filtros.nombre+"%'";
+        }
+        else{
+            //Si manuales tiene algun valor o mods es diferente de 0 entonces se agrega un and
+            sentencia=sentencia+" AND Nombre LIKE '%"+filtros.nombre+"%'";
+        }
+    }
+    if(filtros.num_integrantes!=''){
+        if(!sess.filtros.manuales && filtros.mods==0 && filtros.nombre==''){
+            //Si se cumplen las condiciones este es el primer filtro por lo que no lleva and
+            sentencia=sentencia+" limite_miembros="+filtros.num_integrantes;
+        }
+        else{
+            sentencia=sentencia+" AND limite_miembros="+filtros.num_integrantes;
+        }
+    }
+    //finalmente se agrupan por la id del grupo para evitar datos repetidos
+    sentencia=sentencia+=" group by grupo_id";
+    console.log(sentencia);
+    try {
+        
+        
+        const grupos = await pool.query(sentencia);
+        let tam = await pool.query("select * from group_lenght");
+        
+        console.log(grupos.length);
+        console.log(grupos);
+        const manuals = await pool.query("select * from manual");
+        const mods = await pool.query("select * from modulo");
+        try {
+            for(i=0;i<grupos.length;i++){
+                var id = grupos[i].grupo_id;
+                try {
+                    grupos[i].manuales =  await pool.query("select * from g_manual where grupo_id=?",[id]);
+                    
+                    try {
+                        var amigos = await pool.query("call get_friends(?,?)",[sess.user_id,id]);
+                        grupos[i].amigos= amigos[0][0].num;
+                        console.log(amigos[0][0].num);
+                    } catch (error) {
+                        grupos[i].amigos = 0;
+                    }
+                    
+                } catch (error) {
+                    grupos[i].manuales = 0;
+                }
+            }
+            res.render('grupos/grupo',{grupos,sess,manuals,mods});
+        } catch (error) {
+            
+        }
+        
+    } catch (error) {
+        
+    }
+});
+router.post('/buscar',(req,res)=>{
+    const {nombre,num_integrantes,friends,mods} = req.body;
+    const manual = req.body;
+    var manuales = manual.manual
+    const filtros = {
+        nombre,
+        num_integrantes,
+        friends,
+        mods,
+        manuales
+    };
+    req.session.filtros = filtros
+    console.log(req.session.filtros);
+    res.redirect("/grupo/buscar");
+});
+
 router.post('/ver/join',async(req,res)=>{
     var sess = req.session;
     const {index} = req.body;
@@ -168,7 +289,7 @@ router.post('/ver/join',async(req,res)=>{
     console.log(id);
     try {
         const accion = pool.query("call Join_Group(?,?)",[index,id]);
-        res.redirect("/grupo");e
+        res.redirect("/grupo");
     } catch (error) {
         console.log("Error al unirse");
     }
