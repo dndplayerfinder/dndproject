@@ -5,6 +5,37 @@ const { post } = require('./usuarios');
 const { session } = require('passport');
 const app = express();
 
+router.get('/puntuar',async(req,res)=>{
+    var sess = req.session;
+    console.log(sess);
+    if(!sess.user_id){
+        res.redirect('/registro');
+    }
+    res.render("usuarios/puntuar");
+});
+
+router.post('/puntuar',async(req,res)=>{
+    var sess = req.session;
+    console.log(sess);
+    const {comment,rg1} = req.body;
+
+    const puntuacion = {
+        comment,
+        rg1
+    }
+    if(!puntuacion.rg1){
+        res.redirect("/usuarios/puntuar");
+    }
+    console.log(puntuacion);
+
+    try {
+        const action = await pool.query("call rate_page(?,?,?)",[sess.user_id,puntuacion.comment,puntuacion.rg1]);
+        res.redirect("/usuarios/modificar_perfil");
+    } catch (error) {
+        res.redirect("/usuarios/modificar_perfil");
+    }
+});
+
 router.get('/modificar_perfil',async (req,res)=>{
     var sess = req.session;
     console.log(sess);

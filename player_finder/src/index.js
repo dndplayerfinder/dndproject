@@ -68,6 +68,7 @@ app.use('/usuarios',require('./routes/usuarios'));
 app.use('/grupo',require('./routes/group'));
 app.use(require('./routes/upload'));
 app.use(('/foro'),require('./routes/foro'));
+app.use(('/admin'),require('./routes/admin'));
 //Public
 app.use(express.static(path.join(__dirname, 'public')));
 //Start

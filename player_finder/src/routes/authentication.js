@@ -9,8 +9,13 @@ const uploadController = require("../controllers/upload");
 const upload = require("../middleware/upload");
 
 
-//const upload = multer({})
+router.get('/admin',(req,res)=>{
+    res.render('cuenta/admin',{layout:'login_layout'});
+});
 
+router.post('/admin',(req,res)=>{
+    
+});
 router.get('/registro',(req,res)=>{
     res.render('cuenta/registro',{layout:'login_layout'});
 });

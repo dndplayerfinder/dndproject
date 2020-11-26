@@ -1,0 +1,36 @@
+<div class="background_panel" style="height:440px">
+    <br>
+    <form action="../usuarios/puntuar" method="POST">
+        <div class="profile_panel" style="width: 95%;margin:auto;height:400px;background-color: #181f2b">
+            <div class="newrow" style="width: 100%;text-align:center">
+                <br>
+                <h5>¡ GRACIAS POR CALIFICARNOS !</h5>
+                <br>
+                <div class="newrow" style="width: 80%;text-align:center;margin:auto">
+                    Escribe un comentario
+                    <br>
+                    <textarea name="comment" id="" cols="30" rows="5" placeholder=" Máximo 500 carácteres" style="width: 60%;margin-top:10px;"></textarea>
+                </div>
+                <div class="newrow" style="width: 80%;text-align:center;margin:auto">
+                    * Siendo 1 estrella pésimo y 5 excelente ingresa tu calificación
+                    <br>
+                    <div class="wrapper" required>  
+                        <input type="radio" id="r5" name="rg1" value="5" class="rate">
+                        <label for="r5">&nbsp;★</label>
+                        <input type="radio" id="r4" name="rg1"value="4"class="rate">
+                        <label for="r4">&nbsp;★</label>
+                        <input type="radio" id="r3" name="rg1"value="3"class="rate">
+                        <label for="r3">&nbsp;★</label>
+                        <input type="radio" id="r2" name="rg1"value="2"class="rate">
+                        <label for="r2">&nbsp;★</label>
+                        <input type="radio" id="r1" name="rg1"value="1"class="rate">
+                        <label for="r1">&nbsp;★</label>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" style="width: 20%;">ENVIAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
