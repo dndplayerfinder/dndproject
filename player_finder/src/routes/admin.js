@@ -17,7 +17,10 @@ router.get('/comentarios',async(req,res)=>{
         }
     }
     try {
-        const comments = await pool.query("SELECT * FROM puntuaciones_usuarios");
+        const comentarios = await pool.query("SELECT * FROM puntuaciones_usuarios");
+        const promedio = await pool.query("SELECT avg(puntuacion)promedio from puntuaciones");
+        console.log(promedio);
+        res.render('admin/comentarios',{layout:'admin_layout',comentarios,promedio});
     } catch (error) {
         
     }

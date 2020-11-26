@@ -1,3 +1,50 @@
-<div class="background_panel" style="height:500px">
+<div class="background_panel" style="height:600px;color:white">
+    <br>    
+    <div style="width:90%;margin:auto;background-color:#262626;height:550px;overflow:auto";>
     
+    <table style="text-align: center;border:1px solid white">
+        <tr class="commentrow" style="height:50px">
+            <th class="commentcol">
+            <h5>NICKNAME</h5>
+            </th>
+            <th class="commentcol">
+            <h5>COMENTARIOS</h5>
+            </th>
+            <th class="commentcol">
+            <h5>PUNTUACIÓN</h5>
+            </th>
+        </tr>
+        {{#each comentarios}}
+            <tr class="commentrow">
+                <th class="commentcol">
+                    {{login}}
+                </th>
+                <th class="commentcol">
+                    {{#if comment}}
+                        {{comment}}
+                    {{else}}
+                        Sin comentario.
+                    {{/if}}
+                </th>
+                <th class="commentcol">
+                    {{#loop 1 puntuacion 1 }}
+                            <div>{{this}}</div>
+                    {{/loop}}
+                </th>
+            </tr>
+        {{/each}}
+    </table>
+    <div class="newrow" style="width:100%;text-align:center;border:1px solid white">
+        <div class="column" style="width: 64.7%;text-align:center;border:1px solid white;height:54px;padding-top:15px">
+            PROMEDIO
+        </div>
+        <div class="column" style="width:35.2%;text-align:center;border:1px solid white">
+            {{#loop 1 promedio.[0].promedio 1}}
+                <div>{{this}}</div>
+            {{/loop}}
+        </div>
+    </div>
+    </div>
 </div>
+
+<br><br><br>

@@ -276,8 +276,8 @@ footer{
 
 }
 .table_row:hover{
-  background-color:  #253247;
-  cursor: pointer;
+  /*background-color:  #253247;
+  cursor: pointer;*/
 }
 .anav{
   color: white;
@@ -548,4 +548,13 @@ label::selection{
 
 .closebtn{
   cursor: pointer;
+}
+
+.commentrow{
+  text-align: center;
+  border:1px solid white;
+}
+.commentcol{
+  text-align: center;
+  border:1px solid white;
 }
