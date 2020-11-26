@@ -61,7 +61,7 @@ router.get('/', async(req,res)=>{
             for(i=0;i<tam[0].lenght;i++){
                 var id = grupos[i].grupo_id;
                 try {
-                    grupos[i].manuales =  await pool.query("select * from g_manual where grupo_id=?",[id]);
+                    grupos[i].manuales =  await pool.query("select * from g_manual where grupo_id=? and manual_id between 1 and 15",[id]);
                     
                     try {
                         var amigos = await pool.query("call get_friends(?,?)",[sess.user_id,id]);
@@ -243,7 +243,7 @@ router.get('/buscar', async(req,res)=>{
             for(i=0;i<grupos.length;i++){
                 var id = grupos[i].grupo_id;
                 try {
-                    grupos[i].manuales =  await pool.query("select * from g_manual where grupo_id=?",[id]);
+                    grupos[i].manuales =  await pool.query("select * from g_manual where grupo_id=? and manual_id between 1 and 15",[id]);
                     
                     try {
                         var amigos = await pool.query("call get_friends(?,?)",[sess.user_id,id]);
@@ -294,5 +294,47 @@ router.post('/ver/join',async(req,res)=>{
         console.log("Error al unirse");
     }
     
+});
+
+router.post('/delete_group',async(req,res)=>{
+    var sess = req.session;
+
+    const id_button = req.body;
+
+    try {
+        const del =await pool.query("delete from grupo where grupo_id = ?",[id_button.id_button]);
+        console.log(id_button.id_button);
+        res.redirect("/grupo")
+    } catch (error) {
+        
+    }
+});
+
+router.post('/delete_group',async(req,res)=>{
+    var sess = req.session;
+
+    const id_button = req.body;
+
+    try {
+        const del =await pool.query("delete from grupo where grupo_id = ?",[id_button.id_button]);
+        console.log(id_button.id_button);
+        res.redirect("/grupo")
+    } catch (error) {
+        
+    }
+});
+
+router.post('/exit_group',async(req,res)=>{
+    var sess = req.session;
+
+    const id_button = req.body;
+
+    try {
+        const del =await pool.query("delete from grupo_usuario where grupo_id = ? and usuario_id=?",[id_button.id_button,sess.user_id]);
+        console.log(id_button.id_button);
+        res.redirect("/grupo")
+    } catch (error) {
+        
+    }
 });
 module.exports = router;

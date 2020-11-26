@@ -558,3 +558,20 @@ label::selection{
   text-align: center;
   border:1px solid white;
 }
+.delete_button{
+  width: 60%; 
+  margin-top:20px;color:red;
+  background-color:black;
+}
+.delete_button:hover{
+  background-color:#2b2b2b;
+}
+
+.exit_button{
+  width: 60%; 
+  margin-top:20px;color:white;
+  background-color:red;
+}
+.exit_button:hover{
+  background-color:#8c0606;
+}

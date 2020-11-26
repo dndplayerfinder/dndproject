@@ -142,6 +142,18 @@
                     </form>
                {{/each}}
                </div>
+            {{#if dm}}
+            <form action="/grupo/delete_group" method="POST" style="width:100%;text-align:center">
+                 <button name="id_button" class="delete_button"  value="{{grupo_id}}">[X] Eliminar Grupo</button>
+            </form>
+            {{else}}
+                <form action="/grupo/exit_group" method="POST" style="width:100%;text-align:center">
+                 <button name="id_button" class="exit_button"  value="{{grupo_id}}">SALIRSE DEL GRUPO</button>
+            </form>
+            {{/if}}
+            <br>
+            <br>
+            <br>
             </div>
         </div>
     </div>
