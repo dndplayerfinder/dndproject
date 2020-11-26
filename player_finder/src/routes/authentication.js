@@ -13,8 +13,28 @@ router.get('/admin',(req,res)=>{
     res.render('cuenta/admin',{layout:'login_layout'});
 });
 
-router.post('/admin',(req,res)=>{
-    
+router.post('/admin',async(req,res)=>{
+    const {mail,pwd} = req.body;
+    const admin={
+        mail,
+        pwd
+    };
+    try {
+        const logged = await pool.query("SELECT * FROM usuario where mail=? and password=? and tipo=1",[admin.mail,admin.pwd]);
+        const l_user = logged[0];
+        console.log("Buscado");
+        req.session.login = l_user.login;
+        req.session.img = l_user.img;
+        req.session.user_id = l_user.usuario_id;
+        req.session.mail = l_user.mail;
+        req.session.pwd = l_user.password;
+        req.session.tipo = l_user.tipo;
+        console.log(req.session);   
+        res.redirect("/admin/comentarios");
+    }catch (error) {
+        req.flash('success', 'Inicio de sesion no válido!');
+        res.redirect('back');
+    }
 });
 router.get('/registro',(req,res)=>{
     res.render('cuenta/registro',{layout:'login_layout'});
@@ -70,15 +90,12 @@ router.post('/login',async(req,res)=>{
         const logged = await pool.query("SELECT * FROM usuario where login=? and password=?",[user.login_login,user.login_pwd]);
         const l_user = logged[0];
         console.log("Buscado");
-        //console.log(l_user); 
-            /*var sess = req.session;
-            sess.usuario = l_user.login;
-            console.log("logged");*/
         req.session.login = l_user.login;
         req.session.img = l_user.img;
         req.session.user_id = l_user.usuario_id;
         req.session.mail = l_user.mail;
         req.session.pwd = l_user.password;
+        req.session.tipo = l_user.tipo;
         try {
             const rating =  await pool.query("SELECT promedio from user_info where usuario_id=?",[l_user.usuario_id]);
             const r = rating[0];

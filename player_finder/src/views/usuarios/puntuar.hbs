@@ -1,4 +1,18 @@
 <div class="background_panel" style="height:440px">
+    {{#if rated}}
+    <br>
+        <div class="profile_panel" style="width: 95%;margin:auto;height:400px;background-color: #181f2b">
+            <div class="newrow" style="width: 100%;text-align:center">
+                <br>
+                <h5>¡ GRACIAS POR CALIFICARNOS !</h5>
+                <br>
+            </div>
+            <div class="newrow" style="width: 100%;text-align:center;padding-top:100px">
+                <h5>TU CALIFICACIÓN FUE MANDADA EXITOSAMENTE</h5>
+                <h5>AGRADECEMOS TU PARTICIPACIÓN</h5>
+            </div>
+        </div>
+    {{else}}
     <br>
     <form action="../usuarios/puntuar" method="POST">
         <div class="profile_panel" style="width: 95%;margin:auto;height:400px;background-color: #181f2b">
@@ -33,4 +47,5 @@
             </div>
         </div>
     </form>
+    {{/if}}
 </div>

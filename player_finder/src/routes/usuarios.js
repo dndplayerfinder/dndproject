@@ -11,7 +11,14 @@ router.get('/puntuar',async(req,res)=>{
     if(!sess.user_id){
         res.redirect('/registro');
     }
-    res.render("usuarios/puntuar");
+    try {
+        const action = await pool.query("select * from puntuaciones where usuario_id=?",[sess.user_id]);
+        const rated = action[0];
+        res.render("usuarios/puntuar",{rated});
+    } catch (error) {
+        
+    }
+    
 });
 
 router.post('/puntuar',async(req,res)=>{
@@ -30,7 +37,7 @@ router.post('/puntuar',async(req,res)=>{
 
     try {
         const action = await pool.query("call rate_page(?,?,?)",[sess.user_id,puntuacion.comment,puntuacion.rg1]);
-        res.redirect("/usuarios/modificar_perfil");
+        res.redirect("/usuarios/puntuar");
     } catch (error) {
         res.redirect("/usuarios/modificar_perfil");
     }
