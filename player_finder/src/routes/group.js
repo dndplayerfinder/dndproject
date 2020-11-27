@@ -55,7 +55,7 @@ router.get('/', async(req,res)=>{
     try {
         const grupos = await pool.query("SELECT * FROM dnd.group_info ");
         let tam = await pool.query("select * from group_lenght");
-        const manuals = await pool.query("select * from manual");
+        const manuals = await pool.query("select * from manual where manual_id BETWEEN 1 and 15");
         const mods = await pool.query("select * from modulo");
         try {
             for(i=0;i<tam[0].lenght;i++){
@@ -165,6 +165,7 @@ router.post('/addgroup',async(req,res)=>{
 
 router.get('/buscar', async(req,res)=>{
     var sess = req.session;
+    var filtros = sess.filtros;
     if(!sess.user_id){
         res.redirect('/registro');
     }
@@ -172,26 +173,40 @@ router.get('/buscar', async(req,res)=>{
     try {
         if(filtros.friends){
             //En caso de que desee buscar a sus amigos en la 
-            sentencia= sentencia+"inner join miembros m on gi.grupo_id = m.grupo_id inner join amigo a on m.usuario_id = a.usuario2 ";
+            sentencia= sentencia+"f where usuario1 = "+sess.user_id;
+        }
+        else{
+            sentencia = sentencia+" where ";
         }
     } catch (error) {
-        
+        sentencia = sentencia+" where ";
     }
     
-    sentencia = sentencia+" where ";
+    
     var index = 0;
     var grupos;
-    var filtros = sess.filtros;
+    
     var manuales = filtros.manuales;
     try {
-        sentencia =sentencia+ " manual_id="+manuales[0];
+        if(manuales[0] && filtros.friends){
+            sentencia =sentencia+ " and manual_id="+manuales[0];
+        }
+        else{
+            sentencia =sentencia+ " manual_id="+manuales[0];
+        }
         for(i=1;i<sess.filtros.manuales.length;i++){
             sentencia=sentencia+" or manual_id="+manuales[i];
         }
     } catch (error) {
          if(sess.filtros.manuales){
              console.log("Un solo manual");
-             sentencia = sentencia+" manual_id="+manuales;
+             if(filtros.friends){
+                sentencia = sentencia+" and manual_id="+manuales;
+             }
+             else{
+                sentencia = sentencia+"manual_id="+manuales;
+            }
+             
          }
          else{
             console.log("Sin Manuales");
@@ -203,14 +218,28 @@ router.get('/buscar', async(req,res)=>{
             sentencia = sentencia+" and modulo_id="+filtros.mods;
         }
         else{
-            sentencia= sentencia+"modulo_id="+filtros.mods;
+            if(filtros.friends){
+                //Al ser este el primer filtro se despues de amigos se agrega un where
+                sentencia= sentencia+" and modulo_id="+filtros.mods;
+            }
+            else{
+                sentencia= sentencia+"modulo_id="+filtros.mods;
+            }
+           
         }
         
     }
     if(filtros.nombre!=''){
         if(!sess.filtros.manuales && filtros.mods==0){
-            //Si se cumplen las condiciones este es el primer filtro por lo que no lleva and
-            sentencia=sentencia+" Nombre LIKE '%"+filtros.nombre+"%'";
+            if(filtros.friends){
+                //Al ser este el primer filtro se despues de amigos se agrega un where
+                sentencia=sentencia+" and Nombre LIKE '%"+filtros.nombre+"%'";
+            }
+            else{
+                //Si se cumplen las condiciones este es el primer filtro por lo que no lleva and
+                sentencia=sentencia+" Nombre LIKE '%"+filtros.nombre+"%'";
+            }
+            
         }
         else{
             //Si manuales tiene algun valor o mods es diferente de 0 entonces se agrega un and
@@ -219,8 +248,14 @@ router.get('/buscar', async(req,res)=>{
     }
     if(filtros.num_integrantes!=''){
         if(!sess.filtros.manuales && filtros.mods==0 && filtros.nombre==''){
-            //Si se cumplen las condiciones este es el primer filtro por lo que no lleva and
-            sentencia=sentencia+" limite_miembros="+filtros.num_integrantes;
+            if(filtros.friends){
+                //Al ser este el primer filtro se despues de amigos se agrega un where
+                sentencia=sentencia+" and limite_miembros="+filtros.num_integrantes;
+            }
+            else{
+                //Si se cumplen las condiciones este es el primer filtro por lo que no lleva and
+                sentencia=sentencia+" limite_miembros="+filtros.num_integrantes;
+            }
         }
         else{
             sentencia=sentencia+" AND limite_miembros="+filtros.num_integrantes;
@@ -277,9 +312,17 @@ router.post('/buscar',(req,res)=>{
         mods,
         manuales
     };
-    req.session.filtros = filtros
+    req.session.filtros = filtros;
     console.log(req.session.filtros);
-    res.redirect("/grupo/buscar");
+    if(filtros.nombre=='' && filtros.num_integrantes=='' && !filtros.friends && filtros.mods==0 && !filtros.manuales){
+        //Si todo esto se cumple, ningun campo esta lleno por lo que se reenvia a grupo
+        console.log("filtros vacios");
+        res.redirect("/grupo");
+    }
+    else{
+        res.redirect("/grupo/buscar");
+    }
+    
 });
 
 router.post('/ver/join',async(req,res)=>{
