@@ -28,6 +28,9 @@
                 <div class="newrow" style="width: 80%;text-align:center;margin:auto">
                     * Siendo 1 estrella pésimo y 5 excelente ingresa tu calificación
                     <br>
+                    {{#if error}}
+                    <div style="color: red;">Por favor selecciona una calificación antes de proceder</div>
+                    {{/if}}
                     <div class="wrapper" required>  
                         <input type="radio" id="r5" name="rg1" value="5" class="rate">
                         <label for="r5">&nbsp;★</label>
