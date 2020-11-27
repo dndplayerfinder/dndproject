@@ -41,8 +41,18 @@ router.get('/registro',(req,res)=>{
 });
 
 router.get('/logout',(req,res)=>{
-    req.session.user_id = null;
-    res.render('cuenta/registro',{layout:'login_layout'});
+    var sess = req.session;
+
+    if(sess.tipo==0){
+        req.session.user_id = null;
+        res.render('cuenta/registro',{layout:'login_layout'});
+    }
+    else{
+        req.session.user_id = null;
+        res.render('cuenta/admin',{layout:'login_layout'});
+    }
+    
+    
 });
 router.post('/registro',async(req,res)=>{
     
