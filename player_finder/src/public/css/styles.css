@@ -114,6 +114,9 @@ table {
 .profile_button:hover{
   background-color:#2b374a;
 }
+.profile_button:disabled{
+  cursor: not-allowed;
+}
 
 .groupButton{
   background-color: #454444;

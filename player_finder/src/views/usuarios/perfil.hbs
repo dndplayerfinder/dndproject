@@ -1,6 +1,6 @@
-<div class="background_panel" style="height:480px">
+<div class="background_panel" style="height:490px">
     <br>
-    <div class="profile_panel" style="width: 95%;margin:auto;height:440px">
+    <div class="profile_panel" style="width: 95%;margin:auto;height:450px">
         <div class="newrow" style="width:80%;margin:auto;padding-top:100px;">
             <div class="column" style="text-align: right;width:45%">
                 <h3>USUARIO:&nbsp;</h3>
@@ -19,18 +19,47 @@
                 <h3>PUNTUACIÓN:&nbsp;</h3>
             </div>
              <div class="column" style="text-align:center;width:45%">
-                <div class="wrapper">
-                <input type="radio" id="r5" name="rg1" value="1" class="rate">
+                 <form action="/usuarios/rate_player" method="POST">
+
+                {{#if usuario.rated}}
+                    <div class="wrapper" >
+                <input type="radio" id="r5" name="rg1" value="5" class="rate" disabled>
                 <label for="r5">&nbsp;★</label>
-                <input type="radio" id="r4" name="rg1"value="2"class="rate">
+                <input type="radio" id="r4" name="rg1"value="4"class="rate" disabled>
+                <label for="r4">&nbsp;★</label>
+                <input type="radio" id="r3" name="rg1"value="3"class="rate" disabled>
+                <label for="r3">&nbsp;★</label>
+                <input type="radio" id="r2" name="rg1"value="2"class="rate" disabled>
+                <label for="r2">&nbsp;★</label>
+                <input type="radio" id="r1" name="rg1"value="1"class="rate" disabled>
+                <label for="r1">&nbsp;★</label>
+                </div>
+                {{else}}
+                <div class="wrapper" >
+                <input type="radio" id="r5" name="rg1" value="5" class="rate">
+                <label for="r5">&nbsp;★</label>
+                <input type="radio" id="r4" name="rg1"value="4"class="rate">
                 <label for="r4">&nbsp;★</label>
                 <input type="radio" id="r3" name="rg1"value="3"class="rate">
                 <label for="r3">&nbsp;★</label>
-                <input type="radio" id="r2" name="rg1"value="4"class="rate">
+                <input type="radio" id="r2" name="rg1"value="2"class="rate">
                 <label for="r2">&nbsp;★</label>
-                <input type="radio" id="r1" name="rg1"value="5"class="rate">
+                <input type="radio" id="r1" name="rg1"value="1"class="rate">
                 <label for="r1">&nbsp;★</label>
-            </div>
+                </div>
+                {{/if}}
+            <div class="newrow" style="width: 100%;text-align:center">
+                    {{#if usuario.rated}}
+                    <button class="btn btn-success" name="player_rated" style="width: 80%;" value="{{usuario.usuario_id}}" disabled>PUNTUAR</button>
+                    {{else}}
+                    <button class="btn btn-success" name="player_rated" style="width: 80%;" value="{{usuario.usuario_id}}">PUNTUAR</button>
+                    
+                    {{/if}}
+                    </div>
+                {{#if error}}
+                     <div style="color: red;">Por favor selecciona una calificación antes de proceder</div>
+                {{/if}}
+            </form>
         </div>
         <div class="newrow" style="padding-top:100px;width:100%;color:white">
             <div class="column">
@@ -41,11 +70,20 @@
                 </form>
             </div>
             <div class="column">
+                {{#if friend}}
+
+                <button name="button" id="button" class="profile_button" value="{{usuario.usuario_id}}" disabled>
+                        <img src="/img/icons/perfil_icono.png" alt="" class="icon" >&nbsp;Agregar Usuario
+                    </button>
+                {{else}}
                 <form action="/usuarios/add_friend" method="POST">
                     <button name="button" id="button" class="profile_button" value="{{usuario.usuario_id}}">
                         <img src="/img/icons/perfil_icono.png" alt="" class="icon">&nbsp;Agregar Usuario
                     </button>
                 </form>
+                {{/if}}
             </div>
         </div>
+        
 </div>
+<br><br><br><br><br>

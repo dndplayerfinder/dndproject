@@ -85,27 +85,46 @@ router.get('/ver_perfil',async(req,res)=>{
     
     try {
         const action = await pool.query("select * from usuario where usuario_id=?",[id_button]);
-        const usuario = action[0];
+        var usuario = action[0];
+        const consulta = await pool.query("select * from amigo where usuario1=? and usuario2=?",[sess.user_id,id_button]);
+        const friend = consulta[0];
+        const calif = await pool.query("select puntaje from usuario_puntuacion where usuario_punteador=? and usuario_punteado=?",[sess.user_id,id_button]);
+        console.log(calif);
+        usuario.rated = calif[0];
         console.log(usuario);
-        res.render("usuarios/perfil",{usuario});
+        if(sess.error){
+            const error = true;
+            res.render("usuarios/perfil",{usuario,friend,error});
+        }
+        else{
+            res.render("usuarios/perfil",{usuario,friend});
+        }
     } catch (error) {
         
     }
 });
 
 router.post('/rate_player',async(req,res)=>{
-    const {player_rated,puntuacion}= req.body
+    var sess = req.session;
+    const {player_rated,rg1}= req.body
     const rating ={
         player_rated,
-        puntuacion
+        rg1
     };
-
-    try {
-        logged = await pool.query("call Rate_Player(?,?,?)",[sess.login,rating.player_rated,rating.puntuacion]);
-        res.send('Usuario Puntuado');
-    } catch (error) {
-        
+    if(!rating.rg1){
+        req.session.error = true;
+        res.redirect("back");
     }
+    else{
+        try {
+            logged = await pool.query("call Rate_Player(?,?,?)",[sess.user_id,rating.player_rated,rating.rg1]);
+            req.session.error = null;
+            res.redirect("back");
+        } catch (error) {
+            
+        }
+    }
+    
 });
 
 router.post('/add_friend',async(req,res)=>{
