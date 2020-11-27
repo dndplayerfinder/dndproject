@@ -90,6 +90,9 @@ router.get('/ver_perfil',async(req,res)=>{
         const friend = consulta[0];
         const calif = await pool.query("select puntaje from usuario_puntuacion where usuario_punteador=? and usuario_punteado=?",[sess.user_id,id_button]);
         console.log(calif);
+
+        const bloq = await pool.query("select * from blacklist where bloqueador=? and bloqueado=?",[sess.user_id,id_button]);
+        usuario.blacklisted = bloq[0];
         usuario.rated = calif[0];
         console.log(usuario);
         if(sess.error){
@@ -143,12 +146,14 @@ router.post('/add_friend',async(req,res)=>{
 
 
 router.post('/Blacklist',async(req,res)=>{
-    const {player_id}= req.body
-    const player = player_id;
-
+    const {button} = req.body;
+    const user = button;
+    const sess = req.session;
+    console.log("Solicitado "+user);
+    console.log("Usuario "+sess.user_id);
     try {
-        logged = await pool.query("call Blacklist(?,?)"[sess.login,player]);
-        res.send('Usuario Bloqueado');
+        const action = await pool.query("call Blacklist(?,?)"[sess.user_id,user]);
+        res.redirect("back");
     } catch (error) {
         
     }

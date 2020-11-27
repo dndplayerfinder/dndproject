@@ -63,11 +63,17 @@
         </div>
         <div class="newrow" style="padding-top:100px;width:100%;color:white">
             <div class="column">
-                <form action="">
-                    <button name="button" class="profile_button" value="{{usaurio.usuario_id}}">
+                {{#if blacklisted}}
+                <button name="button" id="button" class="profile_button" value="{{usuario.usuario_id}}" disabled>
+                        <img src="/img/icons/bloquear.png" alt="" class="icon">&nbsp;Bloquear Usuario
+                    </button>
+                {{else}}
+                <form action="/usuarios/Blacklist" method="POST">
+                    <button name="button" id="button" class="profile_button" value="{{usuario.usuario_id}}">
                         <img src="/img/icons/bloquear.png" alt="" class="icon">&nbsp;Bloquear Usuario
                     </button>
                 </form>
+                {{/if}}
             </div>
             <div class="column">
                 {{#if friend}}
