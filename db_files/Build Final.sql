@@ -38,7 +38,7 @@ CREATE TABLE `amigo` (
 
 LOCK TABLES `amigo` WRITE;
 /*!40000 ALTER TABLE `amigo` DISABLE KEYS */;
-INSERT INTO `amigo` VALUES (1,2),(1,3),(1,5),(2,1),(2,3),(3,1),(3,2),(5,1);
+INSERT INTO `amigo` VALUES (1,2),(1,3),(1,5),(2,1),(2,3),(3,1),(3,2),(5,1),(6,5);
 /*!40000 ALTER TABLE `amigo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,8 +103,9 @@ CREATE TABLE `foro` (
   `foro_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `fecha_creacion` date DEFAULT current_timestamp(),
+  `descr` varchar(350) DEFAULT NULL,
   PRIMARY KEY (`foro_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,9 +114,25 @@ CREATE TABLE `foro` (
 
 LOCK TABLES `foro` WRITE;
 /*!40000 ALTER TABLE `foro` DISABLE KEYS */;
-INSERT INTO `foro` VALUES (1,'Dudas','2020-11-20'),(2,'Dudas','2020-11-20'),(3,'Dudas','2020-11-20'),(4,'Dudas','2020-11-20'),(5,'Lore','2020-11-20'),(6,'Lore','2020-11-20'),(7,'Dudas','2020-11-20'),(8,'Dudas','2020-11-20'),(9,'Dudas','2020-11-20'),(10,'Pjs','2020-11-20'),(11,'Dudas','2020-11-20');
+INSERT INTO `foro` VALUES (1,'Dudas','2020-11-20',NULL),(2,'Dudas','2020-11-20',NULL),(3,'Dudas','2020-11-20',NULL),(4,'Dudas','2020-11-20',NULL),(5,'Lore','2020-11-20',NULL),(6,'Lore','2020-11-20',NULL),(7,'Dudas','2020-11-20',NULL),(8,'Dudas','2020-11-20',NULL),(9,'Dudas','2020-11-20',NULL),(10,'Pjs','2020-11-20',NULL),(11,'Dudas','2020-11-20',NULL),(12,'Dudas','2020-11-20',NULL),(13,'Dudas','2020-11-20','Foro para contestar dudas'),(14,'Dudas','2020-11-21','Foro para contestar dudas'),(15,'Respecto a Tasha\'s','2020-11-23','Hablemos de Tasha\'s Cauldron of Everything'),(16,'Ichiban o Majima','2020-11-23','Hablemos de los dos personajes'),(17,'Ser Evil¡?','2020-11-23','Condiciones para ser de alineamiento maligno');
 /*!40000 ALTER TABLE `foro` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `foro_info`
+--
+
+DROP TABLE IF EXISTS `foro_info`;
+/*!50001 DROP VIEW IF EXISTS `foro_info`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `foro_info` AS SELECT 
+ 1 AS `foro_id`,
+ 1 AS `nombre`,
+ 1 AS `grupo_id`,
+ 1 AS `grupo_nombre`,
+ 1 AS `descr`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Temporary view structure for view `friends_score`
@@ -157,7 +174,6 @@ SET character_set_client = utf8;
 /*!50001 CREATE VIEW `group_info` AS SELECT 
  1 AS `grupo_id`,
  1 AS `Nombre`,
- 1 AS `dm_id`,
  1 AS `owner`,
  1 AS `miembros_actuales`,
  1 AS `limite_miembros`,
@@ -214,7 +230,7 @@ CREATE TABLE `grupo` (
   CONSTRAINT `dm` FOREIGN KEY (`dm`) REFERENCES `usuario` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `modulo` FOREIGN KEY (`modulo`) REFERENCES `modulo` (`modulo_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `zona_horaria` FOREIGN KEY (`zona_horaria`) REFERENCES `zona_horaria` (`zona_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,7 +239,7 @@ CREATE TABLE `grupo` (
 
 LOCK TABLES `grupo` WRITE;
 /*!40000 ALTER TABLE `grupo` DISABLE KEYS */;
-INSERT INTO `grupo` VALUES (1,1,'Castle Ravenloft',1,6,'16:30:00','21:00:00',1,1,'2020-11-15',3,NULL,NULL,1),(4,1,'Nombre',3,5,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(5,2,'Nombre',0,5,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(6,1,'Dennis',0,5,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(7,1,'Los clonosaurios',0,5,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(8,1,'El hombre lobo esta en paris',0,3,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(9,1,'Satania',0,6,'08:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(10,1,'Tyranny',0,8,'08:00:00','12:00:00',1,1,'2020-11-18',15,'','',1),(11,1,'HADAS Y DRAGONES',0,10,'12:00:00','20:00:00',1,1,'2020-11-18',1,'MUCHOS DRAGONES','EL MAR ES PROFUNDO PERO TIENE MUCHOS...\r\nDRAGONES',1),(12,1,'Devils Never Cry',0,6,'13:00:00','16:00:00',1,1,'2020-11-18',3,'Aventura en el infierno','Se maneja encumbrance',1),(13,1,'Baka mitai',1,6,'12:00:00','16:00:00',1,1,'2020-11-18',4,'Dame da ne','',1),(14,1,'Gods of War',0,8,'08:00:00','12:00:00',1,1,'2020-11-18',14,'','',1),(15,1,'Like a Dragon',0,6,'12:00:00','17:00:00',1,1,'2020-11-18',3,'','',1),(16,1,'Abserd',1,3,'09:00:00','13:00:00',1,1,'2020-11-18',3,'Multiclases','',1),(17,1,'Temple',0,8,'11:00:00','15:00:00',1,1,'2020-11-18',1,'','',1),(18,1,'Ryo ga gotuko',0,7,'18:00:00','22:00:00',1,1,'2020-11-18',2,'','',1),(19,1,'Castellanos',0,7,'08:00:00','17:00:00',1,1,'2020-11-18',1,'','',1),(20,1,'Castellanos',1,9,'13:00:00','21:00:00',1,1,'2020-11-19',10,'Mucho texto','',1),(21,1,'Killer queen',1,4,'08:00:00','13:00:00',1,1,'2020-11-19',1,'','',1),(22,1,'Descemt into Avernus',1,5,'16:00:00','21:15:00',1,1,'2020-11-19',2,'Mucho texto','',1),(23,5,'Espadas y dragones',1,6,'09:00:00','13:00:00',1,1,'2020-11-19',7,'','',1),(24,6,'24hr C',1,6,'15:00:00','20:00:00',2,2,'2020-11-20',11,'Si, como la canción...','Todas las tiradas del DM se hacen en privado',1),(25,1,'Dojima no Ryu',1,4,'13:00:00','18:00:00',2,2,'2020-11-20',10,'','',1);
+INSERT INTO `grupo` VALUES (1,1,'Castle Ravenloft',4,6,'16:30:00','21:00:00',1,1,'2020-11-15',3,NULL,NULL,1),(4,1,'Nombre',3,5,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(5,2,'Nombre',0,5,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(6,1,'Dennis',0,5,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(7,1,'Los clonosaurios',0,5,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(8,1,'El hombre lobo esta en paris',0,3,'16:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(9,1,'Satania',0,6,'08:00:00','21:00:00',1,1,'2020-11-18',3,'','',1),(10,1,'Tyranny',0,8,'08:00:00','12:00:00',1,1,'2020-11-18',15,'','',1),(11,1,'HADAS Y DRAGONES',0,10,'12:00:00','20:00:00',1,1,'2020-11-18',1,'MUCHOS DRAGONES','EL MAR ES PROFUNDO PERO TIENE MUCHOS...\r\nDRAGONES',1),(12,1,'Devils Never Cry',0,6,'13:00:00','16:00:00',1,1,'2020-11-18',3,'Aventura en el infierno','Se maneja encumbrance',1),(13,1,'Baka mitai',2,6,'12:00:00','16:00:00',1,1,'2020-11-18',4,'Dame da ne','',1),(14,1,'Gods of War',0,8,'08:00:00','12:00:00',1,1,'2020-11-18',14,'','',1),(15,1,'Like a Dragon',0,6,'12:00:00','17:00:00',1,1,'2020-11-18',3,'','',1),(17,1,'Temple',0,8,'11:00:00','15:00:00',1,1,'2020-11-18',1,'','',1),(18,1,'Ryo ga gotuko',0,7,'18:00:00','22:00:00',1,1,'2020-11-18',2,'','',1),(19,1,'Castellanos',0,7,'08:00:00','17:00:00',1,1,'2020-11-18',1,'','',1),(20,1,'Castellanos',1,9,'13:00:00','21:00:00',1,1,'2020-11-19',10,'Mucho texto','',1),(21,1,'Killer queen',1,4,'08:00:00','13:00:00',1,1,'2020-11-19',1,'','',1),(22,1,'Descemt into Avernus',1,5,'16:00:00','21:15:00',1,1,'2020-11-19',2,'Mucho texto','',1),(23,5,'Espadas y dragones',1,6,'09:00:00','13:00:00',1,1,'2020-11-19',7,'','',1),(24,6,'24hr C',2,6,'15:00:00','20:00:00',2,2,'2020-11-20',11,'Si, como la canción...','Todas las tiradas del DM se hacen en privado',1),(25,1,'Dojima no Ryu',1,4,'13:00:00','18:00:00',2,2,'2020-11-20',10,'','',1),(26,6,'Flight of Icarus',1,7,'09:00:00','12:00:00',2,2,'2020-11-20',9,'','',1),(27,1,'777',1,7,'10:00:00','15:00:00',1,4,'2020-11-20',1,'Un grupo donde se trata de tener la mejor suerte posible','Solo se puede jugar con halflings y tiene que agarrar el feat de lucky',1),(28,3,'Les Luthiers',1,5,'18:00:00','22:00:00',2,4,'2020-11-20',6,'Grupo musical','Todos son algun tipo de bardos',1),(29,5,'Keeper of The 7 Keys',2,7,'15:00:00','19:00:00',1,1,'2020-11-21',1,'Make the people hold each others hands','',1);
 /*!40000 ALTER TABLE `grupo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,9 +292,22 @@ CREATE TABLE `grupo_foro` (
 
 LOCK TABLES `grupo_foro` WRITE;
 /*!40000 ALTER TABLE `grupo_foro` DISABLE KEYS */;
-INSERT INTO `grupo_foro` VALUES (1,2),(1,10),(5,4),(5,5),(5,6),(8,6),(9,7),(9,8),(10,9),(25,11);
+INSERT INTO `grupo_foro` VALUES (1,2),(1,10),(5,4),(5,5),(5,6),(8,6),(9,7),(9,8),(10,9),(25,11),(25,16),(26,12),(26,17),(28,13),(29,14),(29,15);
 /*!40000 ALTER TABLE `grupo_foro` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `grupo_integrantes`
+--
+
+DROP TABLE IF EXISTS `grupo_integrantes`;
+/*!50001 DROP VIEW IF EXISTS `grupo_integrantes`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `grupo_integrantes` AS SELECT 
+ 1 AS `grupo_id`,
+ 1 AS `miembros`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `grupo_manual`
@@ -303,7 +332,7 @@ CREATE TABLE `grupo_manual` (
 
 LOCK TABLES `grupo_manual` WRITE;
 /*!40000 ALTER TABLE `grupo_manual` DISABLE KEYS */;
-INSERT INTO `grupo_manual` VALUES (19,5),(19,6),(19,7),(20,2),(20,7),(20,8),(20,9),(21,3),(21,5),(21,6),(22,1),(22,7),(22,8),(22,9),(23,6),(23,7),(23,8),(23,9);
+INSERT INTO `grupo_manual` VALUES (1,0),(19,5),(19,6),(19,7),(20,2),(20,7),(20,8),(20,9),(21,3),(21,5),(21,6),(22,1),(22,7),(22,8),(22,9),(23,6),(23,7),(23,8),(23,9),(26,4),(28,9),(29,3),(29,5),(29,6);
 /*!40000 ALTER TABLE `grupo_manual` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -330,9 +359,65 @@ CREATE TABLE `grupo_usuario` (
 
 LOCK TABLES `grupo_usuario` WRITE;
 /*!40000 ALTER TABLE `grupo_usuario` DISABLE KEYS */;
-INSERT INTO `grupo_usuario` VALUES (1,1),(1,2),(1,3),(1,5),(4,1),(4,2),(4,5),(13,1),(16,1),(20,1),(21,1),(22,1),(23,5),(24,6),(25,1);
+INSERT INTO `grupo_usuario` VALUES (1,1),(1,2),(1,3),(1,5),(4,1),(4,2),(4,5),(13,1),(13,6),(20,1),(21,1),(22,1),(23,5),(24,1),(24,6),(25,1),(26,6),(27,1),(28,3),(29,5),(29,6);
 /*!40000 ALTER TABLE `grupo_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `grupos_y_manuales`
+--
+
+DROP TABLE IF EXISTS `grupos_y_manuales`;
+/*!50001 DROP VIEW IF EXISTS `grupos_y_manuales`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `grupos_y_manuales` AS SELECT 
+ 1 AS `grupo_id`,
+ 1 AS `Nombre`,
+ 1 AS `owner`,
+ 1 AS `miembros_actuales`,
+ 1 AS `limite_miembros`,
+ 1 AS `hora_inicio`,
+ 1 AS `hora_final`,
+ 1 AS `zona_horaria`,
+ 1 AS `descr`,
+ 1 AS `rules`,
+ 1 AS `dias`,
+ 1 AS `modulo_id`,
+ 1 AS `modulo`,
+ 1 AS `activo`,
+ 1 AS `manual_id`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `grupos_y_manualesf`
+--
+
+DROP TABLE IF EXISTS `grupos_y_manualesf`;
+/*!50001 DROP VIEW IF EXISTS `grupos_y_manualesf`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `grupos_y_manualesf` AS SELECT 
+ 1 AS `usuario_id`,
+ 1 AS `grupo_id`,
+ 1 AS `Nombre`,
+ 1 AS `dm`,
+ 1 AS `owner`,
+ 1 AS `miembros_actuales`,
+ 1 AS `limite_miembros`,
+ 1 AS `hora_inicio`,
+ 1 AS `hora_final`,
+ 1 AS `zona_horaria`,
+ 1 AS `descr`,
+ 1 AS `rules`,
+ 1 AS `dias`,
+ 1 AS `modulo_id`,
+ 1 AS `usuario1`,
+ 1 AS `usuario2`,
+ 1 AS `modulo`,
+ 1 AS `activo`,
+ 1 AS `manual_id`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `manual`
@@ -355,7 +440,7 @@ CREATE TABLE `manual` (
 
 LOCK TABLES `manual` WRITE;
 /*!40000 ALTER TABLE `manual` DISABLE KEYS */;
-INSERT INTO `manual` VALUES (1,'Eberron- Rising from the Last War'),(2,'Exolorer\'s Guide to Wildemount'),(3,'Guildmasters\' Guide to Ravnica'),(4,'Acquisitions Incorporated'),(5,'Mordekaninen\'s Tome of Foes'),(6,'Mythic Odysseys of Theros'),(7,'Sword Coast Adventurer\'s Guide'),(8,'Volo\'s Guide to Monsters'),(9,'Xanathar\'s Guide to Everything');
+INSERT INTO `manual` VALUES (0,'Manual del Jugador'),(1,'Eberron- Rising from the Last War'),(2,'Exolorer\'s Guide to Wildemount'),(3,'Guildmasters\' Guide to Ravnica'),(4,'Acquisitions Incorporated'),(5,'Mordekaninen\'s Tome of Foes'),(6,'Mythic Odysseys of Theros'),(7,'Sword Coast Adventurer\'s Guide'),(8,'Volo\'s Guide to Monsters'),(9,'Xanathar\'s Guide to Everything');
 /*!40000 ALTER TABLE `manual` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -370,14 +455,14 @@ CREATE TABLE `mensaje` (
   `mensaje_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `usuario` int(10) unsigned NOT NULL,
   `foro_id` int(10) unsigned NOT NULL,
-  `mensaje` varchar(500) DEFAULT NULL,
-  `fecha` timestamp(2) NULL DEFAULT current_timestamp(2),
+  `mensaje` varchar(2000) DEFAULT NULL,
+  `fecha` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`mensaje_id`,`usuario`,`foro_id`),
   KEY `usuario_mensaje_idx` (`usuario`),
   KEY `foro_mensaje_idx` (`foro_id`),
   CONSTRAINT `foro_mensaje` FOREIGN KEY (`foro_id`) REFERENCES `foro` (`foro_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `usuario_mensaje` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -386,8 +471,22 @@ CREATE TABLE `mensaje` (
 
 LOCK TABLES `mensaje` WRITE;
 /*!40000 ALTER TABLE `mensaje` DISABLE KEYS */;
+INSERT INTO `mensaje` VALUES (1,6,14,'¿Puedo ser Caothic Evil?','2020-11-23 13:11:08'),(2,1,10,'Quieren tener un arco con su pj?','2020-11-23 13:58:40'),(3,5,14,'No srry','2020-11-23 16:00:26'),(4,1,2,'Quieren que les vuelva a leer las cartas?','2020-11-26 19:40:32'),(5,1,2,'Testeando','2020-11-26 20:37:08'),(6,1,2,'Otra prueba','2020-11-26 20:38:41');
 /*!40000 ALTER TABLE `mensaje` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `mensajes_cant`
+--
+
+DROP TABLE IF EXISTS `mensajes_cant`;
+/*!50001 DROP VIEW IF EXISTS `mensajes_cant`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `mensajes_cant` AS SELECT 
+ 1 AS `foro_id`,
+ 1 AS `mensajes`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Temporary view structure for view `miembros`
@@ -400,7 +499,10 @@ SET character_set_client = utf8;
 /*!50001 CREATE VIEW `miembros` AS SELECT 
  1 AS `grupo_id`,
  1 AS `usuario_id`,
- 1 AS `Nombre`*/;
+ 1 AS `miembro_login`,
+ 1 AS `rating`,
+ 1 AS `Nombre`,
+ 1 AS `dm`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -428,6 +530,23 @@ INSERT INTO `modulo` VALUES (1,'Aventura Propia'),(2,'Baldur\'s Gate -  Descent 
 UNLOCK TABLES;
 
 --
+-- Temporary view structure for view `msj_info`
+--
+
+DROP TABLE IF EXISTS `msj_info`;
+/*!50001 DROP VIEW IF EXISTS `msj_info`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `msj_info` AS SELECT 
+ 1 AS `mensaje_id`,
+ 1 AS `usuario`,
+ 1 AS `mensaje`,
+ 1 AS `fecha`,
+ 1 AS `login`,
+ 1 AS `foro_id`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary view structure for view `puntaje_promedio`
 --
 
@@ -438,6 +557,48 @@ SET character_set_client = utf8;
 /*!50001 CREATE VIEW `puntaje_promedio` AS SELECT 
  1 AS `usuario_punteado`,
  1 AS `promedio`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `puntuaciones`
+--
+
+DROP TABLE IF EXISTS `puntuaciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `puntuaciones` (
+  `usuario_id` int(10) unsigned NOT NULL,
+  `comment` varchar(500) DEFAULT NULL,
+  `puntuacion` int(11) DEFAULT NULL,
+  PRIMARY KEY (`usuario_id`),
+  UNIQUE KEY `usuario_id_UNIQUE` (`usuario_id`),
+  CONSTRAINT `fk_usuario_puntuacion` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `puntuaciones`
+--
+
+LOCK TABLES `puntuaciones` WRITE;
+/*!40000 ALTER TABLE `puntuaciones` DISABLE KEYS */;
+INSERT INTO `puntuaciones` VALUES (1,'Muy buena idea (y)',4),(6,'',4);
+/*!40000 ALTER TABLE `puntuaciones` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `puntuaciones_usuarios`
+--
+
+DROP TABLE IF EXISTS `puntuaciones_usuarios`;
+/*!50001 DROP VIEW IF EXISTS `puntuaciones_usuarios`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `puntuaciones_usuarios` AS SELECT 
+ 1 AS `usuario_id`,
+ 1 AS `login`,
+ 1 AS `comment`,
+ 1 AS `puntuacion`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -461,7 +622,6 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('-TXLra4xSqL6_n8NPTxXuCYITLGBdSoY',1606019307,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"flash\":{},\"login\":\"strahd\",\"img\":{\"type\":\"Buffer\",\"data\":[48]},\"user_id\":1,\"mail\":\"correo@gmail.com\",\"pwd\":\"1234\",\"rating\":5}');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -507,11 +667,12 @@ CREATE TABLE `usuario` (
   `mail` varchar(45) NOT NULL,
   `img` blob DEFAULT NULL,
   `promedio` float DEFAULT 0,
+  `tipo` int(11) DEFAULT 0,
   PRIMARY KEY (`usuario_id`),
   UNIQUE KEY `usuario_id_UNIQUE` (`usuario_id`),
   UNIQUE KEY `mail_UNIQUE` (`mail`),
   UNIQUE KEY `login_UNIQUE` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -520,7 +681,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'strahd','1234','correo@gmail.com','0',5),(2,'Litle_One','Albatross97','bgdia_npc@gmail.com',NULL,2),(3,'Ravengard','qweQWE123','ulder.ravengard@gmail.com','0',4),(5,'Lulu','qweQWE123','newmail@gmail.com','0',0),(6,'Natueny','qweQWE123','nat20@gmail.com','0',0),(7,'Chef_Ramsey','qweQWE123','g_Ramsay@gmail.com','0',0);
+INSERT INTO `usuario` VALUES (1,'strahd','1234','correo@gmail.com','0',5,0),(2,'Litle_One','Albatross97','bgdia_npc@gmail.com',NULL,2,0),(3,'Ravengard','qweQWE123','ulder.ravengard@gmail.com','0',4,0),(5,'Lulu','qweQWE123','newmail@gmail.com','0',4,0),(6,'Natueny','qweQWE123','nat20@gmail.com','0',0,0),(7,'Chef_Ramsey','qweQWE123','g_Ramsay@gmail.com','0',0,0),(8,'DIO','qweQWE123','killetdmc@gmail.com',NULL,0,1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -548,7 +709,7 @@ CREATE TABLE `usuario_puntuacion` (
 
 LOCK TABLES `usuario_puntuacion` WRITE;
 /*!40000 ALTER TABLE `usuario_puntuacion` DISABLE KEYS */;
-INSERT INTO `usuario_puntuacion` VALUES (1,2,2),(1,3,4),(2,1,5);
+INSERT INTO `usuario_puntuacion` VALUES (1,2,2),(1,3,4),(1,5,4),(2,1,5);
 /*!40000 ALTER TABLE `usuario_puntuacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -653,6 +814,28 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `Default_Manual` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Default_Manual`(
+IN grupo int)
+BEGIN
+	insert into grupo_manual(grupo_id,manual_id)
+	select * from(select grupo,0) as temp
+	where not exists(SELECT * from grupo_manual where(grupo_id = temp.grupo and manual_id != 0));
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `Enviar_mensaje` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -666,7 +849,7 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Enviar_mensaje`(
 IN usuario int,
 IN foro int,
-IN mensaje varchar(500)
+IN mensaje varchar(2000)
 )
 BEGIN
 	INSERT INTO mensaje(usuario,foro_id,mensaje)values(usuario,foro,mensaje);
@@ -714,11 +897,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `IUD_foro`(
 IN ID int,
 IN nombre varchar(45),
 IN grupo int,
+IN descr varchar(350),
 IN instruccion varchar(45)
 )
 BEGIN
 	IF(STRCMP(instruccion,"INSERT")=0) then
-		insert into foro(nombre) values(nombre);
+		insert into foro(nombre,descr) values(nombre,descr);
 		insert into grupo_foro(grupo_id,foro_id) values(grupo,(select foro_id from foro order by foro_id desc limit 1));
 		elseif(STRCMP(instruccion,"UPDATE")=0) then
 			update foro set
@@ -847,6 +1031,30 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `rate_page` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `rate_page`(
+IN user int,
+IN comment varchar(500),
+IN puntuacion int
+)
+BEGIN
+	INSERT INTO puntuaciones(usuario_id,comment,puntuacion)
+    values(user,comment,puntuacion);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `Rate_Player` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -873,6 +1081,24 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Final view structure for view `foro_info`
+--
+
+/*!50001 DROP VIEW IF EXISTS `foro_info`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `foro_info` AS select `f`.`foro_id` AS `foro_id`,`f`.`nombre` AS `nombre`,`gf`.`grupo_id` AS `grupo_id`,`g`.`Nombre` AS `grupo_nombre`,`f`.`descr` AS `descr` from ((`grupo_foro` `gf` join `foro` `f` on(`gf`.`foro_id` = `f`.`foro_id`)) join `grupo` `g` on(`gf`.`grupo_id` = `g`.`grupo_id`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
 -- Final view structure for view `friends_score`
@@ -923,7 +1149,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `group_info` AS select `g`.`grupo_id` AS `grupo_id`,`g`.`Nombre` AS `Nombre`,`g`.`dm` AS `dm_id`,`u`.`login` AS `owner`,`g`.`miembros_actuales` AS `miembros_actuales`,`g`.`limite_miembros` AS `limite_miembros`,`g`.`hora_inicio` AS `hora_inicio`,`g`.`hora_final` AS `hora_final`,`z`.`region` AS `zona_horaria`,`g`.`descr` AS `descr`,`g`.`rules` AS `rules`,`g`.`dias_por_semana` AS `dias`,`m`.`modulo_id` AS `modulo_id`,`m`.`modulo` AS `modulo`,`g`.`activo` AS `activo` from (((`grupo` `g` join `usuario` `u` on(`g`.`dm` = `u`.`usuario_id`)) join `modulo` `m` on(`g`.`modulo` = `m`.`modulo_id`)) join `zona_horaria` `z` on(`g`.`zona_horaria` = `z`.`zona_id`)) order by `g`.`Nombre` */;
+/*!50001 VIEW `group_info` AS select `g`.`grupo_id` AS `grupo_id`,`g`.`Nombre` AS `Nombre`,`u`.`login` AS `owner`,`g`.`miembros_actuales` AS `miembros_actuales`,`g`.`limite_miembros` AS `limite_miembros`,`g`.`hora_inicio` AS `hora_inicio`,`g`.`hora_final` AS `hora_final`,`z`.`region` AS `zona_horaria`,`g`.`descr` AS `descr`,`g`.`rules` AS `rules`,`g`.`dias_por_semana` AS `dias`,`m`.`modulo_id` AS `modulo_id`,`m`.`modulo` AS `modulo`,`g`.`activo` AS `activo` from (((`grupo` `g` join `usuario` `u` on(`g`.`dm` = `u`.`usuario_id`)) join `modulo` `m` on(`g`.`modulo` = `m`.`modulo_id`)) join `zona_horaria` `z` on(`g`.`zona_horaria` = `z`.`zona_id`)) order by `g`.`Nombre` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -947,6 +1173,78 @@ DELIMITER ;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `grupo_integrantes`
+--
+
+/*!50001 DROP VIEW IF EXISTS `grupo_integrantes`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `grupo_integrantes` AS select `m`.`grupo_id` AS `grupo_id`,count(`m`.`usuario_id`) AS `miembros` from `miembros` `m` group by `m`.`grupo_id` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `grupos_y_manuales`
+--
+
+/*!50001 DROP VIEW IF EXISTS `grupos_y_manuales`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `grupos_y_manuales` AS select `gi`.`grupo_id` AS `grupo_id`,`gi`.`Nombre` AS `Nombre`,`gi`.`owner` AS `owner`,`gi`.`miembros_actuales` AS `miembros_actuales`,`gi`.`limite_miembros` AS `limite_miembros`,`gi`.`hora_inicio` AS `hora_inicio`,`gi`.`hora_final` AS `hora_final`,`gi`.`zona_horaria` AS `zona_horaria`,`gi`.`descr` AS `descr`,`gi`.`rules` AS `rules`,`gi`.`dias` AS `dias`,`gi`.`modulo_id` AS `modulo_id`,`gi`.`modulo` AS `modulo`,`gi`.`activo` AS `activo`,`gm`.`manual_id` AS `manual_id` from (`group_info` `gi` join `grupo_manual` `gm` on(`gi`.`grupo_id` = `gm`.`grupo_id`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `grupos_y_manualesf`
+--
+
+/*!50001 DROP VIEW IF EXISTS `grupos_y_manualesf`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `grupos_y_manualesf` AS select `m`.`usuario_id` AS `usuario_id`,`gi`.`grupo_id` AS `grupo_id`,`gi`.`Nombre` AS `Nombre`,`g`.`dm` AS `dm`,`gi`.`owner` AS `owner`,`gi`.`miembros_actuales` AS `miembros_actuales`,`gi`.`limite_miembros` AS `limite_miembros`,`gi`.`hora_inicio` AS `hora_inicio`,`gi`.`hora_final` AS `hora_final`,`gi`.`zona_horaria` AS `zona_horaria`,`gi`.`descr` AS `descr`,`gi`.`rules` AS `rules`,`gi`.`dias` AS `dias`,`gi`.`modulo_id` AS `modulo_id`,`a`.`usuario1` AS `usuario1`,`a`.`usuario2` AS `usuario2`,`gi`.`modulo` AS `modulo`,`gi`.`activo` AS `activo`,`gm`.`manual_id` AS `manual_id` from ((((`group_info` `gi` join `grupo_manual` `gm` on(`gi`.`grupo_id` = `gm`.`grupo_id`)) join `miembros` `m` on(`gi`.`grupo_id` = `m`.`grupo_id`)) join `amigo` `a` on(`m`.`usuario_id` = `a`.`usuario2`)) join `grupo` `g` on(`gi`.`grupo_id` = `g`.`grupo_id`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `mensajes_cant`
+--
+
+/*!50001 DROP VIEW IF EXISTS `mensajes_cant`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `mensajes_cant` AS select `mensaje`.`foro_id` AS `foro_id`,count(`mensaje`.`mensaje_id`) AS `mensajes` from `mensaje` group by `mensaje`.`foro_id` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `miembros`
 --
 
@@ -959,7 +1257,25 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `miembros` AS select `gu`.`grupo_id` AS `grupo_id`,`gu`.`usuario_id` AS `usuario_id`,`g`.`Nombre` AS `Nombre` from (`grupo_usuario` `gu` join `grupo` `g` on(`gu`.`grupo_id` = `g`.`grupo_id`)) */;
+/*!50001 VIEW `miembros` AS select `gu`.`grupo_id` AS `grupo_id`,`gu`.`usuario_id` AS `usuario_id`,`u`.`login` AS `miembro_login`,`u`.`promedio` AS `rating`,`g`.`Nombre` AS `Nombre`,`g`.`dm` AS `dm` from ((`grupo_usuario` `gu` join `grupo` `g` on(`gu`.`grupo_id` = `g`.`grupo_id`)) join `usuario` `u` on(`gu`.`usuario_id` = `u`.`usuario_id`)) order by `gu`.`grupo_id` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `msj_info`
+--
+
+/*!50001 DROP VIEW IF EXISTS `msj_info`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `msj_info` AS select `m`.`mensaje_id` AS `mensaje_id`,`m`.`usuario` AS `usuario`,`m`.`mensaje` AS `mensaje`,`m`.`fecha` AS `fecha`,`u`.`login` AS `login`,`m`.`foro_id` AS `foro_id` from (`mensaje` `m` join `usuario` `u` on(`m`.`usuario` = `u`.`usuario_id`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -978,6 +1294,24 @@ DELIMITER ;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `puntaje_promedio` AS select `usuario_puntuacion`.`usuario_punteado` AS `usuario_punteado`,avg(`usuario_puntuacion`.`puntaje`) AS `promedio` from `usuario_puntuacion` group by `usuario_puntuacion`.`usuario_punteado` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `puntuaciones_usuarios`
+--
+
+/*!50001 DROP VIEW IF EXISTS `puntuaciones_usuarios`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `puntuaciones_usuarios` AS select `p`.`usuario_id` AS `usuario_id`,`u`.`login` AS `login`,`p`.`comment` AS `comment`,`p`.`puntuacion` AS `puntuacion` from (`puntuaciones` `p` join `usuario` `u` on(`p`.`usuario_id` = `u`.`usuario_id`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1027,4 +1361,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-20 20:31:54
+-- Dump completed on 2020-11-26 22:59:01
