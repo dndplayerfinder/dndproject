@@ -34,6 +34,12 @@ router.get('/ver', async(req,res)=>{
             //Si no es miembro produce un error al buscar en un parametro indefinido
             //por lo que salta hacia abajo y no hace la busqueda
             grupo.foros = await pool.query("select * from foro_info where grupo_id=? order by foro_id ",[id_button]);
+            for(i=0;i<grupo.foros.length;i++){
+                grupo.foros[i].msjs = await pool.query("select mensajes from mensajes_cant where foro_id=?",[grupo.foros[i].foro_id]);
+                grupo.foros[i].ultimo = await pool.query("select date_format(fecha,'%y/%m/%d %H:%i')fecha from mensaje where foro_id =? order by fecha desc limit 1",[grupo.foros[i].foro_id]);
+                console.log(grupo.foros[i].ultimo[0]);
+            }
+            console.log(grupo.foros);
         } catch (error) {
             console.log("No es miembro");
         }

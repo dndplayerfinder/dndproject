@@ -51,6 +51,25 @@ router.post('/enviar_msj',async(req,res)=>{
     }
 });
 
+
+router.post('/delete_forum',async(req,res)=>{
+    const {id_button,grupo_id} = req.body;
+
+    const info ={
+        id_button,
+        grupo_id
+    };
+    console.log(info);
+
+    try {
+        //const del = await pool.query("DELETE * FROM foro where foro_id=?",[id_button.id_button]);
+
+        res.redirect("/grupo/ver/?id="+info.grupo_id);
+    } catch (error) {
+        
+    }
+});
+
 router.post('/crear_foro',async(req,res)=>{
     const {tema,descr,grupo_id} = req.body;
 

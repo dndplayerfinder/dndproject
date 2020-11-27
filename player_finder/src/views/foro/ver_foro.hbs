@@ -1,5 +1,19 @@
 <div class="background_panel" style="height: 1200px;">
-    <h4 style="color:white;text-align:center;padding-top:10px">{{foro.grupo_nombre}}</h4>
+    <div class="newrow" style="width: 100%;">
+        <div class="column" style="width: 60%;">
+        <h4 style="color:white;text-align:right;padding-top:10px">{{foro.grupo_nombre}}</h4>
+        </div>
+        <div class="column" style="width: 40%;text-align:right">
+            <form action="/foro/delete_forum" method="POST">
+            <input type="text" style="display: none;" name="grupo_id" value="{{foro.grupo_id}}">
+                <button class="delete_button" name="id_button" style="width:40%" value="{{foro.foro_id}}">
+                    [X] Eliminar Foro
+                </button>
+            </form> 
+                &nbsp;
+        </div>
+
+    </div>
     <hr style="width: 100%;">
     <h5 style="color:white;text-align:left;padding-top:10px">&nbsp;{{foro.nombre}}</h5>
     <hr style="width: 100%;">
@@ -9,7 +23,7 @@
     <hr style="width: 100%;">
     <form action="/foro/enviar_msj" method="POST">
         <div class="newrow" style="width: 50%;;margin:auto">
-            <textarea name="text" id="" cols="30" rows="8" style="width:100%;overflow:auto" placeholder="Máximo 2000 carácteres" required></textarea>
+             <textarea name="text" id="" cols="30" rows="8" style="width:100%;overflow:auto" placeholder="Máximo 2000 carácteres" required></textarea>
             <div class="form-group" style="text-align:center">
                 <button class="btn btn-success" style="width: 30%;margin:auto;" name="foro" value="{{foro.foro_id}}">
                     <img src="/img/icons/mensaje_enviar.png" class="icon" alt=""> Enviar mensaje
